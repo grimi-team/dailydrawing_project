@@ -3,11 +3,6 @@ import styled from "styled-components";
 import logo from "../images/logo.jpg";
 
 const LoginPage = () => {
-<<<<<<< HEAD
-  return <div></div>;
-};
-
-=======
   return (
     <EntireContainer>
       {/* 로고이미지 */}
@@ -26,7 +21,7 @@ const LoginPage = () => {
           <br />
           <AllButton>
             <EnterButton>입장 버튼</EnterButton>
-            <AccountButton>회원가입 버튼</AccountButton>
+            <AccountButton>회원가입 버튼 입니다!!</AccountButton>
           </AllButton>
         </LogInForm>
       </LogInContainer>
@@ -106,5 +101,5 @@ const AccountButton = styled.button`
   cursor: pointer;
   /* border: 1px solid red; */
 `;
->>>>>>> origin/dev
+
 export default LoginPage;
