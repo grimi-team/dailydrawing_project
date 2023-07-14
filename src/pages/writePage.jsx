@@ -1,7 +1,7 @@
 import React from "react";
 
-const writePage = () => {
+const WritePage = () => {
   return <div></div>;
 };
 
-export default writePage;
+export default WritePage;
