@@ -1,14 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const CardsContainer = styled.div`
   padding: 4rem;
   background: #fff;
+  width: 100vw;
+  height: 100vh;
+
 `;
 
 const Title = styled.h1`
   text-align: center;
 `;
+
+const TitleWrapper = styled.div`
+  background-color: #f5f5f5;
+  padding: 1rem;
+  margin-bottom: 2rem;
+`;
+
 
 const CardsContent = styled.div`
   display: flex;
@@ -27,20 +38,21 @@ const CardsWrapper = styled.div`
 const CardsItems = styled.ul`
   margin-bottom: 24px;
   display: flex;
-
-  @media only screen and (max-width: 1024px) {
-    flex-direction: column;
-  }
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
+  
 `;
 
 const CardItem = styled.li`
   display: flex;
-  flex: 1;
-  margin: 0 1rem;
+  flex: 0 0 calc(33.33% - 2rem);
+  margin: 1rem;
   border-radius: 10px;
 `;
 
-const CardLink = styled.div`
+const CardLink = styled(Link)`
   display: flex;
   flex-flow: column;
   width: 100%;
@@ -64,38 +76,6 @@ const FadeImage = styled.img`
   animation-duration: 2s;
 `;
 
-// const CategoryLabel = styled.span`
-//   content: attr(data-category);
-//   position: absolute;
-//   bottom: 0;
-//   margin-left: 10px;
-//   padding: 6px 8px;
-//   max-width: calc((100%) - 60px);
-//   font-size: 12px;
-//   font-weight: 700;
-//   color: #fff;
-//   background-color: #1f98f4;
-//   box-sizing: border-box;
-// `;
-
-// const CardImage = styled.img`
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   bottom: 0;
-//   left: 0;
-//   display: block;
-//   width: 100%;
-//   max-width: 100%;
-//   height: 100%;
-//   max-height: 100%;
-//   object-fit: cover;
-//   transition: all 0.2s linear;
-
-//   &:hover {
-//     transform: scale(1.1);
-//   }
-// `;
 
 const CardInfo = styled.div`
   padding: 20px 30px 30px;
@@ -108,99 +88,63 @@ const CardText = styled.h5`
 `;
 
 const MainPage = () => {
+  const cardData = [
+    {
+      src: '',
+      text: '이름',
+      label: 'Adventure',
+      path: '/services',
+    },
+    {
+      src: '',
+      text: '이름',
+      label: 'Luxury',
+      path: '/services',
+    },
+    {
+      src: '',
+      text: '이름',
+      label: 'Mystery',
+      path: '/services',
+    },
+    {
+      src: '',
+      text: '이름',
+      label: 'Adventure',
+      path: '/products',
+    },
+    {
+      src: '',
+      text: '이름',
+      label: 'Adrenaline',
+      path: '/sign-up',
+    },
+  ];
+
   return (
     <CardsContainer>
-      <Title>그림 일기 메인 페이지</Title>
+      <TitleWrapper>
+        <Title>그림 일기 메인 페이지</Title>
+      </TitleWrapper>
       <CardsContent>
         <CardsWrapper>
           <CardsItems>
-            <CardItem>
-              <CardLink to="/services">
-                <CardPicWrap data-category="Adventure">
-                  <FadeImage
-                    className="cards__item__img"
-                    alt="Travel Image"
-                    src=""
-                  />
-                </CardPicWrap>
-                <CardInfo>
-                  <CardText>
-                    <h3>제목</h3><br />
-                    <h5>유저네임</h5>
-                  </CardText>
-                </CardInfo>
-              </CardLink>
-            </CardItem>
-            <CardItem>
-              <CardLink to="/services">
-                <CardPicWrap data-category="Luxury">
-                  <FadeImage
-                    className="cards__item__img"
-                    alt="Travel Image"
-                    src=""
-                  />
-                </CardPicWrap>
-                <CardInfo>
-                  <CardText>
-                    <h3>제목</h3><br />
-                    <h5>유저네임</h5>
-                  </CardText>
-                </CardInfo>
-              </CardLink>
-            </CardItem>
-          </CardsItems>
-          <CardsItems>
-            <CardItem>
-              <CardLink to="/services">
-                <CardPicWrap data-category="Mystery">
-                  <FadeImage
-                    className="cards__item__img"
-                    alt="Travel Image"
-                    src=""
-                  />
-                </CardPicWrap>
-                <CardInfo>
-                  <CardText>
-                    <h3>제목</h3><br />
-                    <h5>유저네임</h5>
-                  </CardText>
-                </CardInfo>
-              </CardLink>
-            </CardItem>
-            <CardItem>
-              <CardLink to="/products">
-                <CardPicWrap data-category="Adventure">
-                  <FadeImage
-                    className="cards__item__img"
-                    alt="Travel Image"
-                    src=""
-                  />
-                </CardPicWrap>
-                <CardInfo>
-                  <CardText>
-                    <h3>제목</h3><br />
-                    <h5>유저네임</h5>
-                  </CardText>
-                </CardInfo>
-              </CardLink>
-            </CardItem>
-            <CardItem>
-              <CardLink to="/sign-up">
-                <CardPicWrap data-category="Adrenaline">
-                  <FadeImage
-                    className="cards__item__img"
-                    alt="Travel Image"
-                    src=""
-                  />
-                </CardPicWrap>
-                <CardInfo>
-                  <CardText>
-                    <h3>제목</h3><br />
-                    <h5>유저네임</h5>
-                  </CardText>
-                </CardInfo>
-              </CardLink>
-            </CardItem>
+            {cardData.map((item, index) => (
+              <CardItem key={index}>
+                <CardLink to={item.path}>
+                  <CardPicWrap data-category={item.label}>
+                    <FadeImage
+                      className="cards__item__img"
+                      alt="Travel Image"
+                      src={item.src}
+                    />
+                  </CardPicWrap>
+                  <CardInfo>
+                    <CardText>{item.text}</CardText>
+                  </CardInfo>
+                </CardLink>
+              </CardItem>
+            ))}
           </CardsItems>
         </CardsWrapper>
       </CardsContent>
