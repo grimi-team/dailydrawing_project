@@ -2,11 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const LoginPage = () => {
-<<<<<<< HEAD
-  return <div></div>;
-};
-
-=======
   return (
     <div>
       <LogoContainer>안녕하세요</LogoContainer>
@@ -19,5 +14,4 @@ const LogoContainer = styled.div`
   width: 300px;
   height: 300px;
 `;
->>>>>>> origin/dev
 export default LoginPage;
