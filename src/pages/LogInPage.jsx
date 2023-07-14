@@ -11,7 +11,7 @@ const LoginPage = () => {
       </LogoContainer>
       {/* 로그인창구현 */}
       <LogInContainer>
-        <LogInTitle>로그인</LogInTitle>
+        <LogInTitle>로그인fffff</LogInTitle>
         <LogInForm>
           <div>아이디</div>
           <IdInput type="text" />
