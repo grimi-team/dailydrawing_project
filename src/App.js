@@ -1,21 +1,21 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import AccountPage from "./pages/AccountPage";
-import MainPage from "./pages/MainPage";
-import DetailPage from "./pages/DetailPage";
-import WritingPage from "./pages/WritingPage";
+import loginPage from "./pages/loginPage";
+import accountPage from "./pages/accountPage";
+import mainPage from "./pages/mainPage";
+import detailPage from "./pages/detailPage";
+import writePage from "./pages/writePage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/AccountPage" element={<AccountPage />} />
-        <Route path="/MainPage" element={<MainPage />} />
-        <Route path="/DetailPage" element={<DetailPage />} />
-        <Route path="/WritingPage" element={<WritingPage />} />
+        <Route path="/" element={<loginPage />}></Route>
+        <Route path="/accountPage" element={<accountPage />}></Route>
+        <Route path="/mainPage" element={<mainPage />}></Route>
+        <Route path="/detailPage" element={<detailPage />}></Route>
+        <Route path="/writePage" element={<writePage />}></Route>
       </Routes>
     </BrowserRouter>
   );
