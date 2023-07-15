@@ -15,7 +15,7 @@ function App() {
         <Route path="/AccountPage" element={<AccountPage />} />
         <Route path="/MainPage" element={<MainPage />} />
         <Route path="/DetailPage" element={<DetailPage />} />
-        <Route path="/WritePage" element={<WritingPage />} />
+        <Route path="/WritingPage" element={<WritingPage />} />
       </Routes>
     </BrowserRouter>
   );
