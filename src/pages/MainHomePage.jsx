@@ -32,6 +32,12 @@ const EveryButtons = styled.div`
   justify-content: right;
 `;
 
+
+const WritingButton = styled.div`
+  cursor: pointer;
+margin-right: 85%;
+`;
+
 const NewButton = styled.div`
   cursor: pointer;
   margin-right: 20px;
@@ -108,7 +114,7 @@ const CardText = styled.h5`
   line-height: 24px;
 `;
 
-const MainPage = () => {
+const MainHomePage = () => {
   const cardData = [
     {
       src: '',
@@ -148,6 +154,7 @@ const MainPage = () => {
         <Title>그림 일기 메인 페이지</Title>
       </TitleWrapper>
       <EveryButtons>
+        <WritingButton>새 일기 쓰기</WritingButton>
         <NewButton>최신순</NewButton>
         <PopulerButton>인기순</PopulerButton>
       </EveryButtons>
@@ -177,4 +184,4 @@ const MainPage = () => {
   );
 }
 
-export default MainPage;
+export default MainHomePage;
