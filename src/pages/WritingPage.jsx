@@ -9,6 +9,7 @@ const WritingPage = () => {
   const [moodOpen, setMoodOpen] = useState(false);
   const [diaryText, setDiaryText] = useState("");
   const [isWritingComplete, setIsWritingComplete] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const weatherMenuClick = () => {
     setWeatherOpen(!weatherOpen);
@@ -24,7 +25,7 @@ const WritingPage = () => {
   };
 
   const handleWritingComplete = () => {
-    setIsWritingComplete(true);
+    setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
   };
 
   // const handleMouseLeave = () => {
@@ -53,6 +54,7 @@ const WritingPage = () => {
           기분
         </MoodButton>
         {moodOpen && <MoodMenu />}
+        <DateDisplay>{currentDate.toLocaleDateString()}</DateDisplay>
       </StateButtonContainer>
       <DiaryContainer>
         <DiaryInput
@@ -84,8 +86,8 @@ border: 3px solid black;
 /* border-radius: 8px; */
 width: 700px;
 height: 900px;
-margin-top: 50px;
 margin: auto;
+margin-top: 50px;
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -103,13 +105,15 @@ height: 500px;
 const LogoImage = styled.img`
 width: 250px;
 height: 200px;
+cursor: pointer;
 `;
 
 const StateButtonContainer = styled.div`
 width: 500px;
+height: 30px;
 display: flex;
 margin-top: 20px;
-cursor: pointer;
+position: relative;
 `;
 
 const WeatherButton = styled.button`
@@ -136,8 +140,15 @@ height: 30px;
 justify-content: center;
 align-items: center;
 /* border-radius: 8px; */
-background-color: ${({ moodOpen }) => moodOpen ? "lightgray" : "transparent"};
+background-color: ${({ moodOpen }) =>
+    moodOpen ? "lightgray" : "transparent"};
 transition: background-color 0.3s;
+`;
+
+const DateDisplay = styled.div`
+  font-size: 16px;
+  display: flex;
+  margin-left: auto;
 `;
 
 const DiaryContainer = styled.div`
