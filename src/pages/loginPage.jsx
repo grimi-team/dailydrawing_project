@@ -21,7 +21,7 @@ const LoginPage = () => {
           <br />
           <AllButton>
             <EnterButton>입장 버튼</EnterButton>
-            <AccountButton>회원가입 버튼 입니다</AccountButton>
+            <AccountButton>회원가입 버튼</AccountButton>
           </AllButton>
         </LogInForm>
       </LogInContainer>
