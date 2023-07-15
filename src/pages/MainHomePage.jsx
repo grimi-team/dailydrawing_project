@@ -5,47 +5,76 @@ import { Link } from 'react-router-dom';
 const CardsContainer = styled.div`
   padding: 4rem;
   background: #fff;
-  width: 100vw;
-  height: 100vh;
+  width: 1500px;
+  height: auto;
+  margin: auto;
+  margin-top: 30px;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
 `;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  width: 1200px;
+  height: 180px;
+`;
+
+const EveryButtons = styled.div`
+  border: 2px solid black;
+  width: 1200px;
+  height: 90px;
+  margin: auto;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 
 const Title = styled.h1`
   text-align: center;
 `;
 
-const TitleWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  background-color: #fff;
-  align-items: center;
-  border: 2px solid black;
-  width: 100%;
-  height: 20%;
-`;
-
-const EveryButtons = styled.div`
-  border: 3px solid black;
-  border: 8px;
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-evenly;
-  justify-content: right;
-`;
-
-
 const WritingButton = styled.div`
   cursor: pointer;
-margin-right: 85%;
+  font-size: large;
+  display: flex;
+  width: 100px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-right: 75%;
 `;
 
 const NewButton = styled.div`
   cursor: pointer;
+  display: flex;
+  border: 1px solid black;
+  border-radius: 8px;
   margin-right: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 30px;
 `;
 
 const PopulerButton = styled.div`
   cursor: pointer;
-  margin-right: 20px ;
+  display: flex;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-right: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 30px;
 `
 
 const CardsContent = styled.div`
@@ -165,7 +194,7 @@ const MainHomePage = () => {
                   <CardPicWrap data-category={item.label}>
                     <FadeImage
                       className="cards__item__img"
-                      alt="Travel Image"
+                      alt="DrawingImage"
                       src={item.src}
                     />
                   </CardPicWrap>

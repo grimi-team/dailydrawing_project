@@ -30,6 +30,7 @@ const WeatherItemsContainer = styled.div`
   width: 100px;
   height: 170px;
   margin-left: 10px;
+  background-color: white;
 `;
 
 const WeatherItem = styled.div`
