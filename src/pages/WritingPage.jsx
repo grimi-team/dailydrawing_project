@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../images/logo.jpg";
-// import sun from "../images/sun.png";
 import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
 
 const WritingPage = () => {
   const [weatherOpen, setWeatherOpen] = useState(false);
   const [moodOpen, setMoodOpen] = useState(false);
+  const [diaryText, setDiaryText] = useState("");
+  const [isWritingComplete, setIsWritingComplete] = useState(false);
 
   const weatherMenuClick = () => {
     setWeatherOpen(!weatherOpen);
@@ -17,33 +18,78 @@ const WritingPage = () => {
     setMoodOpen(!moodOpen);
   };
 
-  return (
-    <EntireContainer>
-      <ImageContainer>
-        <LogoImage src={logo} />
-      </ImageContainer>
-      <StateButtonContainer>
-        <WeatherButton onClick={weatherMenuClick}>날씨</WeatherButton>
-        {weatherOpen && <WeatherMenu />}
+  const handleDiaryChange = (event) => {
+    setDiaryText(event.target.value);
+    setIsWritingComplete(!!event.target.value);
+  };
 
-        <MoodButton onClick={moodMenuClick}>기분</MoodButton>
-        {moodOpen && <MoodMenu />}
-      </StateButtonContainer>
-      <DiaryContainer>
-        <DiaryInput type="text"></DiaryInput>
-        <DiaryButtonContainer>
-          <CancelButton>취소하기</CancelButton>
-          <CompleteButton>작성완료</CompleteButton>
-        </DiaryButtonContainer>
-      </DiaryContainer>
-    </EntireContainer>
+  const handleWritingComplete = () => {
+    setIsWritingComplete(true);
+  };
+
+  const handleMouseLeave = () => {
+    setWeatherOpen(false);
+    setMoodOpen(false);
+  };
+
+  return (
+    <EveryContainer>
+      <EntireContainer>
+        <ImageContainer>
+          <LogoImage src={logo} />
+        </ImageContainer>
+        <StateButtonContainer>
+          <WeatherButton
+            onClick={weatherMenuClick}
+            weatherOpen={weatherOpen}
+            onMouseLeave={handleMouseLeave}
+          >
+            날씨
+          </WeatherButton>
+          {weatherOpen && <WeatherMenu />}
+
+          <MoodButton
+            onClick={moodMenuClick}
+            moodOpen={moodOpen}
+            onMouseLeave={handleMouseLeave}
+          >
+            기분
+          </MoodButton>
+          {moodOpen && <MoodMenu />}
+        </StateButtonContainer>
+        <DiaryContainer>
+          <DiaryInput
+            type="text"
+            value={diaryText}
+            onChange={handleDiaryChange}
+          />
+          <DiaryButtonContainer>
+            <CancelButton onClick={() => setDiaryText("")}>취소하기</CancelButton>
+            <CompleteButton
+              onClick={handleWritingComplete}
+              isWritingComplete={isWritingComplete}
+            >
+              작성완료
+            </CompleteButton>
+          </DiaryButtonContainer>
+        </DiaryContainer>
+      </EntireContainer>
+    </EveryContainer>
   );
 };
+
+const EveryContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const EntireContainer = styled.div`
   width: 700px;
   height: 800px;
-  margin: auto;
   margin-top: 50px;
 `;
 
@@ -60,7 +106,6 @@ const LogoImage = styled.img`
 `;
 
 const StateButtonContainer = styled.div`
-  /* border: 1px solid red; */
   width: 500px;
   display: flex;
   margin-top: 20px;
@@ -69,23 +114,26 @@ const StateButtonContainer = styled.div`
 
 const WeatherButton = styled.button`
   cursor: pointer;
-
   font-size: large;
   display: flex;
+  background-color: ${({ weatherOpen }) =>
+    weatherOpen ? "gray" : "transparent"};
+  transition: background-color 0.3s;
 `;
 
 const MoodButton = styled.button`
   cursor: pointer;
-  /* border: 1px solid green; */
-
   margin-left: 10px;
   font-size: large;
   display: flex;
+  background-color: ${({ moodOpen }) => (moodOpen ? "gray" : "transparent")};
+  transition: background-color 0.3s;
 `;
 
 const DiaryContainer = styled.div`
   margin-top: 20px;
 `;
+
 const DiaryInput = styled.input`
   border: 2px solid black;
   border-radius: 8px;
@@ -94,18 +142,24 @@ const DiaryInput = styled.input`
 `;
 
 const DiaryButtonContainer = styled.div`
-  /* border: 1px solid blue; */
   width: 500px;
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
 `;
+
 const CancelButton = styled.button`
   cursor: pointer;
 `;
 
 const CompleteButton = styled.button`
   cursor: pointer;
+  background-color: ${({ isWritingComplete }) =>
+    isWritingComplete ? "green" : "transparent"};
+  color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
+  transition: background-color 0.3s, transform 0.3s;
+  transform: ${({ isWritingComplete }) =>
+    isWritingComplete ? "scaleX(1.2)" : "scaleX(1)"};
 `;
 
 export default WritingPage;
