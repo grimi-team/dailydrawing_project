@@ -78,7 +78,6 @@ const CardItem = styled.li`
   display: flex;
   flex: 0 0 calc(33.33% - 2rem);
   margin: 1rem;
-  border-radius: 10px;
 `;
 
 const CardLink = styled(Link)`
@@ -86,7 +85,6 @@ const CardLink = styled(Link)`
   flex-flow: column;
   width: 100%;
   border: 2px solid black;
-  border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
 `;
