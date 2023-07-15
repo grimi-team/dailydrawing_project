@@ -20,7 +20,7 @@ const LoginPage = () => {
           <PwInput type="password" />
           <br />
           <AllButton>
-            <EnterButton>입장 버튼</EnterButton>
+            <EnterButton>입장 버튼이에영</EnterButton>
             <AccountButton>회원가입 버튼</AccountButton>
           </AllButton>
         </LogInForm>
