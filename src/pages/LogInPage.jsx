@@ -37,9 +37,9 @@ const EntireContainer = styled.div`
 
 const LogoContainer = styled.div`
   border: 2px solid black;
-  border-radius: 8px;
-  width: 400px;
-  height: 400px;
+
+  width: 500px;
+  height: 500px;
 `;
 
 const LogoImage = styled.img`
@@ -49,17 +49,18 @@ const LogoImage = styled.img`
 
 const LogInContainer = styled.div`
   border: 2px solid black;
-  border-radius: 8px;
-  width: 400px;
-  height: 400px;
+
+  width: 500px;
+  height: 500px;
 
   margin-left: 200px;
 `;
 
-const LogInTitle = styled.h2`
+const LogInTitle = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 40px;
+  font-size: xx-large;
 `;
 
 const LogInForm = styled.form`
@@ -68,22 +69,22 @@ const LogInForm = styled.form`
   height: 300px;
 
   margin: auto;
-  padding: 50px 0px 0px 10px;
+  padding: 50px 0px 0px 0px;
 `;
 
 const IdInput = styled.input`
-  width: 280px;
-  height: 30px;
+  width: 300px;
+  height: 40px;
   margin: 10px 0px 10px 0px;
-  border: 1px solid black;
-  border-radius: 5px;
+  border: 2px solid black;
+  padding: 5px;
 `;
 const PwInput = styled.input`
-  width: 280px;
-  height: 30px;
+  width: 300px;
+  height: 40px;
   margin: 10px 0px 10px 0px;
-  border: 1px solid black;
-  border-radius: 5px;
+  border: 2px solid black;
+  padding: 5px;
 `;
 
 const AllButton = styled.div`
@@ -94,11 +95,13 @@ const AllButton = styled.div`
 `;
 const EnterButton = styled.button`
   cursor: pointer;
+  font-size: large;
   /* border: 1px solid red; */
 `;
 
 const AccountButton = styled.button`
   cursor: pointer;
+  font-size: large;
   /* border: 1px solid red; */
 `;
 

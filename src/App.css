@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "UhBeeJJIBBABBA";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeJJIBBABBA.woff")
+  font-family: "KyoboHand";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff")
     format("woff");
   font-weight: normal;
   font-style: normal;
@@ -10,7 +10,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "UhBeeJJIBBABBA";
+  font-family: "KyoboHand";
   /* background: url(./images/background.png);
   background-repeat: no-repeat; */
 }

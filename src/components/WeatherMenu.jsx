@@ -9,16 +9,16 @@ const WeatherMenu = () => {
   return (
     <WeatherItemsContainer>
       <WeatherItem>
-        <img src={sun} width="40px" height="40px"></img>맑음!
+        <img src={sun} width="40px" height="40px" alt="sun"></img>맑음!
       </WeatherItem>
       <WeatherItem>
-        <img src={cloudy} width="40px" height="40px"></img>흐림!
+        <img src={cloudy} width="40px" height="40px" alt="cloudy"></img>흐림!
       </WeatherItem>
       <WeatherItem>
-        <img src={rain} width="40px" height="40px"></img>비옴!
+        <img src={rain} width="40px" height="40px" alt="rain"></img>비옴!
       </WeatherItem>
       <WeatherItem>
-        <img src={snow} width="40px" height="40px"></img>눈옴!
+        <img src={snow} width="40px" height="40px" alt="snow"></img>눈옴!
       </WeatherItem>
     </WeatherItemsContainer>
   );
