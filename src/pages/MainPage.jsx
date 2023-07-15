@@ -7,7 +7,6 @@ const CardsContainer = styled.div`
   background: #fff;
   width: 100vw;
   height: 100vh;
-
 `;
 
 const Title = styled.h1`
@@ -15,11 +14,33 @@ const Title = styled.h1`
 `;
 
 const TitleWrapper = styled.div`
-  background-color: #f5f5f5;
-  padding: 1rem;
-  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  align-items: center;
+  border: 2px solid black;
+  width: 100%;
+  height: 20%;
 `;
 
+const EveryButtons = styled.div`
+  border: 3px solid black;
+  border: 8px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  justify-content: right;
+`;
+
+const NewButton = styled.div`
+  cursor: pointer;
+  margin-right: 20px;
+`;
+
+const PopulerButton = styled.div`
+  cursor: pointer;
+  margin-right: 20px ;
+`
 
 const CardsContent = styled.div`
   display: flex;
@@ -33,15 +54,17 @@ const CardsContent = styled.div`
 const CardsWrapper = styled.div`
   position: relative;
   margin: 50px 0 45px;
+  width: 100%;
+  height: 80%;
 `;
 
 const CardsItems = styled.ul`
   margin-bottom: 24px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  /* justify-content: center; */
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
+  /* border: 2px solid black; */
   
 `;
 
@@ -56,9 +79,7 @@ const CardLink = styled(Link)`
   display: flex;
   flex-flow: column;
   width: 100%;
-  box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
-  -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
-  filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  border: 2px solid black;
   border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
@@ -126,6 +147,10 @@ const MainPage = () => {
       <TitleWrapper>
         <Title>그림 일기 메인 페이지</Title>
       </TitleWrapper>
+      <EveryButtons>
+        <NewButton>최신순</NewButton>
+        <PopulerButton>인기순</PopulerButton>
+      </EveryButtons>
       <CardsContent>
         <CardsWrapper>
           <CardsItems>
