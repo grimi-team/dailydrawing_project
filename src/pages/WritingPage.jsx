@@ -28,8 +28,8 @@ const WritingPage = () => {
   };
 
   // const handleMouseLeave = () => {
-  //   setWeatherOpen(false);
-  //   setMoodOpen(false);
+  // setWeatherOpen(false);
+  // setMoodOpen(false);
   // };
 
   return (
@@ -80,102 +80,103 @@ const WritingPage = () => {
 
 
 const EntireContainer = styled.div`
-  border: 3px solid black;
-  /* border-radius: 8px; */
-  width: 700px;
-  height: 900px;
-  margin-top: 50px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 5%;
+border: 3px solid black;
+/* border-radius: 8px; */
+width: 700px;
+height: 900px;
+margin-top: 50px;
+margin: auto;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 5%;
 `;
 
 const ImageContainer = styled.div`
-  border: 2px solid black;
-  /* border-radius: 8px; */
-  width: 500px;
-  height: 500px;
+border: 2px solid black;
+/* border-radius: 8px; */
+width: 500px;
+height: 500px;
 `;
 
 const LogoImage = styled.img`
-  width: 250px;
-  height: 200px;
+width: 250px;
+height: 200px;
 `;
 
 const StateButtonContainer = styled.div`
-  width: 500px;
-  display: flex;
-  margin-top: 20px;
-  cursor: pointer;
+width: 500px;
+display: flex;
+margin-top: 20px;
+cursor: pointer;
 `;
 
 const WeatherButton = styled.button`
-  cursor: pointer;
-  font-size: large;
-  display: flex;
-  width: 50px;
-  height: 30px;
-  justify-content: center;
-  align-items: center;
-  /* border: 1px solid black; */
-  background-color: ${({ weatherOpen }) =>
+cursor: pointer;
+font-size: large;
+display: flex;
+width: 50px;
+height: 30px;
+justify-content: center;
+align-items: center;
+/* border: 1px solid black; */
+background-color: ${({ weatherOpen }) =>
     weatherOpen ? "lightgray" : "transparent"};
-  transition: background-color 0.3s;
+transition: background-color 0.3s;
 `;
 
 const MoodButton = styled.button`
-  cursor: pointer;
-  margin-left: 10px;
-  font-size: large;
-  display: flex;
-  width: 50px;
-  height: 30px;
-  justify-content: center;
-  align-items: center;
-  /* border-radius: 8px; */
-  background-color: ${({ moodOpen }) => moodOpen ? "lightgray" : "transparent"};
-  transition: background-color 0.3s;
+cursor: pointer;
+margin-left: 10px;
+font-size: large;
+display: flex;
+width: 50px;
+height: 30px;
+justify-content: center;
+align-items: center;
+/* border-radius: 8px; */
+background-color: ${({ moodOpen }) => moodOpen ? "lightgray" : "transparent"};
+transition: background-color 0.3s;
 `;
 
 const DiaryContainer = styled.div`
-  margin-top: 20px;
+margin-top: 20px;
 `;
 
 const DiaryInput = styled.input`
-  border: 2px solid black;
-  /* border-radius: 8px; */
-  width: 500px;
-  height: 150px;
+border: 2px solid black;
+/* border-radius: 8px; */
+width: 500px;
+height: 150px;
 `;
 
 const DiaryButtonContainer = styled.div`
-  width: 500px;
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
+width: 500px;
+margin-top: 20px;
+display: flex;
+justify-content: space-between;
 `;
 
 const CancelButton = styled.button`
-  cursor: pointer;
-  background-color: ${({ isWritingComplete }) =>
+cursor: pointer;
+background-color: ${({ isWritingComplete }) =>
     isWritingComplete ? "gray" : "transparent"};
-  color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
-  transition: background-color 0.3s, transform 0.3s;
-  transform: ${({ isWritingComplete }) =>
+color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
+transition: background-color 0.3s, transform 0.3s;
+transform: ${({ isWritingComplete }) =>
     isWritingComplete ? "scaleX(1.2)" : "scaleX(1)"};
 `;
 
 const CompleteButton = styled.button`
-  cursor: pointer;
-  background-color: ${({ isWritingComplete }) =>
+cursor: pointer;
+background-color: ${({ isWritingComplete }) =>
     isWritingComplete ? "gray" : "transparent"};
-  color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
-  transition: background-color 0.3s, transform 0.3s;
-  transform: ${({ isWritingComplete }) =>
+color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
+transition: background-color 0.3s, transform 0.3s;
+transform: ${({ isWritingComplete }) =>
     isWritingComplete ? "scaleX(1.2)" : "scaleX(1)"};
 `;
 
 export default WritingPage;
+

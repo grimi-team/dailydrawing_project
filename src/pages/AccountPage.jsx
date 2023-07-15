@@ -13,6 +13,7 @@ const AccountPage = () => {
         <AccountForm>
           <div>아이디</div>
           <IdInput type="text" />
+          <RepeatCheckIdButton>중복확인</RepeatCheckIdButton>
           <br />
           <div>비밀번호</div>
           <PwInput type="password" />
@@ -38,9 +39,9 @@ const EntireContainer = styled.div`
 
 const LogoContainer = styled.div`
   border: 2px solid black;
-  border-radius: 8px;
-  width: 400px;
-  height: 400px;
+
+  width: 500px;
+  height: 500px;
 `;
 
 const LogoImage = styled.img`
@@ -50,8 +51,7 @@ const LogoImage = styled.img`
 
 const LogInContainer = styled.div`
   border: 2px solid black;
-  border-radius: 8px;
-  width: 400px;
+  width: 500px;
   height: 500px;
 
   margin-left: 200px;
@@ -64,7 +64,7 @@ const AccountTitle = styled.h2`
 
 const AccountForm = styled.form`
   /* border: 1px solid black; */
-  width: 300px;
+  width: 320px;
   height: 300px;
 
   margin: auto;
@@ -72,39 +72,43 @@ const AccountForm = styled.form`
 `;
 
 const IdInput = styled.input`
-  width: 280px;
-  height: 30px;
+  width: 230px;
+  height: 40px;
   margin: 10px 0px 10px 0px;
-  border: 1px solid black;
-  border-radius: 5px;
+  border: 2px solid black;
+`;
+
+const RepeatCheckIdButton = styled.button`
+  width: 60px;
+  height: 40px;
+  border: 2px solid black;
+  margin-left: 10px;
+  cursor: pointer;
 `;
 const PwInput = styled.input`
-  width: 280px;
-  height: 30px;
+  width: 300px;
+  height: 40px;
   margin: 10px 0px 10px 0px;
-  border: 1px solid black;
-  border-radius: 5px;
+  border: 2px solid black;
 `;
 const PwCheckInput = styled.input`
-  width: 280px;
-  height: 30px;
+  width: 300px;
+  height: 40px;
   margin: 10px 0px 10px 0px;
-  border: 1px solid black;
-  border-radius: 5px;
+  border: 2px solid black;
 `;
 const AllButton = styled.div`
-  /* border: 1px solid green; */
-  margin-top: 50px;
+  margin-top: 30px;
   display: flex;
   justify-content: space-evenly;
 `;
 const EnterButton = styled.button`
   cursor: pointer;
-  /* border: 1px solid red; */
+  font-size: large;
 `;
 
 const AccountButton = styled.button`
   cursor: pointer;
-  /* border: 1px solid red; */
+  font-size: large;
 `;
 export default AccountPage;

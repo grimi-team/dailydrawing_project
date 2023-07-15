@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import cloudy from "../images/cloudy.png";
+import logo from "../images/logo.jpg";
 import heart from "../images/heart.png";
 import good from "../images/good.png";
 import CommentInput from "../components/CommentInput";
@@ -11,7 +11,7 @@ const DetailPage = () => {
     <>
       <AllContainer>
         <HeaderContainer>
-          <img src={cloudy} width="70px" height="70px"></img>
+          <ProfileImage src={logo} alt="cloudy"></ProfileImage>
           <UserName>유저이름</UserName>
           <BackButton>뒤로가기</BackButton>
         </HeaderContainer>
@@ -20,10 +20,10 @@ const DetailPage = () => {
           <DiaryTitle>제목</DiaryTitle>
           <DiaryButtons>
             <HeartButton>
-              <img src={heart} width="30px" height="30px"></img>
+              <img src={heart} width="30px" height="30px" alt="heart"></img>
             </HeartButton>
             <MoodButton>
-              <img src={good} width="30px" height="30px"></img>
+              <img src={good} width="30px" height="30px" alt="good"></img>
             </MoodButton>
             <Date>2023-10-20</Date>
           </DiaryButtons>
@@ -56,7 +56,7 @@ const HeaderContainer = styled.div`
   border: 2px solid black;
   /* border-radius: 8px; */
   width: 700px;
-  height: 80px;
+  height: 60px;
   display: flex;
   align-items: center;
 
@@ -64,6 +64,12 @@ const HeaderContainer = styled.div`
   margin-top: 20px;
 `;
 
+const ProfileImage = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 70%;
+  margin: 0px 5px 0px 5px;
+`;
 const UserName = styled.div``;
 
 const BackButton = styled.button`
