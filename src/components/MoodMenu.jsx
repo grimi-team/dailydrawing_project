@@ -10,20 +10,21 @@ const MoodMenu = () => {
   return (
     <MoodItemsContainer>
       <MoodItem>
-        <img src={good} width="25px" height="25px"></img>
+        <img src={good} width="25px" height="25px" alt="good"></img>
         아주 좋아!
       </MoodItem>
       <MoodItem>
-        <img src={littlegood} width="25px" height="25px"></img>조금 좋아!
+        <img src={littlegood} width="25px" height="25px" alt="littlegood"></img>
+        조금 좋아!
       </MoodItem>
       <MoodItem>
-        <img src={soso} width="25px" height="25px"></img>그럭저럭
+        <img src={soso} width="25px" height="25px" alt="soso"></img>그럭저럭
       </MoodItem>
       <MoodItem>
-        <img src={bad} width="30px" height="30px"></img>조금 나빠!
+        <img src={bad} width="30px" height="30px" alt="bad"></img>조금 나빠!
       </MoodItem>
       <MoodItem>
-        <img src={angry} width="30px" height="30px"></img>끔찍해!
+        <img src={angry} width="30px" height="30px" alt="angry"></img>끔찍해!
       </MoodItem>
     </MoodItemsContainer>
   );

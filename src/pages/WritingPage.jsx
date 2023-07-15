@@ -9,6 +9,8 @@ const WritingPage = () => {
   const [moodOpen, setMoodOpen] = useState(false);
   const [diaryText, setDiaryText] = useState("");
   const [isWritingComplete, setIsWritingComplete] = useState(false);
+  const [diaryText, setDiaryText] = useState("");
+  const [isWritingComplete, setIsWritingComplete] = useState(false);
 
   const weatherMenuClick = () => {
     setWeatherOpen(!weatherOpen);
@@ -32,6 +34,20 @@ const WritingPage = () => {
     setMoodOpen(false);
   };
 
+  const handleDiaryChange = (event) => {
+    setDiaryText(event.target.value);
+    setIsWritingComplete(!!event.target.value);
+  };
+
+  const handleWritingComplete = () => {
+    setIsWritingComplete(true);
+  };
+
+  // const handleMouseLeave = () => {
+  // setWeatherOpen(false);
+  // setMoodOpen(false);
+  // };
+
   return (
     <EveryContainer>
       <EntireContainer>
@@ -47,6 +63,15 @@ const WritingPage = () => {
             날씨
           </WeatherButton>
           {weatherOpen && <WeatherMenu />}
+    <EntireContainer>
+      <ImageContainer>
+        <LogoImage src={logo} />
+      </ImageContainer>
+      <StateButtonContainer>
+        <WeatherButton onClick={weatherMenuClick} weatherOpen={weatherOpen}>
+          날씨
+        </WeatherButton>
+        {weatherOpen && <WeatherMenu />}
 
           <MoodButton
             onClick={moodMenuClick}
@@ -75,6 +100,33 @@ const WritingPage = () => {
         </DiaryContainer>
       </EntireContainer>
     </EveryContainer>
+        <MoodButton onClick={moodMenuClick} moodOpen={moodOpen}>
+          기분
+        </MoodButton>
+        {moodOpen && <MoodMenu />}
+      </StateButtonContainer>
+      <DiaryContainer>
+        <DiaryInput
+          type="text"
+          value={diaryText}
+          onChange={handleDiaryChange}
+        />
+        <DiaryButtonContainer>
+          <CancelButton
+            onClick={() => setDiaryText("")}
+            isWritingComplete={isWritingComplete}
+          >
+            취소하기
+          </CancelButton>
+          <CompleteButton
+            onClick={handleWritingComplete}
+            isWritingComplete={isWritingComplete}
+          >
+            작성완료
+          </CompleteButton>
+        </DiaryButtonContainer>
+      </DiaryContainer>
+    </EntireContainer>
   );
 };
 
@@ -88,14 +140,23 @@ const EveryContainer = styled.div`
 `;
 
 const EntireContainer = styled.div`
+  border: 3px solid black;
+  /* border-radius: 8px; */
   width: 700px;
   height: 800px;
+  height: 900px;
   margin-top: 50px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
 `;
 
 const ImageContainer = styled.div`
   border: 2px solid black;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   width: 500px;
   height: 500px;
 `;
@@ -119,6 +180,14 @@ const WeatherButton = styled.button`
   background-color: ${({ weatherOpen }) =>
     weatherOpen ? "gray" : "transparent"};
   transition: background-color 0.3s;
+  width: 50px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+  background-color: ${({ weatherOpen }) =>
+    weatherOpen ? "lightgray" : "transparent"};
+  transition: background-color 0.3s;
 `;
 
 const MoodButton = styled.button`
@@ -128,15 +197,24 @@ const MoodButton = styled.button`
   display: flex;
   background-color: ${({ moodOpen }) => (moodOpen ? "gray" : "transparent")};
   transition: background-color 0.3s;
+  width: 50px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  /* border-radius: 8px; */
+  background-color: ${({ moodOpen }) =>
+    moodOpen ? "lightgray" : "transparent"};
+  transition: background-color 0.3s;
 `;
 
 const DiaryContainer = styled.div`
   margin-top: 20px;
 `;
 
+
 const DiaryInput = styled.input`
   border: 2px solid black;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   width: 500px;
   height: 150px;
 `;
@@ -148,12 +226,25 @@ const DiaryButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
+
 const CancelButton = styled.button`
   cursor: pointer;
+  background-color: ${({ isWritingComplete }) =>
+    isWritingComplete ? "gray" : "transparent"};
+  color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
+  transition: background-color 0.3s, transform 0.3s;
+  transform: ${({ isWritingComplete }) =>
+    isWritingComplete ? "scaleX(1.2)" : "scaleX(1)"};
 `;
 
 const CompleteButton = styled.button`
   cursor: pointer;
+  background-color: ${({ isWritingComplete }) =>
+    isWritingComplete ? "gray" : "transparent"};
+  color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
+  transition: background-color 0.3s, transform 0.3s;
+  transform: ${({ isWritingComplete }) =>
+    isWritingComplete ? "scaleX(1.2)" : "scaleX(1)"};
   background-color: ${({ isWritingComplete }) =>
     isWritingComplete ? "green" : "transparent"};
   color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
