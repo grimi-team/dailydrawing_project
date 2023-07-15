@@ -3,7 +3,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LogInPage from "./pages/LogInPage";
 import AccountPage from "./pages/AccountPage";
-import MainPage from "./pages/mainPage";
+import MainPage from "./pages/MainPage";
 import DetailPage from "./pages/DetailPage";
 import WritingPage from "./pages/WritingPage";
 
