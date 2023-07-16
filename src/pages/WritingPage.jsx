@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import logo from "../images/logo.jpg";
+import logo from "../images/logo.png";
 import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
 import { useNavigate } from "react-router-dom";
@@ -105,7 +105,12 @@ const BackButton = styled.button`
   /* border: 1px solid black; */
   cursor: pointer;
   display: flex;
-  margin-right: 80%;
+  justify-content: center;
+align-items: center;
+margin: auto;
+  margin-right: 70%;
+  height: 30px;
+  width: 100px;
 `
 
 const ImageContainer = styled.div`
