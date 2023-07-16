@@ -95,23 +95,26 @@ const CardsContent = styled.div`
 const CardsWrapper = styled.div`
   position: relative;
   margin: 50px 0 45px;
-  width: 100%;
-  height: 80%;
 `;
 
 const CardsItems = styled.ul`
+  margin: auto;
   margin-bottom: 24px;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: center; */
+  width: 1200px;
+  height: auto;
+  display: flex;
+  align-items: center;
   overflow: hidden;
-  /* border: 2px solid black; */
+  border: 2px solid black;
 `;
 
 const CardItem = styled.li`
   display: flex;
   flex: 0 0 calc(33.33% - 2rem);
   margin: 1rem;
+  justify-content: center;
 `;
 
 const CardLink = styled(Link)`
@@ -125,9 +128,14 @@ const CardLink = styled(Link)`
 
 const CardPicWrap = styled.figure`
   position: relative;
-  width: 100%;
-  padding-top: 67%;
-  overflow: hidden;
+  width: 80%;
+  padding-top: 70%;
+  margin: auto;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
 `;
 
 const FadeImage = styled.img`
@@ -151,33 +159,33 @@ const MainHomePage = () => {
   const cardData = [
     {
       src: "",
-      text: "이름",
-      label: "Adventure",
+      text1: "유저이름",
+      text2: "제목",
       path: "/services",
     },
     {
       src: "",
-      text: "이름",
-      label: "Luxury",
+      text1: "유저이름",
+      text2: "제목",
       path: "/services",
     },
     {
       src: "",
-      text: "이름",
-      label: "Mystery",
+      text1: "유저이름",
+      text2: "제목",
       path: "/services",
     },
     {
       src: "",
-      text: "이름",
-      label: "Adventure",
-      path: "/products",
+      text1: "유저이름",
+      text2: "제목",
+      path: "/services",
     },
     {
       src: "",
-      text: "이름",
-      label: "Adrenaline",
-      path: "/sign-up",
+      text1: "유저이름",
+      text2: "제목",
+      path: "/services",
     },
   ];
 
@@ -198,8 +206,8 @@ const MainHomePage = () => {
           <CardsItems>
             {cardData.map((item, index) => (
               <CardItem key={index}>
-                <CardLink to={item.path}>
-                  <CardPicWrap data-category={item.label}>
+                <CardLink to="/DetailPage">
+                  <CardPicWrap>
                     <FadeImage
                       className="cards__item__img"
                       alt="DrawingImage"
@@ -207,7 +215,7 @@ const MainHomePage = () => {
                     />
                   </CardPicWrap>
                   <CardInfo>
-                    <CardText>{item.text}</CardText>
+                    <CardText>{item.text1}<br />{item.text2}</CardText>
                   </CardInfo>
                 </CardLink>
               </CardItem>
