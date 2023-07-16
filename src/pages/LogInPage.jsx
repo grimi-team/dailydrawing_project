@@ -1,19 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import logo from "../images/logo.png";
+import { LoggedState } from "../redux/config/modules/login";
+import axios from "axios";
 
 const LoginPage = () => {
+  const [userInfo, setUserInfo] = useState(null);
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  // store에 있는 LoggedState 모듈 state 조회하기
+  const logInValue = useSelector((state) => state.LoggedState);
+  console.log(logInValue);
+  const dispatch = useDispatch();
+
+  const onChangeUserName = (event) => {
+    setUserName(event.target.value);
+    // console.log("userName 들어왔디요~~", userName);
+  };
+
+  const onChangePassword = (event) => {
+    setPassword(event.target.value);
+    // console.log("password 들어왔디요~~", password);
+  };
+
+  const LoginSubmitHandler = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <EntireContainer>
       <LogoImage src={logo} />
       <LogInContainer>
         <LogInTitle>로그인</LogInTitle>
-        <LogInForm>
+        <LogInForm onSubmit={LoginSubmitHandler}>
           <div>아이디</div>
-          <IdInput type="text" />
+          <IdInput type="text" onChange={onChangeUserName} value={userName} />
+
           <br />
           <div>비밀번호</div>
-          <PwInput type="password" />
+          <PwInput
+            type="password"
+            onChange={onChangePassword}
+            value={password}
+          />
           <br />
           <AllButton>
             <EnterButton>입장 버튼</EnterButton>
@@ -69,6 +100,7 @@ const IdInput = styled.input`
   border: 2px solid black;
   padding: 5px;
 `;
+
 const PwInput = styled.input`
   width: 300px;
   height: 40px;

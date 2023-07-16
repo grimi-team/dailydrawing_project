@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CardsContainer = styled.div`
   padding: 4rem;
@@ -39,28 +39,21 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const TitleWrapper = styled.div`
-  display: flex;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid black;
-  width: 1200px;
-  height: 180px;
-`;
-
-const EveryButtons = styled.div`
-  border: 3px solid black;
-  border: 8px;
-  margin-top: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const WritingButton = styled.div`
   cursor: pointer;
-  margin-right: 85%;
+  font-size: large;
+  display: flex;
+  width: 100px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-right: 75%;
+
+  &:hover {
+    background-color: lightgray;
+  }
 `;
 
 const NewButton = styled.div`
@@ -77,7 +70,14 @@ const NewButton = styled.div`
 
 const PopulerButton = styled.div`
   cursor: pointer;
+  display: flex;
+  border: 1px solid black;
+  border-radius: 8px;
   margin-right: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 30px;
 `;
 
 const CardsContent = styled.div`
@@ -143,6 +143,8 @@ const CardText = styled.h5`
 `;
 
 const MainHomePage = () => {
+  const navigate = useNavigate();
+
   const cardData = [
     {
       src: "",
@@ -179,10 +181,12 @@ const MainHomePage = () => {
   return (
     <CardsContainer>
       <TitleWrapper>
-        <Title>나의 그림 일기장</Title>
+        <Title>그림 일기 메인 페이지</Title>
       </TitleWrapper>
       <EveryButtons>
-        <WritingButton>새 일기 쓰기</WritingButton>
+        <WritingButton onClick={() => navigate("/WritingPage")}>
+          새 일기 쓰기
+        </WritingButton>
         <NewButton>최신순</NewButton>
         <PopulerButton>인기순</PopulerButton>
       </EveryButtons>

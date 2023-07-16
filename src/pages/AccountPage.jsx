@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 
 const AccountPage = () => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
+
+  const onChangeUserName = (event) => {
+    setUserName(event.target.value);
+  };
+
+  const onChangePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const onChangeCheckPassword = (event) => {
+    setCheckPassword(event.target.value);
+  };
+  const doubleCheckOnClick = () => {
+    //중복확인을 눌렀을 때 실행하는 함수
+  };
+
   return (
     <EntireContainer>
       <LogoImage src={logo} />
@@ -10,14 +29,21 @@ const AccountPage = () => {
         <AccountTitle>회원가입</AccountTitle>
         <AccountForm>
           <div>아이디</div>
-          <IdInput type="text" />
-          <RepeatCheckIdButton>중복확인</RepeatCheckIdButton>
+          <IdInput type="text" onChange={onChangeUserName} value={userName} />
+          <RepeatCheckIdButton onClick={doubleCheckOnClick}>
+            중복확인
+          </RepeatCheckIdButton>
+          <IdErrorMsg> 사용이 불가능한 아이디 입니다.</IdErrorMsg>
           <br />
           <div>비밀번호</div>
-          <PwInput type="password" />
+          <PwInput
+            type="password"
+            onChange={onChangePassword}
+            value={password}
+          />
           <br />
           <div>비밀번호 확인</div>
-          <PwCheckInput type="password" />
+          <PwCheckInput type="password" onChange={onChangeCheckPassword} />
           <AllButton>
             <EnterButton>생성</EnterButton>
             <AccountButton>취소</AccountButton>
@@ -78,6 +104,10 @@ const RepeatCheckIdButton = styled.button`
   margin-left: 10px;
   cursor: pointer;
 `;
+const IdErrorMsg = styled.div`
+  color: red;
+`;
+
 const PwInput = styled.input`
   width: 300px;
   height: 40px;
