@@ -5,8 +5,34 @@ import { Link } from "react-router-dom";
 const CardsContainer = styled.div`
   padding: 4rem;
   background: #fff;
-  width: 100vw;
-  height: 100vh;
+  width: 1500px;
+  height: auto;
+  margin: auto;
+  margin-top: 30px;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  width: 1200px;
+  height: 180px;
+`;
+
+const EveryButtons = styled.div`
+  border: 2px solid black;
+  width: 1200px;
+  height: 90px;
+  margin: auto;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Title = styled.h1`
@@ -15,12 +41,12 @@ const Title = styled.h1`
 
 const TitleWrapper = styled.div`
   display: flex;
+  margin: auto;
   justify-content: center;
-  background-color: #fff;
   align-items: center;
   border: 2px solid black;
-  width: 100%;
-  height: 20%;
+  width: 1200px;
+  height: 180px;
 `;
 
 const EveryButtons = styled.div`
@@ -28,8 +54,8 @@ const EveryButtons = styled.div`
   border: 8px;
   margin-top: 50px;
   display: flex;
-  justify-content: space-evenly;
-  justify-content: right;
+  align-items: center;
+  justify-content: center;
 `;
 
 const WritingButton = styled.div`
@@ -39,7 +65,14 @@ const WritingButton = styled.div`
 
 const NewButton = styled.div`
   cursor: pointer;
+  display: flex;
+  border: 1px solid black;
+  border-radius: 8px;
   margin-right: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 30px;
 `;
 
 const PopulerButton = styled.div`
@@ -76,7 +109,6 @@ const CardItem = styled.li`
   display: flex;
   flex: 0 0 calc(33.33% - 2rem);
   margin: 1rem;
-  border-radius: 10px;
 `;
 
 const CardLink = styled(Link)`
@@ -84,7 +116,6 @@ const CardLink = styled(Link)`
   flex-flow: column;
   width: 100%;
   border: 2px solid black;
-  border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
 `;
@@ -164,7 +195,7 @@ const MainHomePage = () => {
                   <CardPicWrap data-category={item.label}>
                     <FadeImage
                       className="cards__item__img"
-                      alt="Travel Image"
+                      alt="DrawingImage"
                       src={item.src}
                     />
                   </CardPicWrap>

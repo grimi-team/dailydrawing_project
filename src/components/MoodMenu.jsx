@@ -32,9 +32,11 @@ const MoodMenu = () => {
 
 const MoodItemsContainer = styled.div`
   width: 130px;
+  height: 210px;
   border: 2px solid black;
   border-radius: 8px;
   margin-left: 10px;
+  background-color: white;
 `;
 
 const MoodItem = styled.div`
