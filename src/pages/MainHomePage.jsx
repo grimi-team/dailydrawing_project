@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const CardsContainer = styled.div`
   padding: 4rem;
@@ -32,10 +32,9 @@ const EveryButtons = styled.div`
   justify-content: right;
 `;
 
-
 const WritingButton = styled.div`
   cursor: pointer;
-margin-right: 85%;
+  margin-right: 85%;
 `;
 
 const NewButton = styled.div`
@@ -45,8 +44,8 @@ const NewButton = styled.div`
 
 const PopulerButton = styled.div`
   cursor: pointer;
-  margin-right: 20px ;
-`
+  margin-right: 20px;
+`;
 
 const CardsContent = styled.div`
   display: flex;
@@ -71,7 +70,6 @@ const CardsItems = styled.ul`
   /* justify-content: center; */
   overflow: hidden;
   /* border: 2px solid black; */
-  
 `;
 
 const CardItem = styled.li`
@@ -103,7 +101,6 @@ const FadeImage = styled.img`
   animation-duration: 2s;
 `;
 
-
 const CardInfo = styled.div`
   padding: 20px 30px 30px;
 `;
@@ -117,41 +114,41 @@ const CardText = styled.h5`
 const MainHomePage = () => {
   const cardData = [
     {
-      src: '',
-      text: '이름',
-      label: 'Adventure',
-      path: '/services',
+      src: "",
+      text: "이름",
+      label: "Adventure",
+      path: "/services",
     },
     {
-      src: '',
-      text: '이름',
-      label: 'Luxury',
-      path: '/services',
+      src: "",
+      text: "이름",
+      label: "Luxury",
+      path: "/services",
     },
     {
-      src: '',
-      text: '이름',
-      label: 'Mystery',
-      path: '/services',
+      src: "",
+      text: "이름",
+      label: "Mystery",
+      path: "/services",
     },
     {
-      src: '',
-      text: '이름',
-      label: 'Adventure',
-      path: '/products',
+      src: "",
+      text: "이름",
+      label: "Adventure",
+      path: "/products",
     },
     {
-      src: '',
-      text: '이름',
-      label: 'Adrenaline',
-      path: '/sign-up',
+      src: "",
+      text: "이름",
+      label: "Adrenaline",
+      path: "/sign-up",
     },
   ];
 
   return (
     <CardsContainer>
       <TitleWrapper>
-        <Title>그림 일기 메인 페이지</Title>
+        <Title>나의 그림 일기장</Title>
       </TitleWrapper>
       <EveryButtons>
         <WritingButton>새 일기 쓰기</WritingButton>
@@ -182,6 +179,6 @@ const MainHomePage = () => {
       </CardsContent>
     </CardsContainer>
   );
-}
+};
 
 export default MainHomePage;

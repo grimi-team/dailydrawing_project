@@ -1,15 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import logo from "../images/logo.jpg";
+import logo from "../images/logo.png";
 
 const LoginPage = () => {
   return (
     <EntireContainer>
-      {/* 로고이미지 */}
-      <LogoContainer>
-        <LogoImage src={logo} />
-      </LogoContainer>
-      {/* 로그인창구현 */}
+      <LogoImage src={logo} />
       <LogInContainer>
         <LogInTitle>로그인</LogInTitle>
         <LogInForm>
@@ -32,19 +28,13 @@ const LoginPage = () => {
 const EntireContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 150px;
-`;
-
-const LogoContainer = styled.div`
-  border: 2px solid black;
-
-  width: 500px;
-  height: 500px;
+  align-items: center;
+  min-height: 100vh;
 `;
 
 const LogoImage = styled.img`
-  width: 250px;
-  height: 200px;
+  width: 700px;
+  height: 700px;
 `;
 
 const LogInContainer = styled.div`
@@ -53,7 +43,7 @@ const LogInContainer = styled.div`
   width: 500px;
   height: 500px;
 
-  margin-left: 200px;
+  margin-left: 150px;
 `;
 
 const LogInTitle = styled.div`

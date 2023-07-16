@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import logo from "../images/logo.jpg";
+import logo from "../images/logo.png";
 import heart from "../images/heart.png";
 import good from "../images/good.png";
 import CommentInput from "../components/CommentInput";

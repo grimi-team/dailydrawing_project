@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import logo from "../images/logo.jpg";
+import logo from "../images/logo.png";
 
 const AccountPage = () => {
   return (
     <EntireContainer>
-      <LogoContainer>
-        <LogoImage src={logo} />
-      </LogoContainer>
+      <LogoImage src={logo} />
       <LogInContainer>
         <AccountTitle>회원가입</AccountTitle>
         <AccountForm>
@@ -34,19 +32,14 @@ const AccountPage = () => {
 const EntireContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 150px;
-`;
-
-const LogoContainer = styled.div`
-  border: 2px solid black;
-
-  width: 500px;
-  height: 500px;
+  border: 1px solid black;
+  align-items: center;
+  min-height: 100vh;
 `;
 
 const LogoImage = styled.img`
-  width: 250px;
-  height: 200px;
+  width: 500px;
+  height: 500px;
 `;
 
 const LogInContainer = styled.div`
@@ -54,7 +47,7 @@ const LogInContainer = styled.div`
   width: 500px;
   height: 500px;
 
-  margin-left: 200px;
+  margin-left: 150px;
 `;
 const AccountTitle = styled.h2`
   display: flex;
