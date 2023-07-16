@@ -112,7 +112,9 @@ const LoginPage = () => {
           {/* {errorMsg && <div style={{ color: "red" }}>{errorMsg}</div>} */}
           <AllButton>
             <EnterButton>입장 버튼</EnterButton>
-            <AccountButton>회원가입 버튼</AccountButton>
+            <AccountButton onClick={() => navigate("/AccountPage")}>
+              회원가입 버튼
+            </AccountButton>
           </AllButton>
         </LogInForm>
       </LogInContainer>

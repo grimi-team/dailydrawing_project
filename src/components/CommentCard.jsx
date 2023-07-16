@@ -14,7 +14,10 @@ const CommentCard = ({ name, content }) => {
       <ProfileImage src={logo} alt="logo"></ProfileImage>
       <UserName>{name}</UserName>
       <CommentContents>{content}</CommentContents>
-      <EditChangeButton onClick={editMenuClick}>+</EditChangeButton>
+      <EditChangeButtonContainer>
+        <EditChangeButton onClick={editMenuClick}>+</EditChangeButton>
+      </EditChangeButtonContainer>
+
       {editOpen && (
         <EditMenuContainer>
           <ModifyMenu>수정</ModifyMenu>
@@ -46,10 +49,14 @@ const UserName = styled.div``;
 const CommentContents = styled.div`
   margin-left: 30px;
 `;
-
+const EditChangeButtonContainer = styled.div`
+  border: 1px solid black;
+  display: flex;
+`;
 const EditChangeButton = styled.button`
   cursor: pointer;
-  margin-left: 380px;
+  float: right;
+
   font-size: large;
 `;
 const EditMenuContainer = styled.div`

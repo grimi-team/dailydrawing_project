@@ -129,6 +129,7 @@ const AllContainer = styled.div`
   margin: auto;
   margin-top: 50px;
   margin-bottom: 50px;
+  overflow: hidden;
 `;
 const HeaderContainer = styled.div`
   border: 2px solid black;
@@ -209,7 +210,7 @@ const CommentTitle = styled.div`
 `;
 const CommentsContainer = styled.form`
   width: 700px;
-  height: 150px;
+  height: 130px;
 
   margin: auto;
   margin-top: 20px;
@@ -217,7 +218,6 @@ const CommentsContainer = styled.form`
 
 const CommentPlusContainer = styled.div`
   display: flex;
-  justify-content: space-between;
 `;
 
 const CommentPlusbutton = styled.button`
