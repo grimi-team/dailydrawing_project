@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../images/logo.png";
+import axios from "axios";
+import { instance } from "./LogInPage";
 
 const AccountPage = () => {
   const [userName, setUserName] = useState("");
@@ -18,10 +20,36 @@ const AccountPage = () => {
   const onChangeCheckPassword = (event) => {
     setCheckPassword(event.target.value);
   };
-  const doubleCheckOnClick = () => {
-    //중복확인을 눌렀을 때 실행하는 함수
+
+  // 아이디 중복 버튼 눌렀을 때 통신
+  const doubleCheckOnClick = async (event) => {
+    event.preventDefault();
+    try {
+      const res = await instance.post("/api/user/signup/address", {
+        address: "hello123",
+      });
+      console.log(res);
+      document.cookie = `accessToken=${res.headers.accesstoken}; path=/;`;
+    } catch (error) {
+      // setErrorMsg(error.response.data.message);
+    }
   };
 
+  // 생성 버튼을 눌렀을 때 통신
+  const createOnclick = async (event) => {
+    event.preventDefault();
+    try {
+      const res = await instance.post("/api/user/signup", {
+        address: "hello123",
+        password: "Tkfjf12345",
+        username: "myengjin123",
+      });
+      console.log(res);
+      // document.cookie = `accessToken=${res.headers.accesstoken}; path=/;`;
+    } catch (error) {
+      // setErrorMsg(error.response.data.message);
+    }
+  };
   return (
     <EntireContainer>
       <LogoImage src={logo} />
@@ -45,7 +73,7 @@ const AccountPage = () => {
           <div>비밀번호 확인</div>
           <PwCheckInput type="password" onChange={onChangeCheckPassword} />
           <AllButton>
-            <EnterButton>생성</EnterButton>
+            <EnterButton onClick={createOnclick}>생성</EnterButton>
             <AccountButton>취소</AccountButton>
           </AllButton>
         </AccountForm>

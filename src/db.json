@@ -13,7 +13,16 @@
       "postId": 1
     }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "profile": [
+    {
+      "name": "typicode"
+    }
+  ],
+  "authorizatiion": [
+    {
+      "id": 13241324142,
+      "userName": "EDwin",
+      "password": 123123131
+    }
+  ]
 }

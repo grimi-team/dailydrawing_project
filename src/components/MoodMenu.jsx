@@ -40,6 +40,7 @@ const MoodItemsContainer = styled.div`
 `;
 
 const MoodItem = styled.div`
+  cursor: pointer;
   width: 130px;
   height: 40px;
   display: flex;

@@ -34,6 +34,7 @@ const WeatherItemsContainer = styled.div`
 `;
 
 const WeatherItem = styled.div`
+  cursor: pointer;
   width: 100px;
   height: 40px;
   display: flex;
