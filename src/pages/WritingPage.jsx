@@ -4,6 +4,8 @@ import logo from "../images/logo.png";
 import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { instance } from "./LogInPage";
 
 const WritingPage = () => {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ const WritingPage = () => {
   const [diaryText, setDiaryText] = useState("");
   const [isWritingComplete, setIsWritingComplete] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [errorMsg, setErrorMsg] = useState("");
 
   const weatherMenuClick = () => {
     setWeatherOpen(!weatherOpen);
@@ -27,8 +30,20 @@ const WritingPage = () => {
     setIsWritingComplete(!!event.target.value);
   };
 
-  const handleWritingComplete = () => {
-    setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
+  const onClickCompleteWriting = async (event) => {
+    // setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
+    event.preventDefault();
+    try {
+      const res = await instance.post("/api/user/signup", {
+        address: "hello123",
+        password: "Tkfjf12345",
+        username: "myengjin123",
+      });
+      console.log(res);
+      // document.cookie = `accessToken=${res.headers.accesstoken}; path=/;`;
+    } catch (error) {
+      setErrorMsg(error.response.data.message);
+    }
   };
 
   // const handleMouseLeave = () => {
@@ -38,9 +53,7 @@ const WritingPage = () => {
 
   return (
     <EntireContainer>
-      <BackButton onClick={() => navigate("/MainHomePage")}>
-        뒤로 가기
-      </BackButton>
+      <WritingTitleContainer>그림일기 쓰는 중!</WritingTitleContainer>
       <ImageContainer>
         <LogoImage src={logo} />
       </ImageContainer>
@@ -63,14 +76,11 @@ const WritingPage = () => {
           onChange={handleDiaryChange}
         />
         <DiaryButtonContainer>
-          <CancelButton
-            onClick={() => setDiaryText("")}
-            isWritingComplete={isWritingComplete}
-          >
+          <CancelButton onClick={() => navigate("/MainHomePage")}>
             취소하기
           </CancelButton>
           <CompleteButton
-            onClick={handleWritingComplete}
+            onClick={onClickCompleteWriting}
             isWritingComplete={isWritingComplete}
           >
             작성완료
@@ -83,56 +93,56 @@ const WritingPage = () => {
 
 const EntireContainer = styled.div`
   border: 3px solid black;
-  /* border-radius: 8px; */
-  width: 700px;
-  height: 900px;
+  width: 800px;
+  height: 1000px;
   margin: auto;
   margin-top: 50px;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
-  padding: 5%;
 `;
 
-const BackButton = styled.button`
-  /* border: 1px solid black; */
-  cursor: pointer;
+const WritingTitleContainer = styled.div`
+  width: 700px;
+  height: 60px;
+  border: 2px solid black;
+  margin-top: 30px;
+  font-size: large;
   display: flex;
-  margin-right: 80%;
-`;
-
-const BackButton = styled.button`
-  /* border: 1px solid black; */
-  cursor: pointer;
+  align-items: center;
   display: flex;
   justify-content: center;
-align-items: center;
-margin: auto;
-  margin-right: 70%;
-  height: 30px;
-  width: 100px;
-`
+  font-size: large;
+`;
+
+const HomepageBackButton = styled.button`
+  cursor: pointer;
+  display: flex;
+  /* margin-right: 80%; */
+`;
 
 const ImageContainer = styled.div`
   border: 2px solid black;
-  /* border-radius: 8px; */
-  width: 500px;
+  width: 700px;
   height: 500px;
+  margin-top: 30px;
 `;
 
 const LogoImage = styled.img`
-width: 250px;
-height: 200px;
-cursor: pointer;
+  width: 250px;
+  height: 200px;
+  cursor: pointer;
 `;
 
 const StateButtonContainer = styled.div`
-width: 500px;
-height: 30px;
-display: flex;
-margin-top: 20px;
-position: relative;
+  width: 700px;
+  height: 30px;
+  display: flex;
+  margin-top: 20px;
+  position: relative;
+  /* border: 1px solid black; */
 `;
 
 const WeatherButton = styled.button`
@@ -177,12 +187,12 @@ const DiaryContainer = styled.div`
 const DiaryInput = styled.input`
   border: 2px solid black;
   /* border-radius: 8px; */
-  width: 500px;
-  height: 150px;
+  width: 700px;
+  height: 180px;
 `;
 
 const DiaryButtonContainer = styled.div`
-  width: 500px;
+  width: 700px;
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
@@ -190,6 +200,7 @@ const DiaryButtonContainer = styled.div`
 
 const CancelButton = styled.button`
   cursor: pointer;
+  font-size: large;
   background-color: ${({ isWritingComplete }) =>
     isWritingComplete ? "gray" : "transparent"};
   color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
@@ -200,6 +211,7 @@ const CancelButton = styled.button`
 
 const CompleteButton = styled.button`
   cursor: pointer;
+  font-size: large;
   background-color: ${({ isWritingComplete }) =>
     isWritingComplete ? "gray" : "transparent"};
   color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};

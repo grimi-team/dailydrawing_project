@@ -1,32 +1,95 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import logo from "../images/logo.png";
-import { LoggedState } from "../redux/config/modules/login";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+export const instance = axios.create({
+  baseURL: "http://1.244.223.183",
+});
+
+instance.interceptors.request.use((config) => {
+  const accessToken =
+    document.cookie &&
+    document.cookie
+      .split(";")
+      .filter((cookies) => cookies.includes("accessToken"))[0]
+      ?.split("=")[1];
+  const refreshToken =
+    document.cookie &&
+    document.cookie
+      .split(";")
+      .filter((cookies) => cookies.includes("refreshToken"))[0]
+      ?.split("=")[1];
+  if (accessToken) config.headers.accesstoken = accessToken;
+  if (!accessToken && refreshToken) config.headers.Authorization = refreshToken;
+  return config;
+});
+
+instance.interceptors.response.use((config) => {
+  // const expirationDate = new Date();
+  // expirationDate.setHours(expirationDate.getHours() + 1);
+  // expirationDate.setSeconds(expirationDate.getSeconds() + 5);
+  // const expires = expirationDate.toUTCString();
+  config.headers.accesstoken &&
+    (document.cookie = `accessToken=${config.headers.accesstoken}; path=/;`);
+  config.headers.authorization &&
+    (document.cookie = `refreshToken=${config.headers.authorization}; path=/;`);
+  return config;
+});
 
 const LoginPage = () => {
-  const [userInfo, setUserInfo] = useState(null);
+  // const [userInfo, setUserInfo] = useState(null);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
-  // store에 있는 LoggedState 모듈 state 조회하기
-  const logInValue = useSelector((state) => state.LoggedState);
-  console.log(logInValue);
-  const dispatch = useDispatch();
+  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsgModal, setErrorMsgModal] = useState(false);
+  const authorization = useSelector((state) => state.authorization);
+  // console.log(authorization);
+  // store에 있는 authorization 모듈 state 조회하기
 
   const onChangeUserName = (event) => {
     setUserName(event.target.value);
-    // console.log("userName 들어왔디요~~", userName);
   };
 
   const onChangePassword = (event) => {
     setPassword(event.target.value);
-    // console.log("password 들어왔디요~~", password);
   };
 
-  const LoginSubmitHandler = (event) => {
+  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  const LoginSubmitHandler = async (event) => {
     event.preventDefault();
+    try {
+      // await axios.post("/http")
+      const res = await instance.post("/api/user/login", {
+        address: "test12345",
+        password: "test12345",
+      }); // response.headers.authorization; // accessToken 추출
+
+      console.log(res);
+      // Set Cookies
+      // console.log(res.headers.accesstoken);
+      // accesstoken을 꺼내서 쿠키에 저장(순서는 서버 통신에 성공했다는 전제 200번대)
+      // path : 해당 페이지 모든 페이지 접근할 수 있는
+      // document.cookie = `accessToken=${res.headers.accesstoken}; path=/;`;
+      // document.cookie = `refreshToken=${res.headers?.refreshToken}; path=/;`;
+
+      console.log("로그인 성공");
+      navigate("/MainHomePage");
+    } catch (error) {
+      console.log("로그인 실패");
+      console.log(error);
+      setErrorMsg(error?.response?.data?.message);
+      // if (error.response.data.idCheck) {
+      //   setErrorMsg("존재하지 않는 아이디 입니다. ");
+      // }
+      // if (error.response.data.pwCheck) {
+      //   setErrorMsg("비밀번호가 일치하지 않습니다.");
+      // }
+      setErrorMsgModal(!errorMsgModal);
+    }
   };
 
   return (
@@ -46,12 +109,37 @@ const LoginPage = () => {
             value={password}
           />
           <br />
+          {/* {errorMsg && <div style={{ color: "red" }}>{errorMsg}</div>} */}
           <AllButton>
             <EnterButton>입장 버튼</EnterButton>
-            <AccountButton>회원가입 버튼</AccountButton>
+            <AccountButton onClick={() => navigate("/AccountPage")}>
+              회원가입 버튼
+            </AccountButton>
           </AllButton>
         </LogInForm>
       </LogInContainer>
+      {errorMsg && errorMsgModal && (
+        <div
+          style={{
+            position: "absolute",
+            top: "50vh",
+            left: "50vw",
+            transform: "translation(-50%, -50%)",
+            width: "150px",
+            height: "100px",
+            backgroundColor: "yellow",
+            fontWeight: "bold",
+          }}
+        >
+          {errorMsg}
+          <div
+            onClick={() => setErrorMsgModal(!errorMsgModal)}
+            style={{ backgroundColor: "lightcoral" }}
+          >
+            닫기
+          </div>
+        </div>
+      )}
     </EntireContainer>
   );
 };
@@ -64,8 +152,8 @@ const EntireContainer = styled.div`
 `;
 
 const LogoImage = styled.img`
-  width: 700px;
-  height: 700px;
+  width: 500px;
+  height: 500px;
 `;
 
 const LogInContainer = styled.div`
@@ -85,7 +173,6 @@ const LogInTitle = styled.div`
 `;
 
 const LogInForm = styled.form`
-  /* border: 1px solid black; */
   width: 300px;
   height: 300px;
 
@@ -110,7 +197,6 @@ const PwInput = styled.input`
 `;
 
 const AllButton = styled.div`
-  /* border: 1px solid green; */
   margin-top: 50px;
   display: flex;
   justify-content: space-evenly;
@@ -118,13 +204,11 @@ const AllButton = styled.div`
 const EnterButton = styled.button`
   cursor: pointer;
   font-size: large;
-  /* border: 1px solid red; */
 `;
 
 const AccountButton = styled.button`
   cursor: pointer;
   font-size: large;
-  /* border: 1px solid red; */
 `;
 
 export default LoginPage;

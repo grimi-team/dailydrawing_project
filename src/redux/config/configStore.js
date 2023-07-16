@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { LoggedState } from "./modules/login";
+import authorization from "../modules/authorization";
 
 const store = configureStore({
-  reducer: LoggedState,
+  reducer: { authorization },
 });
 
 export default store;
