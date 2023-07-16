@@ -1,3 +1,6 @@
+import React from 'react';
+import styled from 'styled-components';
+import { Link, useNavigate } from 'react-router-dom';
 import React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
@@ -42,7 +45,12 @@ const Title = styled.h1`
 const WritingButton = styled.div`
   cursor: pointer;
   font-size: large;
+const WritingButton = styled.div`
+  cursor: pointer;
+  font-size: large;
   display: flex;
+  width: 100px;
+  height: 30px;
   width: 100px;
   height: 30px;
   justify-content: center;
@@ -55,6 +63,7 @@ const WritingButton = styled.div`
     background-color: lightgray;
   }
 `;
+
 
 const NewButton = styled.div`
   cursor: pointer;
@@ -73,12 +82,20 @@ const PopulerButton = styled.div`
   display: flex;
   border: 1px solid black;
   border-radius: 8px;
+  display: flex;
+  border: 1px solid black;
+  border-radius: 8px;
   margin-right: 20px;
   align-items: center;
   justify-content: center;
   width: 60px;
   height: 30px;
 `;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 30px;
+`
 
 const CardsContent = styled.div`
   display: flex;
@@ -92,23 +109,26 @@ const CardsContent = styled.div`
 const CardsWrapper = styled.div`
   position: relative;
   margin: 50px 0 45px;
-  width: 100%;
-  height: 80%;
 `;
 
 const CardsItems = styled.ul`
+  margin: auto;
   margin-bottom: 24px;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: center; */
+  width: 1200px;
+  height: auto;
+  display: flex;
+  align-items: center;
   overflow: hidden;
-  /* border: 2px solid black; */
+  border: 2px solid black;
 `;
 
 const CardItem = styled.li`
   display: flex;
   flex: 0 0 calc(33.33% - 2rem);
   margin: 1rem;
+  justify-content: center;
 `;
 
 const CardLink = styled(Link)`
@@ -122,9 +142,14 @@ const CardLink = styled(Link)`
 
 const CardPicWrap = styled.figure`
   position: relative;
-  width: 100%;
-  padding-top: 67%;
-  overflow: hidden;
+  width: 80%;
+  padding-top: 70%;
+  margin: auto;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
 `;
 
 const FadeImage = styled.img`
@@ -145,36 +170,38 @@ const CardText = styled.h5`
 const MainHomePage = () => {
   const navigate = useNavigate();
 
+  const navigate = useNavigate();
+
   const cardData = [
     {
       src: "",
-      text: "이름",
-      label: "Adventure",
+      text1: "유저이름",
+      text2: "제목",
       path: "/services",
     },
     {
       src: "",
-      text: "이름",
-      label: "Luxury",
+      text1: "유저이름",
+      text2: "제목",
       path: "/services",
     },
     {
       src: "",
-      text: "이름",
-      label: "Mystery",
+      text1: "유저이름",
+      text2: "제목",
       path: "/services",
     },
     {
       src: "",
-      text: "이름",
-      label: "Adventure",
-      path: "/products",
+      text1: "유저이름",
+      text2: "제목",
+      path: "/services",
     },
     {
       src: "",
-      text: "이름",
-      label: "Adrenaline",
-      path: "/sign-up",
+      text1: "유저이름",
+      text2: "제목",
+      path: "/services",
     },
   ];
 
@@ -187,6 +214,9 @@ const MainHomePage = () => {
         <WritingButton onClick={() => navigate("/WritingPage")}>
           새 일기 쓰기
         </WritingButton>
+        <WritingButton onClick={() => navigate('/WritingPage')}>
+          새 일기 쓰기
+        </WritingButton>
         <NewButton>최신순</NewButton>
         <PopulerButton>인기순</PopulerButton>
       </EveryButtons>
@@ -195,8 +225,8 @@ const MainHomePage = () => {
           <CardsItems>
             {cardData.map((item, index) => (
               <CardItem key={index}>
-                <CardLink to={item.path}>
-                  <CardPicWrap data-category={item.label}>
+                <CardLink to="/DetailPage">
+                  <CardPicWrap>
                     <FadeImage
                       className="cards__item__img"
                       alt="DrawingImage"
@@ -204,7 +234,11 @@ const MainHomePage = () => {
                     />
                   </CardPicWrap>
                   <CardInfo>
-                    <CardText>{item.text}</CardText>
+                    <CardText>
+                      {item.text1}
+                      <br />
+                      {item.text2}
+                    </CardText>
                   </CardInfo>
                 </CardLink>
               </CardItem>
@@ -215,5 +249,7 @@ const MainHomePage = () => {
     </CardsContainer>
   );
 };
+
+export default MainHomePage;
 
 export default MainHomePage;

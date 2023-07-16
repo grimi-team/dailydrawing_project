@@ -5,15 +5,18 @@ import heart from "../images/heart.png";
 import good from "../images/good.png";
 import CommentInput from "../components/CommentInput";
 import CommentList from "../components/CommentList";
+import { useNavigate } from "react-router-dom";
 
 const DetailPage = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <AllContainer>
         <HeaderContainer>
           <ProfileImage src={logo} alt="cloudy"></ProfileImage>
           <UserName>유저이름</UserName>
-          <BackButton>뒤로가기</BackButton>
+          <BackButton onClick={() => navigate('/MainHomePage')}>뒤로가기</BackButton>
         </HeaderContainer>
         <DiaryImage>안녕하세요!</DiaryImage>
         <DiaryTitleContainer>
@@ -128,8 +131,6 @@ const DiaryContents = styled.div`
 `;
 
 const CommentsContainer = styled.form`
-  /* border: 2px solid black; */
-  /* border-radius: 8px; */
   width: 700px;
   height: 150px;
 

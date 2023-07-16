@@ -102,6 +102,18 @@ const BackButton = styled.button`
   margin-right: 80%;
 `;
 
+const BackButton = styled.button`
+  /* border: 1px solid black; */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+align-items: center;
+margin: auto;
+  margin-right: 70%;
+  height: 30px;
+  width: 100px;
+`
+
 const ImageContainer = styled.div`
   border: 2px solid black;
   /* border-radius: 8px; */
@@ -110,17 +122,17 @@ const ImageContainer = styled.div`
 `;
 
 const LogoImage = styled.img`
-  width: 250px;
-  height: 200px;
-  cursor: pointer;
+width: 250px;
+height: 200px;
+cursor: pointer;
 `;
 
 const StateButtonContainer = styled.div`
-  width: 500px;
-  height: 30px;
-  display: flex;
-  margin-top: 20px;
-  position: relative;
+width: 500px;
+height: 30px;
+display: flex;
+margin-top: 20px;
+position: relative;
 `;
 
 const WeatherButton = styled.button`
