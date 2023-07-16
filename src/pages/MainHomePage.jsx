@@ -47,9 +47,14 @@ const WritingButton = styled.div`
   height: 30px;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
-  width: 1200px;
-  height: 180px;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-right: 75%;
+
+  &:hover {
+background-color: lightgray;
+}
+
 `;
 
 
