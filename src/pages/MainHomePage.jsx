@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const CardsContainer = styled.div`
   padding: 4rem;
@@ -51,6 +51,10 @@ const WritingButton = styled.div`
   border: 1px solid black;
   border-radius: 8px;
   margin-right: 75%;
+
+    &:hover {
+    background-color: lightgray;
+  }
 `;
 
 const NewButton = styled.div`
@@ -142,6 +146,8 @@ const CardText = styled.h5`
 `;
 
 const MainHomePage = () => {
+  const navigate = useNavigate();
+
   const cardData = [
     {
       src: '',
@@ -181,7 +187,9 @@ const MainHomePage = () => {
         <Title>그림 일기 메인 페이지</Title>
       </TitleWrapper>
       <EveryButtons>
-        <WritingButton>새 일기 쓰기</WritingButton>
+        <WritingButton onClick={() => navigate('/WritingPage')}>
+          새 일기 쓰기
+        </WritingButton>
         <NewButton>최신순</NewButton>
         <PopulerButton>인기순</PopulerButton>
       </EveryButtons>

@@ -3,8 +3,11 @@ import styled from "styled-components";
 import logo from "../images/logo.jpg";
 import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
+import { useNavigate } from "react-router-dom";
 
 const WritingPage = () => {
+  const navigate = useNavigate();
+
   const [weatherOpen, setWeatherOpen] = useState(false);
   const [moodOpen, setMoodOpen] = useState(false);
   const [diaryText, setDiaryText] = useState("");
@@ -35,6 +38,9 @@ const WritingPage = () => {
 
   return (
     <EntireContainer>
+      <BackButton onClick={() => navigate('/MainHomePage')}>
+        뒤로 가기
+      </BackButton>
       <ImageContainer>
         <LogoImage src={logo} />
       </ImageContainer>
@@ -94,6 +100,13 @@ justify-content: center;
 align-items: center;
 padding: 5%;
 `;
+
+const BackButton = styled.button`
+  /* border: 1px solid black; */
+  cursor: pointer;
+  display: flex;
+  margin-right: 80%;
+`
 
 const ImageContainer = styled.div`
 border: 2px solid black;
