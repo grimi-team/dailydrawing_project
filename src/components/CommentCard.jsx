@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import logo from "../images/logo.jpg";
+import logo from "../images/logo.png";
 
 const CommentCard = () => {
   const [editOpen, setEditOpen] = useState(false);
@@ -49,13 +49,13 @@ const CommentContents = styled.div`
 
 const EditChangeButton = styled.button`
   cursor: pointer;
-  margin-left: 360px;
+  margin-left: 380px;
   font-size: large;
 `;
 const EditMenuContainer = styled.div`
   border: 2px solid black;
   width: 60px;
-  height: 60px;
+  height: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;

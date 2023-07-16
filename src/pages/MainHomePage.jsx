@@ -35,7 +35,6 @@ const EveryButtons = styled.div`
   justify-content: center;
 `;
 
-
 const Title = styled.h1`
   text-align: center;
 `;
@@ -48,14 +47,12 @@ const WritingButton = styled.div`
   height: 30px;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  border-radius: 8px;
-  margin-right: 75%;
-
-    &:hover {
-    background-color: lightgray;
-  }
+  border: 2px solid black;
+  width: 1200px;
+  height: 180px;
 `;
+
+
 
 const NewButton = styled.div`
   cursor: pointer;
@@ -104,7 +101,6 @@ const CardsItems = styled.ul`
   /* justify-content: center; */
   overflow: hidden;
   /* border: 2px solid black; */
-  
 `;
 
 const CardItem = styled.li`
@@ -134,7 +130,6 @@ const FadeImage = styled.img`
   animation-duration: 2s;
 `;
 
-
 const CardInfo = styled.div`
   padding: 20px 30px 30px;
 `;
@@ -150,41 +145,41 @@ const MainHomePage = () => {
 
   const cardData = [
     {
-      src: '',
-      text: '이름',
-      label: 'Adventure',
-      path: '/services',
+      src: "",
+      text: "이름",
+      label: "Adventure",
+      path: "/services",
     },
     {
-      src: '',
-      text: '이름',
-      label: 'Luxury',
-      path: '/services',
+      src: "",
+      text: "이름",
+      label: "Luxury",
+      path: "/services",
     },
     {
-      src: '',
-      text: '이름',
-      label: 'Mystery',
-      path: '/services',
+      src: "",
+      text: "이름",
+      label: "Mystery",
+      path: "/services",
     },
     {
-      src: '',
-      text: '이름',
-      label: 'Adventure',
-      path: '/products',
+      src: "",
+      text: "이름",
+      label: "Adventure",
+      path: "/products",
     },
     {
-      src: '',
-      text: '이름',
-      label: 'Adrenaline',
-      path: '/sign-up',
+      src: "",
+      text: "이름",
+      label: "Adrenaline",
+      path: "/sign-up",
     },
   ];
 
   return (
     <CardsContainer>
       <TitleWrapper>
-        <Title>그림 일기 메인 페이지</Title>
+        <Title>나의 그림 일기장</Title>
       </TitleWrapper>
       <EveryButtons>
         <WritingButton onClick={() => navigate('/WritingPage')}>
@@ -217,6 +212,6 @@ const MainHomePage = () => {
       </CardsContent>
     </CardsContainer>
   );
-}
+};
 
 export default MainHomePage;
