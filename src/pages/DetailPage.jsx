@@ -225,7 +225,6 @@ const CommentsContainer = styled.form`
 
 const CommentPlusContainer = styled.div`
   display: flex;
-  justify-content: space-between;
 `;
 
 const CommentPlusbutton = styled.button`

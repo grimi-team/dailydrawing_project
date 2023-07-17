@@ -3,8 +3,10 @@ import styled from "styled-components";
 import logo from "../images/logo.png";
 import axios from "axios";
 import { instance } from "./LogInPage";
+import { useNavigate } from "react-router-dom";
 
 const AccountPage = () => {
+  const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
@@ -72,7 +74,9 @@ const AccountPage = () => {
           <PwCheckInput type="password" onChange={onChangeCheckPassword} />
           <AllButton>
             <EnterButton onClick={createOnclick}>생성</EnterButton>
-            <AccountButton>취소</AccountButton>
+            <AccountButton onClick={() => navigate('/')}>
+              취소
+            </AccountButton>
           </AllButton>
         </AccountForm>
       </LogInContainer>

@@ -6,32 +6,36 @@ import soso from "../images/soso.png";
 import bad from "../images/bad.png";
 import angry from "../images/angry.png";
 
-const MoodMenu = () => {
+const moodItems = [
+  { mood: "아주 좋아!", image: good },
+  { mood: "조금 좋아!", image: littlegood },
+  { mood: "그럭저럭", image: soso },
+  { mood: "조금 나빠!", image: bad },
+  { mood: "끔찍해!", image: angry },
+];
+
+const MoodMenu = ({ onMoodSelect }) => {
+  const handleMoodSelect = (mood) => {
+    onMoodSelect(mood);
+  };
+
   return (
     <MoodItemsContainer>
-      <MoodItem>
-        <img src={good} width="25px" height="25px" alt="good"></img>
-        아주 좋아!
-      </MoodItem>
-      <MoodItem>
-        <img src={littlegood} width="25px" height="25px" alt="littlegood"></img>
-        조금 좋아!
-      </MoodItem>
-      <MoodItem>
-        <img src={soso} width="25px" height="25px" alt="soso"></img>그럭저럭
-      </MoodItem>
-      <MoodItem>
-        <img src={bad} width="30px" height="30px" alt="bad"></img>조금 나빠!
-      </MoodItem>
-      <MoodItem>
-        <img src={angry} width="30px" height="30px" alt="angry"></img>끔찍해!
-      </MoodItem>
+      {moodItems.map((item, index) => (
+        <MoodItem
+          key={index}
+          onClick={() => handleMoodSelect(<><img src={item.image} width="25px" height="25px" alt={item.mood} /><p>{item.mood}</p></>)}
+        >
+          <img src={item.image} width="25px" height="25px" alt={item.mood}></img>
+          {item.mood}
+        </MoodItem>
+      ))}
     </MoodItemsContainer>
   );
 };
 
 const MoodItemsContainer = styled.div`
-
+  cursor: pointer;
   width: 130px;
   height: 203px;
   border: 2px solid black;
@@ -52,4 +56,5 @@ const MoodItem = styled.div`
     border-radius: 4px;
   }
 `;
+
 export default MoodMenu;
