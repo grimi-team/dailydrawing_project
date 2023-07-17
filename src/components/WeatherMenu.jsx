@@ -26,18 +26,22 @@ const WeatherMenu = () => {
 
 const WeatherItemsContainer = styled.div`
   border: 2px solid black;
+  cursor: pointer;
   border-radius: 8px;
   width: 100px;
-  height: 170px;
+  height: 163px;
   margin-left: 10px;
   background-color: white;
 `;
 
 const WeatherItem = styled.div`
-  cursor: pointer;
-  width: 100px;
+  width: auto;
   height: 40px;
   display: flex;
   align-items: center;
+  &:hover {
+    background-color: lightgray;
+    border-radius: 4px;
+  }
 `;
 export default WeatherMenu;

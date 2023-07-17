@@ -31,8 +31,9 @@ const MoodMenu = () => {
 };
 
 const MoodItemsContainer = styled.div`
+
   width: 130px;
-  height: 210px;
+  height: 203px;
   border: 2px solid black;
   border-radius: 8px;
   margin-left: 10px;
@@ -41,10 +42,14 @@ const MoodItemsContainer = styled.div`
 
 const MoodItem = styled.div`
   cursor: pointer;
-  width: 130px;
+  width: auto;
   height: 40px;
   display: flex;
   align-items: center;
   padding-left: 10px;
+  &:hover {
+    background-color: lightgray;
+    border-radius: 4px;
+  }
 `;
 export default MoodMenu;

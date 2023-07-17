@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import logo from "../images/logo.png";
 import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { instance } from "./LogInPage";
 
 const WritingPage = () => {
   const navigate = useNavigate();
@@ -15,7 +12,23 @@ const WritingPage = () => {
   const [diaryText, setDiaryText] = useState("");
   const [isWritingComplete, setIsWritingComplete] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [errorMsg, setErrorMsg] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const fileInputRef = useRef(null);
+  //날씨 값 저장 상태변화
+  const [selectedWeather, setSelectedWeather] = useState(null);
+  //기분 값 저장 상태변화
+  const [selectedMood, setSelectedMood] = useState(null);
+
+  const handleWeatherDropdownSelect = (weather) => {
+    setSelectedWeather(weather);
+    setWeatherOpen(false);
+  };
+
+  const handleMoodDropdownSelect = (mood) => {
+    setSelectedMood(mood);
+    setMoodOpen(false);
+  };
 
   const weatherMenuClick = () => {
     setWeatherOpen(!weatherOpen);
@@ -30,43 +43,64 @@ const WritingPage = () => {
     setIsWritingComplete(!!event.target.value);
   };
 
-  const onClickCompleteWriting = async (event) => {
-    // setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
-    event.preventDefault();
-    try {
-      const res = await instance.post("/api/user/signup", {
-        address: "hello123",
-        password: "Tkfjf12345",
-        username: "myengjin123",
-      });
-      console.log(res);
-      // document.cookie = `accessToken=${res.headers.accesstoken}; path=/;`;
-    } catch (error) {
-      setErrorMsg(error.response.data.message);
-    }
+  const handleWritingComplete = () => {
+    setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
   };
 
-  // const handleMouseLeave = () => {
-  // setWeatherOpen(false);
-  // setMoodOpen(false);
-  // };
+  const handleImageSelect = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+    setIsModalOpen(true);
+  };
+
+  const handleImageConfirm = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <EntireContainer>
       <WritingTitleContainer>그림일기 쓰는 중!</WritingTitleContainer>
       <ImageContainer>
-        <LogoImage src={logo} />
+        {selectedImage && (
+          <>
+            <ModalButton onClick={() => setIsModalOpen(true)}>
+              이미지 보기
+            </ModalButton>
+            <ImageModal style={{ display: isModalOpen ? "flex" : "none" }}>
+              <ModalContent>
+                <ModalImage src={URL.createObjectURL(selectedImage)} />
+                <ModalButtonContainer>
+                  <ModalButton onClick={() => fileInputRef.current.click()}>
+                    수정{" "}
+                  </ModalButton>
+                  <ModalButton onClick={handleImageConfirm}>확인</ModalButton>
+                </ModalButtonContainer>
+              </ModalContent>
+            </ImageModal>
+          </>
+        )}
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={handleImageSelect}
+          style={{ display: "none" }}
+        />
+        <UploadButton onClick={() => fileInputRef.current.click()}>
+          이미지 추가하기
+        </UploadButton>
       </ImageContainer>
       <StateButtonContainer>
         <WeatherButton onClick={weatherMenuClick} weatherOpen={weatherOpen}>
-          날씨
+          {selectedWeather || "날씨"}
         </WeatherButton>
-        {weatherOpen && <WeatherMenu />}
-
+        {weatherOpen && (
+          <WeatherMenu onWeatherSelect={handleWeatherDropdownSelect} />
+        )}
         <MoodButton onClick={moodMenuClick} moodOpen={moodOpen}>
-          기분
+          {selectedMood || "기분"}
         </MoodButton>
-        {moodOpen && <MoodMenu />}
+        {moodOpen && <MoodMenu onMoodSelect={handleMoodDropdownSelect} />}
         <DateDisplay>{currentDate.toLocaleDateString()}</DateDisplay>
       </StateButtonContainer>
       <DiaryContainer>
@@ -76,11 +110,14 @@ const WritingPage = () => {
           onChange={handleDiaryChange}
         />
         <DiaryButtonContainer>
-          <CancelButton onClick={() => navigate("/MainHomePage")}>
+          <CancelButton
+            onClick={() => setDiaryText("")}
+            isWritingComplete={isWritingComplete}
+          >
             취소하기
           </CancelButton>
           <CompleteButton
-            onClick={onClickCompleteWriting}
+            onClick={handleWritingComplete}
             isWritingComplete={isWritingComplete}
           >
             작성완료
@@ -116,13 +153,6 @@ const WritingTitleContainer = styled.div`
   justify-content: center;
   font-size: large;
 `;
-
-const HomepageBackButton = styled.button`
-  cursor: pointer;
-  display: flex;
-  /* margin-right: 80%; */
-`;
-
 const ImageContainer = styled.div`
   border: 2px solid black;
   width: 700px;
@@ -130,12 +160,74 @@ const ImageContainer = styled.div`
   margin-top: 30px;
 `;
 
-const LogoImage = styled.img`
-  width: 250px;
-  height: 200px;
-  cursor: pointer;
+const ModalButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 `;
 
+const ModalButton = styled.button`
+  cursor: pointer;
+  font-size: large;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  height: 30px;
+  width: 100px;
+  &:hover {
+    background-color: lightgray;
+  }
+`;
+
+const ImageModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+`;
+
+const ModalContent = styled.div`
+  background-color: white;
+  padding: 20px;
+  width: 500px;
+  height: 600px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  z-index: 1;
+`;
+
+const ModalImage = styled.img`
+  max-width: 100%;
+  max-height: 400px;
+`;
+
+//이미지 추가하기 버튼
+const UploadButton = styled.button`
+  cursor: pointer;
+  font-size: large;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  height: 30px;
+  width: 150px;
+  &:hover {
+    background-color: lightgray;
+  }
+`;
 const StateButtonContainer = styled.div`
   width: 700px;
   height: 30px;
@@ -154,11 +246,12 @@ const WeatherButton = styled.button`
   justify-content: center;
   align-items: center;
   /* border: 1px solid black; */
-  background-color: ${({ weatherOpen }) =>
-    weatherOpen ? "lightgray" : "transparent"};
+  /* background-color: ${({ weatherOpen }) =>
+    weatherOpen ? "lightgray" : "transparent"}; */
   transition: background-color 0.3s;
 `;
 
+//기분 버튼
 const MoodButton = styled.button`
   cursor: pointer;
   margin-left: 10px;
@@ -168,10 +261,11 @@ const MoodButton = styled.button`
   height: 30px;
   justify-content: center;
   align-items: center;
-  /* border-radius: 8px; */
-  background-color: ${({ moodOpen }) =>
-    moodOpen ? "lightgray" : "transparent"};
+  border-radius: 8px;
   transition: background-color 0.3s;
+  &:hover {
+    background-color: lightgray;
+  }
 `;
 
 const DateDisplay = styled.div`

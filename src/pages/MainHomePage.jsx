@@ -169,7 +169,6 @@ const CardsContainer = styled.div`
   align-items: center;
   border: 2px solid black;
 `;
-
 const TitleWrapper = styled.div`
   display: flex;
   margin: auto;
@@ -190,7 +189,6 @@ const EveryButtons = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
 const Title = styled.h1`
   text-align: center;
 `;
@@ -203,10 +201,8 @@ const WritingButton = styled.div`
   height: 30px;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
   border-radius: 8px;
   margin-right: 75%;
-
   &:hover {
     background-color: lightgray;
   }
@@ -215,25 +211,29 @@ const WritingButton = styled.div`
 const NewButton = styled.div`
   cursor: pointer;
   display: flex;
-  border: 1px solid black;
   border-radius: 8px;
   margin-right: 20px;
   align-items: center;
   justify-content: center;
   width: 60px;
   height: 30px;
+  &:hover {
+    background-color: lightgray;
+  }
 `;
 
 const PopulerButton = styled.div`
   cursor: pointer;
   display: flex;
-  border: 1px solid black;
   border-radius: 8px;
   margin-right: 20px;
   align-items: center;
   justify-content: center;
   width: 60px;
   height: 30px;
+  &:hover {
+    background-color: lightgray;
+  }
 `;
 
 const CardsContent = styled.div`
@@ -262,7 +262,6 @@ const CardsItems = styled.ul`
   overflow: hidden;
   border: 2px solid black;
 `;
-
 const CardItem = styled.li`
   display: flex;
   flex: 0 0 calc(33.33% - 2rem);
@@ -277,8 +276,8 @@ const CardLink = styled(Link)`
   border: 2px solid black;
   overflow: hidden;
   text-decoration: none;
+  decoration: none;
 `;
-
 const CardPicWrap = styled.figure`
   position: relative;
   width: 80%;
