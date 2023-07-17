@@ -2,10 +2,10 @@ import React from "react";
 
 import CommentCard from "./CommentCard";
 
-const CommentList = ({ name, content }) => {
+const CommentList = ({ commentId, name, content }) => {
   return (
     <>
-      <CommentCard name={name} content={content} />
+      <CommentCard commentId={commentId} name={name} content={content} />
     </>
   );
 };

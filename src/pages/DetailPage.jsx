@@ -24,6 +24,7 @@ const DetailPage = () => {
         const init = [];
         res.data.map((e) => {
           init.push({
+            commentId: e.commentId,
             username: e.username,
             content: e.content,
           });
@@ -61,6 +62,7 @@ const DetailPage = () => {
       const init = [];
       res.data.map((e) => {
         init.push({
+          commentId: e.commentId,
           username: e.username,
           content: e.content,
         });
@@ -112,7 +114,12 @@ const DetailPage = () => {
           {messageList.map((e, k) => {
             return (
               <>
-                <CommentList key={k} name={e.username} content={e.content} />
+                <CommentList
+                  key={k}
+                  commentId={e.commentId}
+                  name={e.username}
+                  content={e.content}
+                />
               </>
             );
           })}

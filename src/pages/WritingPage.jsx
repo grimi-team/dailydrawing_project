@@ -241,13 +241,17 @@ const WeatherButton = styled.button`
   cursor: pointer;
   font-size: large;
   display: flex;
-  width: 50px;
+  width: auto;
   height: 30px;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid black; */
-  /* background-color: ${({ weatherOpen }) =>
-    weatherOpen ? "lightgray" : "transparent"}; */
+  border-radius: 8px;
+  border: 1px solid black;
+  background-color: ${({ weatherOpen }) =>
+    weatherOpen ? "lightgray" : "transparent"};
+  &:hover {
+    background-color: lightgray;
+  }
   transition: background-color 0.3s;
 `;
 

@@ -276,8 +276,8 @@ const CardLink = styled(Link)`
   border: 2px solid black;
   overflow: hidden;
   text-decoration: none;
-  decoration: none;
 `;
+
 const CardPicWrap = styled.figure`
   position: relative;
   width: 80%;
