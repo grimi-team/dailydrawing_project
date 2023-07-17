@@ -27,13 +27,13 @@ const AccountPage = () => {
   const doubleCheckOnClick = async (event) => {
     event.preventDefault();
     try {
-      const res = await instance.post("/api/user/signup/address", {
-        address: "hello123",
+      const res = await instance.post("/api/auth/signup", {
+        username: "kxt0s4",
+        password: "L=Cf]#,P4MBvXhg",
       });
       console.log(res);
-      document.cookie = `accessToken=${res.headers.accesstoken}; path=/;`;
     } catch (error) {
-      // setErrorMsg(error.response.data.message);
+      console.log(error);
     }
   };
 
@@ -41,13 +41,11 @@ const AccountPage = () => {
   const createOnclick = async (event) => {
     event.preventDefault();
     try {
-      const res = await instance.post("/api/user/signup", {
-        address: "hello123",
-        password: "Tkfjf12345",
-        username: "myengjin123",
+      const res = await instance.post("/api/auth/signup", {
+        username: "kxt0s4",
+        password: "L=Cf]#,P4MBvXhg",
       });
       console.log(res);
-      // document.cookie = `accessToken=${res.headers.accesstoken}; path=/;`;
     } catch (error) {
       // setErrorMsg(error.response.data.message);
     }

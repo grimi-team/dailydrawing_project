@@ -33,6 +33,9 @@ export const __postRegister = createAsyncThunk(
   }
 );
 
+// 댓글 삭제할 때, commentList 리덕스에 저장하고 전역에서 꺼내준다.
+export const __deleteComment = createAsyncThunk("");
+
 const initialState = {
   isLoading: false,
   isError: false,

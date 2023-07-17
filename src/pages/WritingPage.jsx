@@ -45,7 +45,7 @@ const WritingPage = () => {
 
   const handleWritingComplete = () => {
     setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
-    navigate('/MainHomePage');
+    navigate("/MainHomePage");
   };
 
   const handleImageSelect = (event) => {
@@ -62,7 +62,6 @@ const WritingPage = () => {
     navigate(-1);
   };
 
-
   return (
     <EntireContainer>
       <WritingTitleContainer>그림일기 쓰는 중!</WritingTitleContainer>
@@ -70,7 +69,10 @@ const WritingPage = () => {
         {selectedImage && (
           <>
             <ModalImageButton onClick={() => setIsModalOpen(true)}>
-              <SelectedImage src={URL.createObjectURL(selectedImage)} alt="Selected Image" />
+              <SelectedImage
+                src={URL.createObjectURL(selectedImage)}
+                alt="Selected Image"
+              />
             </ModalImageButton>
             <ImageModal style={{ display: isModalOpen ? "flex" : "none" }}>
               <ModalContent>
@@ -100,7 +102,9 @@ const WritingPage = () => {
         <WeatherButton onClick={weatherMenuClick} weatherOpen={weatherOpen}>
           {selectedWeather || "날씨"}
         </WeatherButton>
-        {weatherOpen && <WeatherMenu onWeatherSelect={handleWeatherDropdownSelect} />}
+        {weatherOpen && (
+          <WeatherMenu onWeatherSelect={handleWeatherDropdownSelect} />
+        )}
         <MoodButton onClick={moodMenuClick} moodOpen={moodOpen}>
           {selectedMood || "기분"}
         </MoodButton>
@@ -184,9 +188,9 @@ const ModalButtonContainer = styled.div`
 const ModalImageButton = styled.button`
   cursor: pointer;
   display: flex;
-   width: 100%;
-   height:100%;
-`
+  width: 100%;
+  height: 100%;
+`;
 
 const ModalButton = styled.button`
   cursor: pointer;
@@ -263,15 +267,24 @@ const WeatherButton = styled.button`
   font-size: large;
   display: flex;
   width: auto;
+  width: auto;
   height: 30px;
   justify-content: center;
   align-items: center;
-   border-radius: 8px;
+  border-radius: 8px;
+  border: 1px solid black;
+  background-color: ${({ weatherOpen }) =>
+    weatherOpen ? "lightgray" : "transparent"};
+  &:hover {
+    background-color: lightgray;
+  }
+  border-radius: 8px;
   /* border: 1px solid black; */
   /* background-color: ${({ weatherOpen }) =>
     weatherOpen ? "lightgray" : "transparent"}; */
-      &:hover {
-    background-color: lightgray;}
+  &:hover {
+    background-color: lightgray;
+  }
   transition: background-color 0.3s;
 `;
 

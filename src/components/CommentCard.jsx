@@ -1,14 +1,41 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../images/logo.png";
+import axios from "axios";
+import { instance } from "../pages/LogInPage";
 
-const CommentCard = ({ name, content }) => {
+const CommentCard = ({ commentId, name, content }) => {
   const [editOpen, setEditOpen] = useState(false);
 
   const editMenuClick = () => {
     setEditOpen(!editOpen);
   };
 
+  const modifyMenuClick = async (event) => {
+    event.preventDefault();
+    try {
+      const res = await instance.put("/api/user/signup/address", {
+        address: "hello123",
+      });
+      console.log(res);
+    } catch (error) {
+      // setErrorMsg(error.response.data.message);
+    }
+  };
+
+  const deleteMenuClick = async (event) => {
+    // /api/food/{foodId}/comment/{commentId}
+    // foodId = 1
+    event.preventDefault();
+    try {
+      console.log(commentId);
+      const res = await instance.delete(`/api/food/1/comment/${commentId}`);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      // setErrorMsg(error.response.data.message);
+    }
+  };
   return (
     <CommentCardContainer>
       <ProfileImage src={logo} alt="logo"></ProfileImage>
@@ -20,8 +47,8 @@ const CommentCard = ({ name, content }) => {
 
       {editOpen && (
         <EditMenuContainer>
-          <ModifyMenu>수정</ModifyMenu>
-          <DeleteMenu>삭제</DeleteMenu>
+          <ModifyMenuButton onClick={modifyMenuClick}>수정</ModifyMenuButton>
+          <DeleteMenuButton onClick={deleteMenuClick}>삭제</DeleteMenuButton>
         </EditMenuContainer>
       )}
     </CommentCardContainer>
@@ -75,11 +102,11 @@ const EditMenuContainer = styled.div`
   z-index: 999;
 `;
 
-const ModifyMenu = styled.button`
+const ModifyMenuButton = styled.button`
   cursor: pointer;
 `;
 
-const DeleteMenu = styled.div`
+const DeleteMenuButton = styled.div`
   cursor: pointer;
   padding-top: 5px;
 `;

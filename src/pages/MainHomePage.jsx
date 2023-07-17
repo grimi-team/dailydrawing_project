@@ -288,6 +288,7 @@ const CardLink = styled(Link)`
   overflow: hidden;
   text-decoration: none;
 `;
+
 const CardPicWrap = styled.figure`
   position: relative;
   width: 80%;
