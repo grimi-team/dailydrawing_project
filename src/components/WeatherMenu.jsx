@@ -22,9 +22,26 @@ const WeatherMenu = ({ onWeatherSelect }) => {
       {weatherItems.map((item, index) => (
         <WeatherItem
           key={index}
-          onClick={() => handleWeatherSelect(<><img src={item.image} width="40px" height="40px" alt={item.weather} /><p>{item.weather}</p></>)}
+          onClick={() =>
+            handleWeatherSelect(
+              <>
+                <img
+                  src={item.image}
+                  width="40px"
+                  height="40px"
+                  alt={item.weather}
+                />
+                <p>{item.weather}</p>
+              </>
+            )
+          }
         >
-          <img src={item.image} width="40px" height="40px" alt={item.weather}></img>
+          <img
+            src={item.image}
+            width="40px"
+            height="40px"
+            alt={item.weather}
+          ></img>
           {item.weather}
         </WeatherItem>
       ))}

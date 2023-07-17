@@ -19,14 +19,14 @@ const DetailPage = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        const res = await instance.get("/api/food/1/comment");
+        const res = await instance.get("/api/comments");
         console.log(res.data);
         const init = [];
         res.data.map((e) => {
           init.push({
-            commentId: e.commentId,
-            username: e.username,
-            content: e.content,
+            id: 0,
+            content: "string",
+            userName: "string",
           });
         });
         setMessageList(init);
@@ -55,22 +55,22 @@ const DetailPage = () => {
   const onClickCommentPlus = async (event) => {
     event.preventDefault();
     try {
-      const res = await instance.post("/api/food/1/comment", {
+      const res = await instance.post("/api/comments", {
         content: userComment,
       });
       console.log(res.data);
       const init = [];
       res.data.map((e) => {
         init.push({
-          commentId: e.commentId,
-          username: e.username,
-          content: e.content,
+          content: "string",
+          userId: 0,
+          postId: 0,
         });
       });
+      // document.cookie = `accessToken=${res.headers.accesstoken}; path=/;`;
       setMessageList(init);
     } catch (error) {
       console.log(error);
-      // setErrorMsg(error.response.data.message);
     }
   };
   return (
@@ -225,6 +225,8 @@ const CommentsContainer = styled.form`
 
 const CommentPlusContainer = styled.div`
   display: flex;
+  width: 700px;
+  justify-content: space-between;
 `;
 
 const CommentPlusbutton = styled.button`
