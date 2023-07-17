@@ -53,30 +53,26 @@ const WritingPage = () => {
     setIsModalOpen(true);
   };
 
-
   const handleImageConfirm = () => {
     setIsModalOpen(false);
   };
 
-
-
   return (
     <EntireContainer>
-      <TopEveryButton>
-        <BackButton onClick={() => navigate(-1)}>
-          뒤로 가기
-        </BackButton>
-        <AllInput>전체 저장하기</AllInput>
-      </TopEveryButton>
+      <WritingTitleContainer>그림일기 쓰는 중!</WritingTitleContainer>
       <ImageContainer>
         {selectedImage && (
           <>
-            <ModalButton onClick={() => setIsModalOpen(true)}>이미지 보기</ModalButton>
+            <ModalButton onClick={() => setIsModalOpen(true)}>
+              이미지 보기
+            </ModalButton>
             <ImageModal style={{ display: isModalOpen ? "flex" : "none" }}>
               <ModalContent>
                 <ModalImage src={URL.createObjectURL(selectedImage)} />
                 <ModalButtonContainer>
-                  <ModalButton onClick={() => fileInputRef.current.click()}>수정 </ModalButton>
+                  <ModalButton onClick={() => fileInputRef.current.click()}>
+                    수정{" "}
+                  </ModalButton>
                   <ModalButton onClick={handleImageConfirm}>확인</ModalButton>
                 </ModalButtonContainer>
               </ModalContent>
@@ -90,25 +86,21 @@ const WritingPage = () => {
           onChange={handleImageSelect}
           style={{ display: "none" }}
         />
-        <UploadButton onClick={() => fileInputRef.current.click()}>이미지 추가하기</UploadButton>
+        <UploadButton onClick={() => fileInputRef.current.click()}>
+          이미지 추가하기
+        </UploadButton>
       </ImageContainer>
       <StateButtonContainer>
-        <WeatherButton
-          onClick={weatherMenuClick}
-          weatherOpen={weatherOpen}
-        >
+        <WeatherButton onClick={weatherMenuClick} weatherOpen={weatherOpen}>
           {selectedWeather || "날씨"}
         </WeatherButton>
         {weatherOpen && (
           <WeatherMenu onWeatherSelect={handleWeatherDropdownSelect} />
         )}
-        <MoodButton
-          onClick={moodMenuClick}
-          moodOpen={moodOpen}
-        >
+        <MoodButton onClick={moodMenuClick} moodOpen={moodOpen}>
           {selectedMood || "기분"}
         </MoodButton>
-        {moodOpen && (<MoodMenu onMoodSelect={handleMoodDropdownSelect} />)}
+        {moodOpen && <MoodMenu onMoodSelect={handleMoodDropdownSelect} />}
         <DateDisplay>{currentDate.toLocaleDateString()}</DateDisplay>
       </StateButtonContainer>
       <DiaryContainer>
@@ -122,7 +114,8 @@ const WritingPage = () => {
             onClick={() => setDiaryText("")}
             isWritingComplete={isWritingComplete}
           >
-            취소하기</CancelButton>
+            취소하기
+          </CancelButton>
           <CompleteButton
             onClick={handleWritingComplete}
             isWritingComplete={isWritingComplete}
@@ -135,66 +128,36 @@ const WritingPage = () => {
   );
 };
 
-
 const EntireContainer = styled.div`
-border: 3px solid black;
-/* border-radius: 8px; */
-width: 700px;
-height: 900px;
-margin: auto;
-margin-top: 50px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 5%;
+  border: 3px solid black;
+  width: 800px;
+  height: 1000px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
 `;
 
-//뒤로가기 버튼과 전체 저장하기 버튼 박스
-const TopEveryButton = styled.div`
-width: 500px;
-height: 50px;
-display: flex;
-position: relative;
-align-items: center;
-`
-//뒤로 가기 버튼
-const BackButton = styled.button`
-  cursor: pointer;
+const WritingTitleContainer = styled.div`
+  width: 700px;
+  height: 60px;
+  border: 2px solid black;
+  margin-top: 30px;
   font-size: large;
-  border-radius: 8px;
+  display: flex;
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-right: 60%;
-  height: 30px;
-  width: 100px;
-   &:hover {
-  background-color: lightgray;}
-`
-
-//전체 저장 버튼
-const AllInput = styled.button`
-  cursor: pointer;
   font-size: large;
-  border-radius: 8px;
-  display: flex;
-  height: 30px;
-  width: 100px;
-  justify-content: center;
-  align-items: center;
-   &:hover {
-  background-color: lightgray;}
-`
-
+`;
 const ImageContainer = styled.div`
-border: 2px solid black;
-width: 500px;
-height: 500px;
-display: flex;
-position: relative;
-align-items: center;
-justify-content: center;
+  border: 2px solid black;
+  width: 700px;
+  height: 500px;
+  margin-top: 30px;
 `;
 
 const ModalButtonContainer = styled.div`
@@ -202,7 +165,7 @@ const ModalButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-`
+`;
 
 const ModalButton = styled.button`
   cursor: pointer;
@@ -217,7 +180,7 @@ const ModalButton = styled.button`
   &:hover {
     background-color: lightgray;
   }
-`
+`;
 
 const ImageModal = styled.div`
   position: fixed;
@@ -265,44 +228,44 @@ const UploadButton = styled.button`
     background-color: lightgray;
   }
 `;
-
-
 const StateButtonContainer = styled.div`
-width: 500px;
-height: 30px;
-display: flex;
-margin-top: 20px;
-position: relative;
+  width: 700px;
+  height: 30px;
+  display: flex;
+  margin-top: 20px;
+  position: relative;
+  /* border: 1px solid black; */
 `;
 
 const WeatherButton = styled.button`
-cursor: pointer;
-font-size: large;
-display: flex;
-width: 50px;
-height: 30px;
-justify-content: center;
-border-radius: 8px;
-align-items: center;
- &:hover {
-background-color: lightgray;}
-transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: large;
+  display: flex;
+  width: 50px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+  /* background-color: ${({ weatherOpen }) =>
+    weatherOpen ? "lightgray" : "transparent"}; */
+  transition: background-color 0.3s;
 `;
 
 //기분 버튼
 const MoodButton = styled.button`
-cursor: pointer;
-margin-left: 10px;
-font-size: large;
-display: flex;
-width: 50px;
-height: 30px;
-justify-content: center;
-align-items: center;
-border-radius: 8px;
-transition: background-color 0.3s;
- &:hover {
-background-color: lightgray;}
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: large;
+  display: flex;
+  width: 50px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: lightgray;
+  }
 `;
 
 const DateDisplay = styled.div`
@@ -312,42 +275,43 @@ const DateDisplay = styled.div`
 `;
 
 const DiaryContainer = styled.div`
-margin-top: 20px;
+  margin-top: 20px;
 `;
 
 const DiaryInput = styled.input`
-border: 2px solid black;
-/* border-radius: 8px; */
-width: 500px;
-height: 150px;
+  border: 2px solid black;
+  /* border-radius: 8px; */
+  width: 700px;
+  height: 180px;
 `;
 
 const DiaryButtonContainer = styled.div`
-width: 500px;
-margin-top: 20px;
-display: flex;
-justify-content: space-between;
+  width: 700px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const CancelButton = styled.button`
-cursor: pointer;
-background-color: ${({ isWritingComplete }) =>
+  cursor: pointer;
+  font-size: large;
+  background-color: ${({ isWritingComplete }) =>
     isWritingComplete ? "gray" : "transparent"};
-color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
-transition: background-color 0.3s, transform 0.3s;
-transform: ${({ isWritingComplete }) =>
+  color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
+  transition: background-color 0.3s, transform 0.3s;
+  transform: ${({ isWritingComplete }) =>
     isWritingComplete ? "scaleX(1.2)" : "scaleX(1)"};
 `;
 
 const CompleteButton = styled.button`
-cursor: pointer;
-background-color: ${({ isWritingComplete }) =>
+  cursor: pointer;
+  font-size: large;
+  background-color: ${({ isWritingComplete }) =>
     isWritingComplete ? "gray" : "transparent"};
-color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
-transition: background-color 0.3s, transform 0.3s;
-transform: ${({ isWritingComplete }) =>
+  color: ${({ isWritingComplete }) => (isWritingComplete ? "white" : "black")};
+  transition: background-color 0.3s, transform 0.3s;
+  transform: ${({ isWritingComplete }) =>
     isWritingComplete ? "scaleX(1.2)" : "scaleX(1)"};
 `;
 
 export default WritingPage;
-

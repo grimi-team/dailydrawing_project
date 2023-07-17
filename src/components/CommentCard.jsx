@@ -50,8 +50,10 @@ const CommentContents = styled.div`
   margin-left: 30px;
 `;
 const EditChangeButtonContainer = styled.div`
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
+  margin-left: auto;
+  padding-right: 10px;
 `;
 const EditChangeButton = styled.button`
   cursor: pointer;
