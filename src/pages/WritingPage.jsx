@@ -3,6 +3,8 @@ import styled from "styled-components";
 import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { instance } from "./LogInPage";
 
 const WritingPage = () => {
   const navigate = useNavigate();
@@ -43,13 +45,29 @@ const WritingPage = () => {
     setIsWritingComplete(!!event.target.value);
   };
 
-  const handleWritingComplete = () => {
+  const handleWritingComplete = async (event) => {
     setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
+    event.preventDefault();
+    try {
+      const res = await instance.post("/api/post", {
+        request: {
+          title: "제목",
+          content: diaryText,
+          mood: selectedMood,
+          weather: selectedWeather,
+        },
+        image: selectedImage,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
     navigate("/MainHomePage");
   };
 
   const handleImageSelect = (event) => {
-    const file = event.target.files[0];
+    const formData = new FormData(); // formData 생성
+    const file = formData.append("image", event.target.files[0]); // 이미지 파일 값 할당
     setSelectedImage(file);
     setIsModalOpen(true);
   };
@@ -89,7 +107,7 @@ const WritingPage = () => {
         )}
         <input
           type="file"
-          accept="image/*"
+          accept="image/jpg, image/jpeg, image/png"
           ref={fileInputRef}
           onChange={handleImageSelect}
           style={{ display: "none" }}
@@ -112,10 +130,12 @@ const WritingPage = () => {
         <DateDisplay>{currentDate.toLocaleDateString()}</DateDisplay>
       </StateButtonContainer>
       <DiaryContainer>
+        <TitleInput type="text" placeholder="제목" />
         <DiaryInput
           type="text"
           value={diaryText}
           onChange={handleDiaryChange}
+          placeholder="내용을 입력해주세요!"
         />
         <DiaryButtonContainer>
           <CancelButton
@@ -125,7 +145,9 @@ const WritingPage = () => {
             취소하기
           </CancelButton>
           <CompleteButton
-            onClick={handleWritingComplete}
+            onClick={(e) => {
+              handleWritingComplete(e);
+            }}
             isWritingComplete={isWritingComplete}
           >
             작성완료
@@ -272,7 +294,6 @@ const WeatherButton = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  border: 1px solid black;
   background-color: ${({ weatherOpen }) =>
     weatherOpen ? "lightgray" : "transparent"};
   &:hover {
@@ -313,6 +334,16 @@ const DateDisplay = styled.div`
 
 const DiaryContainer = styled.div`
   margin-top: 20px;
+  /* border: 1px solid black; */
+  width: 700px;
+`;
+
+const TitleInput = styled.input`
+  border: 1px solid black;
+  width: 700px;
+  height: 50px;
+  margin-bottom: 15px;
+  padding-left: 10px;
 `;
 
 const DiaryInput = styled.input`
@@ -320,6 +351,7 @@ const DiaryInput = styled.input`
   /* border-radius: 8px; */
   width: 700px;
   height: 180px;
+  padding-left: 10px;
 `;
 
 const DiaryButtonContainer = styled.div`

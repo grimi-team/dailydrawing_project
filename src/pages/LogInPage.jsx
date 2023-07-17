@@ -10,32 +10,18 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  const accessToken =
-    document.cookie &&
-    document.cookie
-      .split(";")
-      .filter((cookies) => cookies.includes("accessToken"))[0]
-      ?.split("=")[1];
-  // const refreshToken =
-  //   document.cookie &&
-  //   document.cookie
-  //     .split(";")
-  //     .filter((cookies) => cookies.includes("refreshToken"))[0]
-  //     ?.split("=")[1];
+  // 쿠키에 저장된 토큰을 꺼내는 것
+  const accessToken = document.cookie
+    .split(";")
+    .filter((cookies) => cookies.includes("accessToken"))[0]
+    ?.split("=")[1];
+  //헤더에 토큰 담아서 보내기
   if (accessToken) config.headers.accesstoken = accessToken;
-  // if (!accessToken && refreshToken) config.headers.Authorization = refreshToken;
   return config;
 });
-
 instance.interceptors.response.use((config) => {
-  // const expirationDate = new Date();
-  // expirationDate.setHours(expirationDate.getHours() + 1);
-  // expirationDate.setSeconds(expirationDate.getSeconds() + 5);
-  // const expires = expirationDate.toUTCString();
-  config.headers.accesstoken &&
-    (document.cookie = `accessToken=${config.headers.accesstoken}; path=/;`);
-  // config.headers.authorization &&
-  //   (document.cookie = `refreshToken=${config.headers.authorization}; path=/;`);
+  config.headers.authorization &&
+    (document.cookie = `accessToken=${config.headers.authorization}; path=/;`);
   return config;
 });
 
@@ -46,11 +32,10 @@ const LoginPage = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [errorMsgModal, setErrorMsgModal] = useState(false);
   const authorization = useSelector((state) => state.authorization);
-
+  const Cookie = document.cookie;
   const onChangeUserName = (event) => {
     setUserName(event.target.value);
   };
-
   const onChangePassword = (event) => {
     setPassword(event.target.value);
   };
@@ -60,21 +45,10 @@ const LoginPage = () => {
   const LoginSubmitHandler = async (event) => {
     event.preventDefault();
     try {
-      // await axios.post("/http")
-      const res = await instance.post(
-        "/api/auth/login",
-        {
-          username: "kxt0s4",
-          password: "L=Cf]#,P4MBvXhg",
-        }
-        // {
-        //   headers: {
-        //     Accept: "*/*",
-        //     Host: "52.79.173.167",
-        //     "User-Agent": "PostmanRuntime/7.32.3",
-        //   },
-        // }
-      ); // response.headers.authorization; // accessToken 추출
+      const res = await instance.post("/api/auth/login", {
+        username: "kxt0s4",
+        password: "L=Cf]#,P4MBvXhg",
+      });
       console.log(res);
       // Set Cookies
       // console.log(res.headers.accesstoken);
@@ -84,6 +58,8 @@ const LoginPage = () => {
       // document.cookie = `refreshToken=${res.headers?.refreshToken}; path=/;`;
 
       console.log("로그인 성공");
+      // 쿠키에 저장
+
       navigate("/MainHomePage");
     } catch (error) {
       console.log("로그인 실패");
