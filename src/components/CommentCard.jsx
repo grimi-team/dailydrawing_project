@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 
-const CommentCard = () => {
+const CommentCard = ({ name, content }) => {
   const [editOpen, setEditOpen] = useState(false);
 
   const editMenuClick = () => {
@@ -12,9 +12,12 @@ const CommentCard = () => {
   return (
     <CommentCardContainer>
       <ProfileImage src={logo} alt="logo"></ProfileImage>
-      <UserName>유저이름</UserName>
-      <CommentContents>일기가 참 재밌어요오오오오!</CommentContents>
-      <EditChangeButton onClick={editMenuClick}>+</EditChangeButton>
+      <UserName>{name}</UserName>
+      <CommentContents>{content}</CommentContents>
+      <EditChangeButtonContainer>
+        <EditChangeButton onClick={editMenuClick}>+</EditChangeButton>
+      </EditChangeButtonContainer>
+
       {editOpen && (
         <EditMenuContainer>
           <ModifyMenu>수정</ModifyMenu>
@@ -46,22 +49,28 @@ const UserName = styled.div``;
 const CommentContents = styled.div`
   margin-left: 30px;
 `;
-
+const EditChangeButtonContainer = styled.div`
+  border: 1px solid black;
+  display: flex;
+`;
 const EditChangeButton = styled.button`
   cursor: pointer;
-  margin-left: 380px;
+  float: right;
+
   font-size: large;
 `;
 const EditMenuContainer = styled.div`
   border: 2px solid black;
   width: 60px;
-  height: 0px;
+  height: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 110px;
+  margin-top: 100px;
   position: absolute;
+  background-color: white;
   right: 0%;
+  z-index: 999;
 `;
 
 const ModifyMenu = styled.button`

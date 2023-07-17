@@ -39,6 +39,7 @@ const Title = styled.h1`
   text-align: center;
 `;
 
+//새 일기 쓰기
 const WritingButton = styled.div`
   cursor: pointer;
   font-size: large;
@@ -47,10 +48,8 @@ const WritingButton = styled.div`
   height: 30px;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
   border-radius: 8px;
   margin-right: 75%;
-
   &:hover {
 background-color: lightgray;
 }
@@ -62,25 +61,29 @@ background-color: lightgray;
 const NewButton = styled.div`
   cursor: pointer;
   display: flex;
-  border: 1px solid black;
   border-radius: 8px;
   margin-right: 20px;
   align-items: center;
   justify-content: center;
   width: 60px;
   height: 30px;
+    &:hover {
+background-color: lightgray;
+}
 `;
 
 const PopulerButton = styled.div`
   cursor: pointer;
   display: flex;
-  border: 1px solid black;
   border-radius: 8px;
   margin-right: 20px;
   align-items: center;
   justify-content: center;
   width: 60px;
   height: 30px;
+    &:hover {
+background-color: lightgray;
+}
 `
 
 const CardsContent = styled.div`

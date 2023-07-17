@@ -1,11 +1,18 @@
-import React from "react";
 import styled from "styled-components";
 
-const CommentInput = () => {
+const CommentInput = ({ userComment, setUserComment }) => {
+  const onChangeComment = (event) => {
+    setUserComment(event.target.value);
+  };
   return (
-    <div>
-      <CommentsInput type="text" placeholder="댓글을 입력해주세요!" />
-    </div>
+    <>
+      <CommentsInput
+        type="text"
+        placeholder="댓글을 입력해주세요!"
+        onChange={onChangeComment}
+        value={userComment}
+      />
+    </>
   );
 };
 
