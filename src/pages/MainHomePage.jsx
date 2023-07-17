@@ -6,6 +6,8 @@ import { instance } from "./LogInPage";
 
 const MainHomePage = () => {
   const [userName, setUserName] = useState("");
+  const [sortBy, setSortBy] = useState('new'); // 'new' 또는 'popular'
+  const [order, setOrder] = useState('desc'); // 'desc' 또는 'asc'
   const navigate = useNavigate();
   useEffect(() => {
     // Get Cookies
@@ -42,32 +44,17 @@ const MainHomePage = () => {
       src: "",
       text1: "유저이름",
       text2: "제목",
-      path: "/services",
+      likes: 10,
+      comments: 5
     },
     {
       src: "",
       text1: "유저이름",
       text2: "제목",
-      path: "/services",
+      likes: 15,
+      comments: 3
     },
-    {
-      src: "",
-      text1: "유저이름",
-      text2: "제목",
-      path: "/services",
-    },
-    {
-      src: "",
-      text1: "유저이름",
-      text2: "제목",
-      path: "/services",
-    },
-    {
-      src: "",
-      text1: "유저이름",
-      text2: "제목",
-      path: "/services",
-    },
+
   ];
 
   const deleteCookie = (cookieName) => {
@@ -85,6 +72,26 @@ const MainHomePage = () => {
       console.log(e);
     }
   };
+
+
+  // 정렬 기준 변경
+  const handleSelect = (e) => {
+    setSortBy(e.target.value);
+    setOrder('desc'); // 정렬 기준이 변경되면 내림차순으로 초기화
+  };
+
+  // 정렬 기준과 순서에 따라 게시글 정렬
+  const sortedCardData = cardData.sort((a, b) => {
+    if (sortBy === 'new') {
+      return 0; // 최신순은 그대로 유지
+    }
+    // 인기순은 likes 속성을 비교하여 정렬
+    if (order === 'desc') {
+      return b.likes - a.likes;
+    } else {
+      return a.likes - b.likes;
+    }
+  });
 
   return (
     <CardsContainer>
@@ -124,8 +131,8 @@ const MainHomePage = () => {
         <WritingButton onClick={() => navigate("/WritingPage")}>
           새 일기 쓰기
         </WritingButton>
-        <NewButton>최신순</NewButton>
-        <PopulerButton>인기순</PopulerButton>
+        <NewButton value='new' onClick={handleSelect}>최신순</NewButton>
+        <PopulerButton value='popular' onClick={handleSelect}>인기순</PopulerButton>
       </EveryButtons>
 
       <CardsContent>
@@ -147,6 +154,10 @@ const MainHomePage = () => {
                       <br />
                       {item.text2}
                     </CardText>
+                    <CardLikeComment>
+                      좋아요 {item.likes}<br />
+                      댓글 {item.comments}
+                    </CardLikeComment>
                   </CardInfo>
                 </CardLink>
               </CardItem>
@@ -276,7 +287,6 @@ const CardLink = styled(Link)`
   border: 2px solid black;
   overflow: hidden;
   text-decoration: none;
-  decoration: none;
 `;
 const CardPicWrap = styled.figure`
   position: relative;
@@ -297,10 +307,17 @@ const FadeImage = styled.img`
 
 const CardInfo = styled.div`
   padding: 20px 30px 30px;
+  display: flex;
 `;
 
+const CardLikeComment = styled.h5`
+  color: lightgray;
+  margin-top: 15px;
+  margin-left: 60%;
+`
+
 const CardText = styled.h5`
-  color: #252e48;
+  color: black;
   font-size: 18px;
   line-height: 24px;
 `;

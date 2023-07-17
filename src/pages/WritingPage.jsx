@@ -45,6 +45,7 @@ const WritingPage = () => {
 
   const handleWritingComplete = () => {
     setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
+    navigate('/MainHomePage');
   };
 
   const handleImageSelect = (event) => {
@@ -57,15 +58,20 @@ const WritingPage = () => {
     setIsModalOpen(false);
   };
 
+  const handleCancel = () => {
+    navigate(-1);
+  };
+
+
   return (
     <EntireContainer>
       <WritingTitleContainer>그림일기 쓰는 중!</WritingTitleContainer>
       <ImageContainer>
         {selectedImage && (
           <>
-            <ModalButton onClick={() => setIsModalOpen(true)}>
-              이미지 보기
-            </ModalButton>
+            <ModalImageButton onClick={() => setIsModalOpen(true)}>
+              <SelectedImage src={URL.createObjectURL(selectedImage)} alt="Selected Image" />
+            </ModalImageButton>
             <ImageModal style={{ display: isModalOpen ? "flex" : "none" }}>
               <ModalContent>
                 <ModalImage src={URL.createObjectURL(selectedImage)} />
@@ -94,9 +100,7 @@ const WritingPage = () => {
         <WeatherButton onClick={weatherMenuClick} weatherOpen={weatherOpen}>
           {selectedWeather || "날씨"}
         </WeatherButton>
-        {weatherOpen && (
-          <WeatherMenu onWeatherSelect={handleWeatherDropdownSelect} />
-        )}
+        {weatherOpen && <WeatherMenu onWeatherSelect={handleWeatherDropdownSelect} />}
         <MoodButton onClick={moodMenuClick} moodOpen={moodOpen}>
           {selectedMood || "기분"}
         </MoodButton>
@@ -111,7 +115,7 @@ const WritingPage = () => {
         />
         <DiaryButtonContainer>
           <CancelButton
-            onClick={() => setDiaryText("")}
+            onClick={handleCancel}
             isWritingComplete={isWritingComplete}
           >
             취소하기
@@ -147,25 +151,42 @@ const WritingTitleContainer = styled.div`
   border: 2px solid black;
   margin-top: 30px;
   font-size: large;
-  display: flex;
   align-items: center;
   display: flex;
   justify-content: center;
-  font-size: large;
 `;
+
 const ImageContainer = styled.div`
   border: 2px solid black;
   width: 700px;
   height: 500px;
   margin-top: 30px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
 `;
 
+const SelectedImage = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  align-items: center;
+`;
+
+//모달 창 안에 버튼 묶음 박스
 const ModalButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 `;
+
+const ModalImageButton = styled.button`
+  cursor: pointer;
+  display: flex;
+   width: 100%;
+   height:100%;
+`
 
 const ModalButton = styled.button`
   cursor: pointer;
@@ -241,23 +262,26 @@ const WeatherButton = styled.button`
   cursor: pointer;
   font-size: large;
   display: flex;
-  width: 50px;
+  width: auto;
   height: 30px;
   justify-content: center;
   align-items: center;
+   border-radius: 8px;
   /* border: 1px solid black; */
   /* background-color: ${({ weatherOpen }) =>
     weatherOpen ? "lightgray" : "transparent"}; */
+      &:hover {
+    background-color: lightgray;}
   transition: background-color 0.3s;
 `;
 
 //기분 버튼
 const MoodButton = styled.button`
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 15px;
   font-size: large;
   display: flex;
-  width: 50px;
+  width: auto;
   height: 30px;
   justify-content: center;
   align-items: center;
