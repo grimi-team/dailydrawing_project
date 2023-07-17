@@ -5,6 +5,13 @@ import cloudy from "../images/cloudy.png";
 import rain from "../images/rain.png";
 import snow from "../images/snow.png";
 
+const weatherItems = [
+  { weather: "맑음!", image: sun },
+  { weather: "흐림!", image: cloudy },
+  { weather: "비옴!", image: rain },
+  { weather: "눈옴!", image: snow },
+];
+
 const WeatherMenu = ({ onWeatherSelect }) => {
   const handleWeatherSelect = (weather) => {
     onWeatherSelect(weather);
@@ -12,18 +19,15 @@ const WeatherMenu = ({ onWeatherSelect }) => {
 
   return (
     <WeatherItemsContainer>
-      <WeatherItem onClick={() => handleWeatherSelect(<img src={sun} width="40px" height="40px" alt="sun" />)}>
-        <img src={sun} width="40px" height="40px" alt="sun"></img>맑음!
-      </WeatherItem>
-      <WeatherItem onClick={() => handleWeatherSelect(<img src={cloudy} width="40px" height="40px" alt="cloudy" />)}>
-        <img src={cloudy} width="40px" height="40px" alt="cloudy"></img>흐림!
-      </WeatherItem>
-      <WeatherItem onClick={() => handleWeatherSelect(<img src={rain} width="40px" height="40px" alt="rain" />)}>
-        <img src={rain} width="40px" height="40px" alt="rain"></img>비옴!
-      </WeatherItem>
-      <WeatherItem onClick={() => handleWeatherSelect(<img src={snow} width="40px" height="40px" alt="snow" />)}>
-        <img src={snow} width="40px" height="40px" alt="snow"></img>눈옴!
-      </WeatherItem>
+      {weatherItems.map((item, index) => (
+        <WeatherItem
+          key={index}
+          onClick={() => handleWeatherSelect(<><img src={item.image} width="40px" height="40px" alt={item.weather} /><p>{item.weather}</p></>)}
+        >
+          <img src={item.image} width="40px" height="40px" alt={item.weather}></img>
+          {item.weather}
+        </WeatherItem>
+      ))}
     </WeatherItemsContainer>
   );
 };
@@ -39,6 +43,7 @@ const WeatherItemsContainer = styled.div`
 `;
 
 const WeatherItem = styled.div`
+  cursor: pointer;
   width: auto;
   height: 40px;
   display: flex;
@@ -48,4 +53,5 @@ const WeatherItem = styled.div`
     border-radius: 4px;
   }
 `;
+
 export default WeatherMenu;
