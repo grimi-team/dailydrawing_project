@@ -5,19 +5,23 @@ import cloudy from "../images/cloudy.png";
 import rain from "../images/rain.png";
 import snow from "../images/snow.png";
 
-const WeatherMenu = () => {
+const WeatherMenu = ({ onWeatherSelect }) => {
+  const handleWeatherSelect = (weather) => {
+    onWeatherSelect(weather);
+  };
+
   return (
     <WeatherItemsContainer>
-      <WeatherItem>
+      <WeatherItem onClick={() => handleWeatherSelect(<img src={sun} width="40px" height="40px" alt="sun" />)}>
         <img src={sun} width="40px" height="40px" alt="sun"></img>맑음!
       </WeatherItem>
-      <WeatherItem>
+      <WeatherItem onClick={() => handleWeatherSelect(<img src={cloudy} width="40px" height="40px" alt="cloudy" />)}>
         <img src={cloudy} width="40px" height="40px" alt="cloudy"></img>흐림!
       </WeatherItem>
-      <WeatherItem>
+      <WeatherItem onClick={() => handleWeatherSelect(<img src={rain} width="40px" height="40px" alt="rain" />)}>
         <img src={rain} width="40px" height="40px" alt="rain"></img>비옴!
       </WeatherItem>
-      <WeatherItem>
+      <WeatherItem onClick={() => handleWeatherSelect(<img src={snow} width="40px" height="40px" alt="snow" />)}>
         <img src={snow} width="40px" height="40px" alt="snow"></img>눈옴!
       </WeatherItem>
     </WeatherItemsContainer>
