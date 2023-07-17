@@ -6,8 +6,8 @@ import { instance } from "./LogInPage";
 
 const MainHomePage = () => {
   const [userName, setUserName] = useState("");
-  const [sortBy, setSortBy] = useState('new'); // 'new' 또는 'popular'
-  const [order, setOrder] = useState('desc'); // 'desc' 또는 'asc'
+  const [sortBy, setSortBy] = useState("new"); // 'new' 또는 'popular'
+  const [order, setOrder] = useState("desc"); // 'desc' 또는 'asc'
   const navigate = useNavigate();
   useEffect(() => {
     // Get Cookies
@@ -45,16 +45,15 @@ const MainHomePage = () => {
       text1: "유저이름",
       text2: "제목",
       likes: 10,
-      comments: 5
+      comments: 5,
     },
     {
       src: "",
       text1: "유저이름",
       text2: "제목",
       likes: 15,
-      comments: 3
+      comments: 3,
     },
-
   ];
 
   const deleteCookie = (cookieName) => {
@@ -73,20 +72,19 @@ const MainHomePage = () => {
     }
   };
 
-
   // 정렬 기준 변경
   const handleSelect = (e) => {
     setSortBy(e.target.value);
-    setOrder('desc'); // 정렬 기준이 변경되면 내림차순으로 초기화
+    setOrder("desc"); // 정렬 기준이 변경되면 내림차순으로 초기화
   };
 
   // 정렬 기준과 순서에 따라 게시글 정렬
   const sortedCardData = cardData.sort((a, b) => {
-    if (sortBy === 'new') {
+    if (sortBy === "new") {
       return 0; // 최신순은 그대로 유지
     }
     // 인기순은 likes 속성을 비교하여 정렬
-    if (order === 'desc') {
+    if (order === "desc") {
       return b.likes - a.likes;
     } else {
       return a.likes - b.likes;
@@ -98,7 +96,7 @@ const MainHomePage = () => {
       <TitleWrapper>
         <Title>{userName ? userName : "나"}의 그림 일기장</Title>
       </TitleWrapper>
-      <button
+      {/* <button
         onClick={() => {
           deleteCookie("accessToken");
           deleteCookie("refreshToken");
@@ -124,15 +122,19 @@ const MainHomePage = () => {
           height: "30px",
           borderRadius: "20px",
         }}
-      >
-        refrexh 테스트
-      </button>
+      > */}
+      {/* refrexh 테스트
+      </button> */}
       <EveryButtons>
         <WritingButton onClick={() => navigate("/WritingPage")}>
           새 일기 쓰기
         </WritingButton>
-        <NewButton value='new' onClick={handleSelect}>최신순</NewButton>
-        <PopulerButton value='popular' onClick={handleSelect}>인기순</PopulerButton>
+        <NewButton value="new" onClick={handleSelect}>
+          최신순
+        </NewButton>
+        <PopulerButton value="popular" onClick={handleSelect}>
+          인기순
+        </PopulerButton>
       </EveryButtons>
 
       <CardsContent>
@@ -155,7 +157,8 @@ const MainHomePage = () => {
                       {item.text2}
                     </CardText>
                     <CardLikeComment>
-                      좋아요 {item.likes}<br />
+                      좋아요 {item.likes}
+                      <br />
                       댓글 {item.comments}
                     </CardLikeComment>
                   </CardInfo>
@@ -315,7 +318,7 @@ const CardLikeComment = styled.h5`
   color: lightgray;
   margin-top: 15px;
   margin-left: 60%;
-`
+`;
 
 const CardText = styled.h5`
   color: black;
