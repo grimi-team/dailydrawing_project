@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const instance = axios.create({
-  baseURL: "http://3.38.115.190:8080/",
+  baseURL: "http://3.34.144.94:8080/",
 });
 
 instance.interceptors.request.use((config) => {
@@ -16,7 +16,7 @@ instance.interceptors.request.use((config) => {
     .filter((cookies) => cookies.includes("accessToken"))[0]
     ?.split("=")[1];
   //헤더에 토큰 담아서 보내기
-  if (accessToken) config.headers.accesstoken = accessToken;
+  if (accessToken) config.headers.authorization = accessToken;
   return config;
 });
 instance.interceptors.response.use((config) => {
