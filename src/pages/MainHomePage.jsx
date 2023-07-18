@@ -16,76 +16,23 @@ const MainHomePage = () => {
   const [commentCount, setCommentCount] = useState("");
   const [likeCount, setLikeCount] = useState("");
   const [isLiked, setIsLiked] = useState(false);
-  const [cardData, setCardData] = useState([
-    {
-      id: 0,
-      title: "title",
-      image: "image",
-      username: "username",
-      commentCount: 0,
-      likeCount: 0,
-      isLiked: true,
-    },
-    {
-      id: 0,
-      title: "title",
-      image: "image",
-      username: "username",
-      commentCount: 0,
-      likeCount: 0,
-      isLiked: true,
-    },
-  ]);
+  const [cardData, setCardData] = useState([]);
 
   useEffect(() => {
-    const accessToken =
-      (document.cookie &&
-        document.cookie
-          .split(";")
-          .filter((cookies) => cookies.includes("accessToken"))[0]
-          ?.split("=")[1]) ||
-      "";
-
-    const getUsername = async () => {
-      // const res = await instance.get("/api/post", {
-      //   // config : 통신설정을 할 수 있게 꺼내는 객체
-      //   headers: {
-      //     Authorization: accessToken,
-      //   },
-      // });
-
-      // setUserName(res.data.username);
+    const getCardList = async () => {
       try {
-        const res = await instance.get("/api/post", {
-          headers: {
-            Authorization: accessToken,
-          },
-          data: [
-            {
-              id: 0,
-              title: "title",
-              image: "image",
-              username: "username",
-              commentCount: 0,
-              likeCount: 0,
-              isLiked: true,
-            },
-          ],
+        const { data } = await instance.get("/api/post", {
+          sort: "",
+          page: 1,
+          size: 5,
         });
-        setUserName(res.data.username);
+        console.log(data);
+        setCardData(data);
       } catch (error) {
         console.log(error);
       }
     };
-
-    getUsername();
-    /*
-      1) document.cookie && 쿠기가 있으면 (없을 수도 있으니까에 대한 에러처리 빈값)
-      2) .split(";") : accessToken=asdfas;refreshToken=asdfasdfa; 쿠키에 담긴 다양양한 정보를 ; 기준으로 배열
-      3) filter((cookies) => cookies.includes("accessToken")) //  accessToken만 추출
-      4) split("=")[1]; //  accessToken=asdfas 에서 = 기준으로 나누고 [1]에 있는 토큰값만 사용하겠다. 
-      5) setUserName(acctoken); // 상태로 관리하면 되겠죠? 
-    */
+    getCardList();
   }, []);
 
   const deleteCookie = (cookieName) => {
