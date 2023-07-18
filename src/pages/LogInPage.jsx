@@ -33,6 +33,7 @@ const LoginPage = () => {
   const [errorMsgModal, setErrorMsgModal] = useState(false);
   const authorization = useSelector((state) => state.authorization);
   const Cookie = document.cookie;
+
   const onChangeUserName = (event) => {
     setUsername(event.target.value);
   };
@@ -47,7 +48,7 @@ const LoginPage = () => {
     try {
       const res = await instance.post("/api/auth/login", {
         username,
-        password
+        password,
       });
       console.log(res);
       // Set Cookies

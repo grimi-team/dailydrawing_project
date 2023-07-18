@@ -46,6 +46,7 @@ const AccountPage = () => {
         password,
       });
       console.log(res);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

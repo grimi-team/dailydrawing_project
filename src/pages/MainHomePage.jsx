@@ -7,15 +7,38 @@ import Header from "../components/Header";
 import { instance } from "./LogInPage";
 
 const MainHomePage = () => {
-  const [userName, setUserName] = useState("");
+  const [username, setUserName] = useState("");
   const [sortBy, setSortBy] = useState("new");
   const [order, setOrder] = useState("desc");
   const navigate = useNavigate();
 
+  const [title, setTitle] = useState("");
+  const [commentCount, setCommentCount] = useState("");
+  const [likeCount, setLikeCount] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
+  const [cardData, setCardData] = useState([
+    {
+      id: 0,
+      title: "title",
+      image: "image",
+      username: "username",
+      commentCount: 0,
+      likeCount: 0,
+      isLiked: true,
+    },
+    {
+      id: 0,
+      title: "title",
+      image: "image",
+      username: "username",
+      commentCount: 0,
+      likeCount: 0,
+      isLiked: true,
+    },
+  ]);
+
   useEffect(() => {
-    // Get Cookies
-    // document.cookie 모든 걸 다 가져오다보니, accessToken=asdfas;refreshToken=asdfasdfa;
-    const acctoken =
+    const accessToken =
       (document.cookie &&
         document.cookie
           .split(";")
@@ -24,37 +47,36 @@ const MainHomePage = () => {
       "";
 
     const getUsername = async () => {
-      const res = await instance.get("/api/post", {
-        // config : 통신설정을 할 수 있게 꺼내는 객체
-        headers: {
-          AccessToken: acctoken,
-        },
-      });
-      setUserName(res.data.username);
+      // const res = await instance.get("/api/post", {
+      //   // config : 통신설정을 할 수 있게 꺼내는 객체
+      //   headers: {
+      //     Authorization: accessToken,
+      //   },
+      // });
+
+      // setUserName(res.data.username);
       try {
-        const res = await instance.get(
-          "/api/user/getusername",
-          {
-            headers: {
-              AccessToken: acctoken,
+        const res = await instance.get("/api/post", {
+          headers: {
+            Authorization: accessToken,
+          },
+          data: [
+            {
+              id: 0,
+              title: "title",
+              image: "image",
+              username: "username",
+              commentCount: 0,
+              likeCount: 0,
+              isLiked: true,
             },
-          }
-        );
+          ],
+        });
         setUserName(res.data.username);
       } catch (error) {
         console.log(error);
       }
     };
-    const fetchData = async () => {
-      try {
-        const res = await instance.get("/api/data");
-        console.log(res);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
 
     getUsername();
     /*
@@ -65,23 +87,6 @@ const MainHomePage = () => {
       5) setUserName(acctoken); // 상태로 관리하면 되겠죠? 
     */
   }, []);
-
-  const cardData = [
-    {
-      src: "",
-      text1: "유저이름",
-      text2: "제목",
-      likes: 10,
-      comments: 5,
-    },
-    {
-      src: "",
-      text1: "유저이름",
-      text2: "제목",
-      likes: 15,
-      comments: 3,
-    },
-  ];
 
   const deleteCookie = (cookieName) => {
     document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
@@ -121,7 +126,7 @@ const MainHomePage = () => {
   return (
     <CardsContainer>
       <Header
-        userName={userName}
+        userName={username}
         onLogout={() => {
           deleteCookie("accessToken");
           deleteCookie("refreshToken");
@@ -141,7 +146,13 @@ const MainHomePage = () => {
         </PopulerButton>
       </EveryButtons>
 
-      <CardList cardData={sortedCardData} />
+      <CardList
+        cardData={cardData}
+        title={title}
+        commentCount={commentCount}
+        likeCount={likeCount}
+        isLiked={isLiked}
+      />
     </CardsContainer>
   );
 };
