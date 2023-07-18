@@ -4,6 +4,7 @@ import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 // import { instance } from "./LogInPage";
 
 export const { instance } = axios.create({
@@ -21,7 +22,8 @@ const WritingPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const dispatch = useDispatch();
+  const writingPage = useSelector((state) => state.writingPage);
   const fileInputRef = useRef(null);
   //날씨 값 저장 상태변화
   const [selectedWeather, setSelectedWeather] = useState(null);
@@ -29,8 +31,9 @@ const WritingPage = () => {
   const [selectedMood, setSelectedMood] = useState(null);
 
   const handleWeatherDropdownSelect = (weather) => {
-    setSelectedWeather(weather);
-    setWeatherOpen(false);
+    dispatch(setWeatherOpen(false));
+    // setSelectedWeather(weather);
+    // setWeatherOpen(false);
   };
 
   const handleMoodDropdownSelect = (mood) => {
@@ -56,8 +59,8 @@ const WritingPage = () => {
   };
   // 게시글 작성 완료 눌렀을 때 통신
   const handleWritingComplete = async (event) => {
-    setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
     event.preventDefault();
+    setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
     const formData = new FormData();
     formData.append("image", selectedImage);
     formData.append("title", setDiaryTitle);
@@ -162,7 +165,9 @@ const WritingPage = () => {
             취소하기
           </CancelButton>
           <CompleteButton
-            onClick={handleWritingComplete()}
+            onClick={(event) => {
+              handleWritingComplete(event);
+            }}
             isWritingComplete={isWritingComplete}
           >
             작성완료

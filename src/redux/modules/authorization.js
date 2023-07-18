@@ -75,37 +75,6 @@ const authorization = createSlice({
         state.error = action.payload;
       });
   },
-  // extraReducers: {
-  //   //__postLogin promise
-  //   [__postLogin.pending]: (state) => {
-  //     state.isLoading = true;
-  //     state.isError = false;
-  //   },
-  //   [__postLogin.fulfilled]: (state) => {
-  //     state.isLoading = false;
-  //     state.isError = false;
-  //   },
-  //   [__postLogin.rejected]: (state, action) => {
-  //     state.isLoading = false;
-  //     state.isError = true;
-  //     state.error = action.payload;
-  //   },
-
-  //   //__postRegister promise
-  //   [__postRegister.pending]: (state) => {
-  //     state.isLoading = true;
-  //     state.isError = false;
-  //   },
-  //   [__postRegister.fulfilled]: (state) => {
-  //     state.isLoading = false;
-  //     state.isError = false;
-  //   },
-  //   [__postRegister.rejected]: (state, action) => {
-  //     state.isLoading = false;
-  //     state.isError = true;
-  //     state.error = action.payload;
-  //   },
-  // },
 });
 
 export default authorization.reducer;
