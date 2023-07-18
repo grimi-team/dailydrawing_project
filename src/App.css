@@ -29,15 +29,18 @@ button {
   background: transparent;
 }
 
+/* 스크롤바의 스타일을 정의 */
 ::-webkit-scrollbar {
   width: 20px;
   background-color: transparent;
 }
 
+/* 스크롤바의 추적 영역 나타냄 */
 ::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
+/* 스크롤바의 썸네일을 나타내는 요소 */
 ::-webkit-scrollbar-thumb {
   background-color: black;
   border-radius: 25px;

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import CardList from "../components/CardList";
+import Header from "../components/Header";
 import { instance } from "./LogInPage";
 
 const MainHomePage = () => {
@@ -14,11 +16,12 @@ const MainHomePage = () => {
     // Get Cookies
     // document.cookie 모든 걸 다 가져오다보니, accessToken=asdfas;refreshToken=asdfasdfa;
     const acctoken =
-      document.cookie &&
-      document.cookie
-        .split(";")
-        .filter((cookies) => cookies.includes("accessToken"))[0]
-        ?.split("=")[1];
+      (document.cookie &&
+        document.cookie
+          .split(";")
+          .filter((cookies) => cookies.includes("accessToken"))[0]
+          ?.split("=")[1]) ||
+      "";
 
     const getUsername = async () => {
       const res = await instance.get("/api/post", {
@@ -28,6 +31,19 @@ const MainHomePage = () => {
         },
       });
       setUserName(res.data.username);
+      try {
+        const res = await axios.get(
+          "http://1.244.223.183/api/user/getusername",
+          {
+            headers: {
+              AccessToken: acctoken,
+            },
+          }
+        );
+        setUserName(res.data.username);
+      } catch (error) {
+        console.log(error);
+      }
     };
     const fetchData = async () => {
       try {
@@ -39,6 +55,7 @@ const MainHomePage = () => {
     };
 
     fetchData();
+
     getUsername();
     /*
       1) document.cookie && 쿠기가 있으면 (없을 수도 있으니까에 대한 에러처리 빈값)
@@ -73,12 +90,12 @@ const MainHomePage = () => {
 
   const onRefreshToken = async () => {
     try {
-      let testRefesh = await instance.post("/api/food/1/comment", {
+      const testRefresh = await instance.post("/api/food/1/comment", {
         content: "테스트",
       });
-      console.log(testRefesh);
-    } catch (e) {
-      console.log(e);
+      console.log(testRefresh);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -103,38 +120,15 @@ const MainHomePage = () => {
 
   return (
     <CardsContainer>
-      <TitleWrapper>
-        <Title>{userName ? userName : "나"}의 그림 일기장</Title>
-      </TitleWrapper>
-      {/* <button
-        onClick={() => {
+      <Header
+        userName={userName}
+        onLogout={() => {
           deleteCookie("accessToken");
           deleteCookie("refreshToken");
           navigate("/");
         }}
-        style={{
-          width: "100px",
-          backgroundColor: "green",
-          color: "white",
-          height: "30px",
-          borderRadius: "20px",
-        }}
-      >
-        {" "}
-        로그아웃
-      </button>
-      <button
-        onClick={onRefreshToken}
-        style={{
-          width: "100px",
-          backgroundColor: "green",
-          color: "white",
-          height: "30px",
-          borderRadius: "20px",
-        }}
-      > */}
-      {/* refrexh 테스트
-      </button> */}
+        onRefreshToken={onRefreshToken}
+      />
       <EveryButtons>
         <WritingButton onClick={() => navigate("/WritingPage")}>
           새 일기 쓰기
@@ -147,37 +141,7 @@ const MainHomePage = () => {
         </PopulerButton>
       </EveryButtons>
 
-      <CardsContent>
-        <CardsWrapper>
-          <CardsItems>
-            {cardData.map((item, index) => (
-              <CardItem key={index}>
-                <CardLink to="/DetailPage">
-                  <CardPicWrap>
-                    <FadeImage
-                      className="cards__item__img"
-                      alt="DrawingImage"
-                      src={item.src}
-                    />
-                  </CardPicWrap>
-                  <CardInfo>
-                    <CardText>
-                      {item.text1}
-                      <br />
-                      {item.text2}
-                    </CardText>
-                    <CardLikeComment>
-                      좋아요 {item.likes}
-                      <br />
-                      댓글 {item.comments}
-                    </CardLikeComment>
-                  </CardInfo>
-                </CardLink>
-              </CardItem>
-            ))}
-          </CardsItems>
-        </CardsWrapper>
-      </CardsContent>
+      <CardList cardData={sortedCardData} />
     </CardsContainer>
   );
 };
@@ -193,15 +157,6 @@ const CardsContainer = styled.div`
   align-items: center;
   border: 2px solid black;
 `;
-const TitleWrapper = styled.div`
-  display: flex;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid black;
-  width: 1200px;
-  height: 180px;
-`;
 
 const EveryButtons = styled.div`
   border: 2px solid black;
@@ -212,9 +167,6 @@ const EveryButtons = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-const Title = styled.h1`
-  text-align: center;
 `;
 
 const WritingButton = styled.div`
@@ -260,79 +212,4 @@ const PopulerButton = styled.div`
   }
 `;
 
-const CardsContent = styled.div`
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  max-width: 1120px;
-  width: 90%;
-  margin: 0 auto;
-`;
-
-const CardsWrapper = styled.div`
-  position: relative;
-  margin: 50px 0 45px;
-`;
-
-const CardsItems = styled.ul`
-  margin: auto;
-  margin-bottom: 24px;
-  display: flex;
-  flex-wrap: wrap;
-  width: 1200px;
-  height: auto;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  border: 2px solid black;
-`;
-const CardItem = styled.li`
-  display: flex;
-  flex: 0 0 calc(33.33% - 2rem);
-  margin: 1rem;
-  justify-content: center;
-`;
-
-const CardLink = styled(Link)`
-  display: flex;
-  flex-flow: column;
-  width: 100%;
-  border: 2px solid black;
-  overflow: hidden;
-  text-decoration: none;
-`;
-
-const CardPicWrap = styled.figure`
-  position: relative;
-  width: 80%;
-  padding-top: 70%;
-  margin: auto;
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
-`;
-
-const FadeImage = styled.img`
-  animation-name: fade-img;
-  animation-duration: 2s;
-`;
-
-const CardInfo = styled.div`
-  padding: 20px 30px 30px;
-  display: flex;
-`;
-
-const CardLikeComment = styled.h5`
-  color: lightgray;
-  margin-top: 15px;
-  margin-left: 60%;
-`;
-
-const CardText = styled.h5`
-  color: black;
-  font-size: 18px;
-  line-height: 24px;
-`;
 export default MainHomePage;

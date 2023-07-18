@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { instance } from "./LogInPage";
 
 const DetailPage = () => {
-  const [unLike, setUnlike] = useState("");
+  const [unLike, setUnlike] = useState(false);
+  const [likeToken, setLikeToken] = useState(false); // 추가: 좋아요 토큰 상태
   const [errorMsg, setErrorMsg] = useState("");
   const [userComment, setUserComment] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -52,6 +53,31 @@ const DetailPage = () => {
   //     // setErrorMsg(error.response.data.message);
   //   }
   // };
+
+  const handleHeartClick = async () => {
+    if (likeToken) {
+      // 좋아요 취소
+      setUnlike((prevUnlike) => !prevUnlike);
+      setLikeToken(false);
+      try {
+        // 좋아요 토큰을 서버에서 삭제하는 DELETE 요청 또는 다른 적절한 작업 수행
+        await instance.delete("/api/like", { data: { postId: 0 } });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      // 좋아요 추가
+      setUnlike((prevUnlike) => !prevUnlike);
+      setLikeToken(true);
+      try {
+        // 좋아요 토큰을 서버에 저장하는 POST 요청
+        await instance.post("/api/like", { postId: 0 });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   const onClickCommentPlus = async (event) => {
     event.preventDefault();
     try {
@@ -87,8 +113,13 @@ const DetailPage = () => {
         <DiaryTitleContainer>
           <DiaryTitle>제목</DiaryTitle>
           <DiaryButtons>
-            <HeartButton>
-              <img src={heart} width="30px" height="30px" alt="heart"></img>
+            <HeartButton onClick={handleHeartClick}>
+              <img
+                src={likeToken ? heart : emptyheart}
+                width="30px"
+                height="30px"
+                alt="heart"
+              />
             </HeartButton>
             <MoodButton>
               <img src={good} width="30px" height="30px" alt="good"></img>
@@ -191,6 +222,11 @@ const DiaryButtons = styled.div`
 
 const HeartButton = styled.button`
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 30px;
+  height: 30px;
 `;
 
 const MoodButton = styled.div`
