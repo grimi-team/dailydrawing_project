@@ -33,8 +33,9 @@ const LoginPage = () => {
   const [errorMsgModal, setErrorMsgModal] = useState(false);
   const authorization = useSelector((state) => state.authorization);
   const Cookie = document.cookie;
+
   const onChangeUserName = (event) => {
-    seru(event.target.value);
+    setUsername(event.target.value);
   };
   const onChangePassword = (event) => {
     setPassword(event.target.value);
@@ -46,8 +47,8 @@ const LoginPage = () => {
     event.preventDefault();
     try {
       const res = await instance.post("/api/auth/login", {
-        username: "kxt0s4",
-        password: "L=Cf]#,P4MBvXhg",
+        username,
+        password,
       });
       console.log(res);
       // Set Cookies
@@ -82,7 +83,7 @@ const LoginPage = () => {
         <LogInTitle>로그인</LogInTitle>
         <LogInForm onSubmit={LoginSubmitHandler}>
           <div>아이디</div>
-          <IdInput type="text" onChange={onChangeUserName} value={userName} />
+          <IdInput type="text" onChange={onChangeUserName} value={username} />
 
           <br />
           <div>비밀번호</div>
