@@ -32,8 +32,8 @@ const MainHomePage = () => {
       });
       setUserName(res.data.username);
       try {
-        const res = await axios.get(
-          "http://1.244.223.183/api/user/getusername",
+        const res = await instance.get(
+          "/api/user/getusername",
           {
             headers: {
               AccessToken: acctoken,

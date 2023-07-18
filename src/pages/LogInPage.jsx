@@ -27,14 +27,14 @@ instance.interceptors.response.use((config) => {
 
 const LoginPage = () => {
   // const [userInfo, setUserInfo] = useState(null);
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [errorMsgModal, setErrorMsgModal] = useState(false);
   const authorization = useSelector((state) => state.authorization);
   const Cookie = document.cookie;
   const onChangeUserName = (event) => {
-    setUserName(event.target.value);
+    seru(event.target.value);
   };
   const onChangePassword = (event) => {
     setPassword(event.target.value);

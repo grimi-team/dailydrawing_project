@@ -11,11 +11,13 @@ const WritingPage = () => {
 
   const [weatherOpen, setWeatherOpen] = useState(false);
   const [moodOpen, setMoodOpen] = useState(false);
+  const [diaryTitle, setDiaryTitle] = useState("");
   const [diaryText, setDiaryText] = useState("");
   const [isWritingComplete, setIsWritingComplete] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const fileInputRef = useRef(null);
   //날씨 값 저장 상태변화
   const [selectedWeather, setSelectedWeather] = useState(null);
@@ -45,12 +47,15 @@ const WritingPage = () => {
     setIsWritingComplete(!!event.target.value);
   };
 
+  const handleDiaryTitleChange = (event) => {
+    setDiaryTitle(event.target.value);
+  };
   const handleWritingComplete = async (event) => {
     setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
     event.preventDefault();
     const formData = new FormData();
     formData.append("image", selectedImage);
-    formData.append("title", "제목");
+    formData.append("title", setDiaryTitle);
     formData.append("content", diaryText);
     formData.append("mood", selectedMood);
     formData.append("weather", selectedWeather);
@@ -132,7 +137,12 @@ const WritingPage = () => {
         <DateDisplay>{currentDate.toLocaleDateString()}</DateDisplay>
       </StateButtonContainer>
       <DiaryContainer>
-        <TitleInput type="text" placeholder="제목" />
+        <TitleInput
+          type="text"
+          placeholder="제목"
+          value={diaryTitle}
+          onChange={handleDiaryTitleChange}
+        />
         <DiaryInput
           type="text"
           value={diaryText}
@@ -337,7 +347,7 @@ const DiaryContainer = styled.div`
 `;
 
 const TitleInput = styled.input`
-  border: 1px solid black;
+  border: 2px solid black;
   width: 700px;
   height: 50px;
   margin-bottom: 15px;

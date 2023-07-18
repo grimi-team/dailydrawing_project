@@ -28,8 +28,8 @@ const AccountPage = () => {
     event.preventDefault();
     try {
       const res = await instance.post("/api/auth/signup", {
-        username: "kxt0s4",
-        password: "L=Cf]#,P4MBvXhg",
+        username: setUserName,
+        password: setPassword,
       });
       console.log(res);
     } catch (error) {
@@ -42,8 +42,8 @@ const AccountPage = () => {
     event.preventDefault();
     try {
       const res = await instance.post("/api/auth/signup", {
-        username: "kxt0s4",
-        password: "L=Cf]#,P4MBvXhg",
+        username: userName,
+        password: password,
       });
       console.log(res);
     } catch (error) {
