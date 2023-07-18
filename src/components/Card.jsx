@@ -2,23 +2,23 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Card = ({ title, image, username, commentCount, likeCount, isLiked }) => {
+const Card = ({ src, username, title, likes, comments }) => {
   return (
     <CardItem>
       <CardLink to="/DetailPage">
         <CardPicWrap>
-          <FadeImage alt="DrawingImage" image={image} />
+          <FadeImage alt="DrawingImage" src={src} />
         </CardPicWrap>
         <CardInfo>
           <CardText>
-            {title}
-            <br />
             {username}
+            <br />
+            {title}
           </CardText>
           <CardLikeComment>
-            좋아요 {likeCount}
+            좋아요 {likes}
             <br />
-            댓글 {commentCount}
+            댓글 {comments}
           </CardLikeComment>
         </CardInfo>
       </CardLink>

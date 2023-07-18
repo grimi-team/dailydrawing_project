@@ -1,34 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Card from "./Card";
 
-const CardList = ({
-  cardData,
-  title,
-  username,
-  commentCount,
-  likeCount,
-  isLiked,
-}) => {
-  return (
-    <CardsContent>
-      <CardsWrapper>
-        <CardsItems>
-          {cardData.map((item, index) => (
-            <Card
-              key={`${item.id}-${index}`}
-              title={item.title}
-              image={item.text1}
-              username={item.username}
-              commentCount={item.commentCount}
-              likeCount={likeCount}
-              isLiked={isLiked}
-            />
-          ))}
-        </CardsItems>
-      </CardsWrapper>
-    </CardsContent>
-  );
+
+
+const CardList = ({ cardData }) => {
+    return (
+        <CardsContent>
+            <CardsWrapper>
+                <CardsItems>
+                    {cardData.map((item, index) => (
+                        <Card
+                            key={index}
+                            src={item.src}
+                            text1={item.username}
+                            text2={item.title}
+                            likes={item.likes}
+                            comments={item.comments}
+                        />
+                    ))}
+                </CardsItems>
+            </CardsWrapper>
+        </CardsContent>
+    );
 };
 
 const CardsContent = styled.div`
