@@ -10,7 +10,7 @@ const CommentCard = ({ commentId, name, content }) => {
   const editMenuClick = () => {
     setEditOpen(!editOpen);
   };
-
+  // 댓글 수정 기능
   const modifyMenuClick = async (event) => {
     event.preventDefault();
     try {
@@ -19,10 +19,10 @@ const CommentCard = ({ commentId, name, content }) => {
       });
       console.log(res);
     } catch (error) {
-      // setErrorMsg(error.response.data.message);
+      console.log(error);
     }
   };
-
+  //댓글 삭제기능
   const deleteMenuClick = async (event) => {
     event.preventDefault();
     try {
@@ -31,7 +31,6 @@ const CommentCard = ({ commentId, name, content }) => {
       console.log(res);
     } catch (error) {
       console.log(error);
-      // setErrorMsg(error.response.data.message);
     }
   };
   return (

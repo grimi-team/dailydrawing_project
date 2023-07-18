@@ -4,7 +4,7 @@ import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { instance } from "./LogInPage"
+import { instance } from "./LogInPage";
 
 const WritingPage = () => {
   const navigate = useNavigate();
@@ -17,7 +17,8 @@ const WritingPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const dispatch = useDispatch();
+  const writingPage = useSelector((state) => state.writingPage);
   const fileInputRef = useRef(null);
   //날씨 값 저장 상태변화
   const [selectedWeather, setSelectedWeather] = useState(null);
@@ -25,8 +26,9 @@ const WritingPage = () => {
   const [selectedMood, setSelectedMood] = useState(null);
 
   const handleWeatherDropdownSelect = (weather) => {
-    setSelectedWeather(weather);
-    setWeatherOpen(false);
+    dispatch(setWeatherOpen(false));
+    // setSelectedWeather(weather);
+    // setWeatherOpen(false);
   };
 
   const handleMoodDropdownSelect = (mood) => {
@@ -50,30 +52,31 @@ const WritingPage = () => {
   const handleDiaryTitleChange = (event) => {
     setDiaryTitle(event.target.value);
   };
+  // 게시글 작성 완료 눌렀을 때 통신
   const handleWritingComplete = async (event) => {
-    setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
     event.preventDefault();
+    setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
     const formData = new FormData();
     const request = {
       title: "제목",
-      content: "content",//diaryText,
-      mood: "mood",//selectedMood,
-      weather: "weather"//selectedWeather
-    }
-    formData.append("request",
-      new Blob([JSON.stringify(request)], { type: "application/json" }));
-    //json 형태로 변환 
+      content: "content", //diaryText,
+      mood: "mood", //selectedMood,
+      weather: "weather", //selectedWeather
+    };
+    formData.append(
+      "request",
+      new Blob([JSON.stringify(request)], { type: "application/json" })
+    );
+    //json 형태로 변환
     formData.append("image", selectedImage);
     // formData.append ( key , value );
     try {
       // await instance.get | post | patch ("url" , body , option (headers? .. ) )
-      const res = await instance.post("/api/post",
-        formData, {
+      const res = await instance.post("/api/post", formData, {
         headers: {
-          "Content-Type": "multipart/formData"
-        }
-      }
-      );
+          "Content-Type": "multipart/formData",
+        },
+      });
       console.log("success : ", res);
     } catch (error) {
       console.log("error : ", error);
@@ -82,8 +85,6 @@ const WritingPage = () => {
   };
 
   const handleImageSelect = (event) => {
-    // const formData = new FormData(); // formData 생성
-    // const file = formData.append("image", event.target.files[0]); // 이미지 파일 값 할당
     setSelectedImage(event.target.files[0]);
     setIsModalOpen(true);
   };
@@ -166,8 +167,8 @@ const WritingPage = () => {
             취소하기
           </CancelButton>
           <CompleteButton
-            onClick={(e) => {
-              handleWritingComplete(e);
+            onClick={(event) => {
+              handleWritingComplete(event);
             }}
             isWritingComplete={isWritingComplete}
           >

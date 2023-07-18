@@ -28,7 +28,7 @@ const AccountPage = () => {
     event.preventDefault();
     try {
       const res = await instance.post("/api/auth/checkId", {
-        username
+        username,
       });
       console.log(res);
     } catch (error) {

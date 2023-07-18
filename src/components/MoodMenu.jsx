@@ -6,15 +6,15 @@ import soso from "../images/soso.png";
 import bad from "../images/bad.png";
 import angry from "../images/angry.png";
 
-const moodItems = [
-  { mood: "아주 좋아!", image: good },
-  { mood: "조금 좋아!", image: littlegood },
-  { mood: "그럭저럭", image: soso },
-  { mood: "조금 나빠!", image: bad },
-  { mood: "끔찍해!", image: angry },
-];
-
 const MoodMenu = ({ onMoodSelect }) => {
+  const moodItems = [
+    { mood: "아주 좋아!", image: good },
+    { mood: "조금 좋아!", image: littlegood },
+    { mood: "그럭저럭", image: soso },
+    { mood: "조금 나빠!", image: bad },
+    { mood: "끔찍해!", image: angry },
+  ];
+
   const handleMoodSelect = (mood) => {
     onMoodSelect(mood);
   };
@@ -24,9 +24,26 @@ const MoodMenu = ({ onMoodSelect }) => {
       {moodItems.map((item, index) => (
         <MoodItem
           key={index}
-          onClick={() => handleMoodSelect(<><img src={item.image} width="25px" height="25px" alt={item.mood} /><p>{item.mood}</p></>)}
+          onClick={() =>
+            handleMoodSelect(
+              <>
+                <img
+                  src={item.image}
+                  width="25px"
+                  height="25px"
+                  alt={item.mood}
+                />
+                <p>{item.mood}</p>
+              </>
+            )
+          }
         >
-          <img src={item.image} width="25px" height="25px" alt={item.mood}></img>
+          <img
+            src={item.image}
+            width="25px"
+            height="25px"
+            alt={item.mood}
+          ></img>
           {item.mood}
         </MoodItem>
       ))}
