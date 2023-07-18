@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 
 const AccountPage = () => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
 
   const onChangeUserName = (event) => {
-    setUserName(event.target.value);
+    setUsername(event.target.value);
   };
 
   const onChangePassword = (event) => {
@@ -23,27 +23,27 @@ const AccountPage = () => {
     setCheckPassword(event.target.value);
   };
 
-  // 아이디 중복 버튼 눌렀을 때 통신
-  const doubleCheckOnClick = async (event) => {
-    event.preventDefault();
-    try {
-      const res = await instance.post("/api/auth/signup", {
-        username: setUserName,
-        password: setPassword,
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // // 아이디 중복 버튼 눌렀을 때 통신
+  // const doubleCheckOnClick = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const res = await instance.post("/api/auth/signup", {
+  //       userName,
+  //       password
+  //     });
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // 생성 버튼을 눌렀을 때 통신
   const createOnclick = async (event) => {
     event.preventDefault();
     try {
       const res = await instance.post("/api/auth/signup", {
-        username: userName,
-        password: password,
+        username,
+        password,
       });
       console.log(res);
     } catch (error) {
@@ -57,10 +57,10 @@ const AccountPage = () => {
         <AccountTitle>회원가입</AccountTitle>
         <AccountForm>
           <div>아이디</div>
-          <IdInput type="text" onChange={onChangeUserName} value={userName} />
-          <RepeatCheckIdButton onClick={doubleCheckOnClick}>
+          <IdInput type="text" onChange={onChangeUserName} value={username} />
+          {/* <RepeatCheckIdButton onClick={doubleCheckOnClick}>
             중복확인
-          </RepeatCheckIdButton>
+          </RepeatCheckIdButton> */}
           <IdErrorMsg> 사용이 불가능한 아이디 입니다.</IdErrorMsg>
           <br />
           <div>비밀번호</div>

@@ -60,8 +60,8 @@ const DetailPage = () => {
       setUnlike((prevUnlike) => !prevUnlike);
       setLikeToken(false);
       try {
-        // 좋아요 토큰을 서버에서 삭제하는 DELETE 요청 또는 다른 적절한 작업 수행
-        await instance.delete("/api/like", { data: { postId: 0 } });
+        // 좋아요 토큰을 서버에서 삭제하는 DELETE 요청 작업 수행
+        await instance.delete("/api/post/like", { data: { postId: 0 } });
       } catch (error) {
         console.log(error);
       }
@@ -71,7 +71,7 @@ const DetailPage = () => {
       setLikeToken(true);
       try {
         // 좋아요 토큰을 서버에 저장하는 POST 요청
-        await instance.post("/api/like", { postId: 0 });
+        await instance.post("/api/post/like", { postId: 0 });
       } catch (error) {
         console.log(error);
       }
@@ -115,7 +115,7 @@ const DetailPage = () => {
           <DiaryButtons>
             <HeartButton onClick={handleHeartClick}>
               <img
-                src={likeToken ? heart : emptyheart}
+                src={unLike ? heart : emptyheart}
                 width="30px"
                 height="30px"
                 alt="heart"

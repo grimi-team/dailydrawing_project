@@ -4,7 +4,11 @@ import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { instance } from "./LogInPage";
+// import { instance } from "./LogInPage";
+
+export const { instance } = axios.create({
+  baseURL: "http://52.79.173.167:8080/",
+});
 
 const WritingPage = () => {
   const navigate = useNavigate();
@@ -60,10 +64,12 @@ const WritingPage = () => {
     formData.append("mood", selectedMood);
     formData.append("weather", selectedWeather);
     try {
-      const res = await instance.post("/api/post", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const res = await instance.get("/api/post", {
+        title: "제목",
+        content: diaryText,
+        mood: selectedMood,
+        weather: selectedWeather,
+        image: selectedImage,
       });
       console.log(res);
     } catch (error) {
