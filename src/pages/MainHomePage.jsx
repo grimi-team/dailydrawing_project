@@ -17,11 +17,12 @@ const MainHomePage = () => {
   const [likeCount, setLikeCount] = useState("");
   const [isLiked, setIsLiked] = useState(false);
   const [cardData, setCardData] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const getCardList = async () => {
       try {
-        const { data } = await instance.get("/api/post", {
+        const { data } = await instance.get("/api/post/", {
           sort: "",
           page: 1,
           size: 5,
