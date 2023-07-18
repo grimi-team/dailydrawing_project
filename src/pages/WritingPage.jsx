@@ -4,11 +4,7 @@ import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { instance } from "./LogInPage";
-
-export const { instance } = axios.create({
-  baseURL: "http://52.79.173.167:8080/",
-});
+import { instance } from "./LogInPage"
 
 const WritingPage = () => {
   const navigate = useNavigate();
@@ -58,24 +54,31 @@ const WritingPage = () => {
     setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
     event.preventDefault();
     const formData = new FormData();
-    formData.append("image", selectedImage);
-    formData.append("title", setDiaryTitle);
-    formData.append("content", diaryText);
-    formData.append("mood", selectedMood);
-    formData.append("weather", selectedWeather);
-    try {
-      const res = await instance.get("/api/post", {
-        title: "제목",
-        content: diaryText,
-        mood: selectedMood,
-        weather: selectedWeather,
-        image: selectedImage,
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+    const request = {
+      title: "제목",
+      content: "content",//diaryText,
+      mood: "mood",//selectedMood,
+      weather: "weather"//selectedWeather
     }
-    navigate("/MainHomePage");
+    formData.append("request",
+      new Blob([JSON.stringify(request)], { type: "application/json" }));
+    //json 형태로 변환 
+    formData.append("image", selectedImage);
+    // formData.append ( key , value );
+    try {
+      // await instance.get | post | patch ("url" , body , option (headers? .. ) )
+      const res = await instance.post("/api/post",
+        formData, {
+        headers: {
+          "Content-Type": "multipart/formData"
+        }
+      }
+      );
+      console.log("success : ", res);
+    } catch (error) {
+      console.log("error : ", error);
+    }
+    // navigate("/MainHomePage");
   };
 
   const handleImageSelect = (event) => {

@@ -22,13 +22,13 @@ const MainHomePage = () => {
   useEffect(() => {
     const getCardList = async () => {
       try {
-        const { data } = await instance.get("/api/post/", {
+        const res = await instance.get("/api/post", {
           sort: "",
           page: 1,
           size: 5,
         });
-        console.log(data);
-        setCardData(data);
+        console.log(res.data.data);
+        setCardData(res.data.data);
       } catch (error) {
         console.log(error);
       }
