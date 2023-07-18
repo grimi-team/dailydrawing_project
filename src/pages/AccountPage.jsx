@@ -23,19 +23,18 @@ const AccountPage = () => {
     setCheckPassword(event.target.value);
   };
 
-  // // 아이디 중복 버튼 눌렀을 때 통신
-  // const doubleCheckOnClick = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const res = await instance.post("/api/auth/signup", {
-  //       userName,
-  //       password
-  //     });
-  //     console.log(res);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  // 아이디 중복 버튼 눌렀을 때 통신
+  const doubleCheckOnClick = async (event) => {
+    event.preventDefault();
+    try {
+      const res = await instance.post("/api/auth/checkId", {
+        username,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // 생성 버튼을 눌렀을 때 통신
   const createOnclick = async (event) => {
@@ -59,9 +58,9 @@ const AccountPage = () => {
         <AccountForm>
           <div>아이디</div>
           <IdInput type="text" onChange={onChangeUserName} value={username} />
-          {/* <RepeatCheckIdButton onClick={doubleCheckOnClick}>
+          <RepeatCheckIdButton onClick={doubleCheckOnClick}>
             중복확인
-          </RepeatCheckIdButton> */}
+          </RepeatCheckIdButton>
           <IdErrorMsg> 사용이 불가능한 아이디 입니다.</IdErrorMsg>
           <br />
           <div>비밀번호</div>

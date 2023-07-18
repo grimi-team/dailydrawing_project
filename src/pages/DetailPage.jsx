@@ -16,7 +16,7 @@ const DetailPage = () => {
   const [userComment, setUserComment] = useState("");
   const [messageList, setMessageList] = useState([]);
   const navigate = useNavigate();
-
+  //
   useEffect(() => {
     const init = async () => {
       try {
@@ -37,20 +37,46 @@ const DetailPage = () => {
     };
     init();
   }, []);
-  // 댓글 추가하기 눌렀을 때 통신
 
-  // // 댓글 추가하기 눌렀을 때 통신 - get
-  // const onClickCommentPlus = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const res = await instance.get("/api/food/1/comment"
-  // );
-  //     console.log(res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //     // setErrorMsg(error.response.data.message);
-  //   }
-  // };
+  // 게시글 수정하기 통신
+  const EditOnClick = async (event) => {
+    try {
+      const res = await instance.put(`/api/post/${postId}`, {
+        title,
+        content,
+        mood,
+        weather,
+      });
+      console.log(res);
+    } catch (error) {
+      // setErrorMsg(error.response.data.message);
+    }
+  };
+
+  // 게시글 삭제하기 통신
+  const DeleteClick = async (event) => {
+    event.preventDefault();
+    try {
+      console.log(postId);
+      const res = await instance.delete(`/api/post/${postId}`);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 댓글 추가하기 눌렀을 때 통신 - post
+  const onClickCommentPlus = async (event) => {
+    event.preventDefault();
+    try {
+      const res = await instance.post(`/api/post/${postId}/comments`{
+        content
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleHeartClick = async () => {
     if (likeToken) {
@@ -76,27 +102,27 @@ const DetailPage = () => {
     }
   };
 
-  const onClickCommentPlus = async (event) => {
-    event.preventDefault();
-    try {
-      const res = await instance.post("/api/comments", {
-        content: userComment,
-      });
-      console.log(res.data);
-      const init = [];
-      res.data.map((e) => {
-        init.push({
-          content: "string",
-          userId: 0,
-          postId: 0,
-        });
-      });
-      // document.cookie = `accessToken=${res.headers.accesstoken}; path=/;`;
-      setMessageList(init);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const onClickCommentPlus = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const res = await instance.post("/api/comments", {
+  //       content: userComment,
+  //     });
+  //     console.log(res.data);
+  //     const init = [];
+  //     res.data.map((e) => {
+  //       init.push({
+  //         content: "string",
+  //         userId: 0,
+  //         postId: 0,
+  //       });
+  //     });
+
+  //     setMessageList(init);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
     <>
       <AllContainer>
@@ -104,8 +130,8 @@ const DetailPage = () => {
           <ProfileImage src={logo} alt="cloudy"></ProfileImage>
           <UserName>유저이름</UserName>
           <EntireButtonContainer>
-            <EditButton>수정</EditButton>
-            <DeleteButton>삭제</DeleteButton>
+            <EditButton onClick={EditOnClick}>수정</EditButton>
+            <DeleteButton onClick={DeleteClick}>삭제</DeleteButton>
             <BackButton onClick={() => navigate("/MainHomePage")}>
               뒤로가기
             </BackButton>

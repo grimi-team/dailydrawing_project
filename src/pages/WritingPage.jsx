@@ -54,6 +54,7 @@ const WritingPage = () => {
   const handleDiaryTitleChange = (event) => {
     setDiaryTitle(event.target.value);
   };
+  // 게시글 작성 완료 눌렀을 때 통신
   const handleWritingComplete = async (event) => {
     setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
     event.preventDefault();
@@ -79,8 +80,6 @@ const WritingPage = () => {
   };
 
   const handleImageSelect = (event) => {
-    // const formData = new FormData(); // formData 생성
-    // const file = formData.append("image", event.target.files[0]); // 이미지 파일 값 할당
     setSelectedImage(event.target.files[0]);
     setIsModalOpen(true);
   };
@@ -163,9 +162,7 @@ const WritingPage = () => {
             취소하기
           </CancelButton>
           <CompleteButton
-            onClick={(e) => {
-              handleWritingComplete(e);
-            }}
+            onClick={handleWritingComplete()}
             isWritingComplete={isWritingComplete}
           >
             작성완료

@@ -26,7 +26,6 @@ instance.interceptors.response.use((config) => {
 });
 
 const LoginPage = () => {
-  // const [userInfo, setUserInfo] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -42,7 +41,7 @@ const LoginPage = () => {
   };
 
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  // 로그인 버튼 눌렀을 때 실행
   const LoginSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -51,28 +50,11 @@ const LoginPage = () => {
         password,
       });
       console.log(res);
-      // Set Cookies
-      // console.log(res.headers.accesstoken);
-      // accesstoken을 꺼내서 쿠키에 저장(순서는 서버 통신에 성공했다는 전제 200번대)
-      // path : 해당 페이지 모든 페이지 접근할 수 있는
-      // document.cookie = `accessToken=${res.headers.accesstoken}; path=/;`;
-      // document.cookie = `refreshToken=${res.headers?.refreshToken}; path=/;`;
-
       console.log("로그인 성공");
-      // 쿠키에 저장
-
       navigate("/MainHomePage");
     } catch (error) {
       console.log("로그인 실패");
       console.log(error);
-      // setErrorMsg(error?.response?.data?.message);
-      // if (error.response.data.idCheck) {
-      //   setErrorMsg("존재하지 않는 아이디 입니다. ");
-      // }
-      // if (error.response.data.pwCheck) {
-      //   setErrorMsg("비밀번호가 일치하지 않습니다.");
-      // }
-      // setErrorMsgModal(!errorMsgModal);
     }
   };
 

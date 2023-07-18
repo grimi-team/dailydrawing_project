@@ -19,6 +19,7 @@ const MainHomePage = () => {
   const [cardData, setCardData] = useState([]);
   const [page, setPage] = useState(1);
 
+  // 게시글 리스트 조회하는 통신
   useEffect(() => {
     const getCardList = async () => {
       try {
