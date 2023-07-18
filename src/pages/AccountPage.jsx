@@ -43,11 +43,11 @@ const AccountPage = () => {
     try {
       const res = await instance.post("/api/auth/signup", {
         username,
-        password
+        password,
       });
       console.log(res);
     } catch (error) {
-      // setErrorMsg(error.response.data.message);
+      console.log(error);
     }
   };
   return (
@@ -74,9 +74,7 @@ const AccountPage = () => {
           <PwCheckInput type="password" onChange={onChangeCheckPassword} />
           <AllButton>
             <EnterButton onClick={createOnclick}>생성</EnterButton>
-            <AccountButton onClick={() => navigate('/')}>
-              취소
-            </AccountButton>
+            <AccountButton onClick={() => navigate("/")}>취소</AccountButton>
           </AllButton>
         </AccountForm>
       </LogInContainer>
