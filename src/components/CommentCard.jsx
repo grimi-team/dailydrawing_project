@@ -24,8 +24,6 @@ const CommentCard = ({ commentId, name, content }) => {
   };
 
   const deleteMenuClick = async (event) => {
-    // /api/food/{foodId}/comment/{commentId}
-    // foodId = 1
     event.preventDefault();
     try {
       console.log(commentId);

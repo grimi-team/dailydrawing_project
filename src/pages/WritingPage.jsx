@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
@@ -48,15 +48,17 @@ const WritingPage = () => {
   const handleWritingComplete = async (event) => {
     setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
     event.preventDefault();
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+    formData.append("title", "제목");
+    formData.append("content", diaryText);
+    formData.append("mood", selectedMood);
+    formData.append("weather", selectedWeather);
     try {
-      const res = await instance.post("/api/post", {
-        request: {
-          title: "제목",
-          content: diaryText,
-          mood: selectedMood,
-          weather: selectedWeather,
+      const res = await instance.post("/api/post", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        image: selectedImage,
       });
       console.log(res);
     } catch (error) {
@@ -66,9 +68,9 @@ const WritingPage = () => {
   };
 
   const handleImageSelect = (event) => {
-    const formData = new FormData(); // formData 생성
-    const file = formData.append("image", event.target.files[0]); // 이미지 파일 값 할당
-    setSelectedImage(file);
+    // const formData = new FormData(); // formData 생성
+    // const file = formData.append("image", event.target.files[0]); // 이미지 파일 값 할당
+    setSelectedImage(event.target.files[0]);
     setIsModalOpen(true);
   };
 

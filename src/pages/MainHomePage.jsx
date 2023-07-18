@@ -6,9 +6,10 @@ import { instance } from "./LogInPage";
 
 const MainHomePage = () => {
   const [userName, setUserName] = useState("");
-  const [sortBy, setSortBy] = useState("new"); // 'new' 또는 'popular'
-  const [order, setOrder] = useState("desc"); // 'desc' 또는 'asc'
+  const [sortBy, setSortBy] = useState("new");
+  const [order, setOrder] = useState("desc");
   const navigate = useNavigate();
+
   useEffect(() => {
     // Get Cookies
     // document.cookie 모든 걸 다 가져오다보니, accessToken=asdfas;refreshToken=asdfasdfa;
@@ -20,16 +21,25 @@ const MainHomePage = () => {
         ?.split("=")[1];
 
     const getUsername = async () => {
-      const res = await axios.get("http://1.244.223.183/api/user/getusername", {
-        // config : 통신설정을 하 수 있게 꺼내는 객체
+      const res = await instance.get("/api/post", {
+        // config : 통신설정을 할 수 있게 꺼내는 객체
         headers: {
           AccessToken: acctoken,
         },
       });
       setUserName(res.data.username);
     };
-    getUsername();
+    const fetchData = async () => {
+      try {
+        const res = await instance.get("/api/data");
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
+    fetchData();
+    getUsername();
     /*
       1) document.cookie && 쿠기가 있으면 (없을 수도 있으니까에 대한 에러처리 빈값)
       2) .split(";") : accessToken=asdfas;refreshToken=asdfasdfa; 쿠키에 담긴 다양양한 정보를 ; 기준으로 배열
