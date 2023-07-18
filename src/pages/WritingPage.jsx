@@ -4,7 +4,11 @@ import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { instance } from "./LogInPage";
+// import { instance } from "./LogInPage";
+
+export const { instance } = axios.create({
+  baseURL: "http://52.79.173.167:8080/",
+});
 
 const WritingPage = () => {
   const navigate = useNavigate();
@@ -49,13 +53,11 @@ const WritingPage = () => {
     setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
     event.preventDefault();
     try {
-      const res = await instance.post("/api/post", {
-        request: {
-          title: "제목",
-          content: diaryText,
-          mood: selectedMood,
-          weather: selectedWeather,
-        },
+      const res = await instance.get("/api/post", {
+        title: "제목",
+        content: diaryText,
+        mood: selectedMood,
+        weather: selectedWeather,
         image: selectedImage,
       });
       console.log(res);

@@ -3,27 +3,27 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const Card = ({ src, text1, text2, likes, comments }) => {
-    return (
-        <CardItem>
-            <CardLink to="/DetailPage">
-                <CardPicWrap>
-                    <FadeImage className="cards__item__img" alt="DrawingImage" src={src} />
-                </CardPicWrap>
-                <CardInfo>
-                    <CardText>
-                        {text1}
-                        <br />
-                        {text2}
-                    </CardText>
-                    <CardLikeComment>
-                        좋아요 {likes}
-                        <br />
-                        댓글 {comments}
-                    </CardLikeComment>
-                </CardInfo>
-            </CardLink>
-        </CardItem>
-    );
+  return (
+    <CardItem>
+      <CardLink to="/DetailPage">
+        <CardPicWrap>
+          <FadeImage alt="DrawingImage" src={src} />
+        </CardPicWrap>
+        <CardInfo>
+          <CardText>
+            {text1}
+            <br />
+            {text2}
+          </CardText>
+          <CardLikeComment>
+            좋아요 {likes}
+            <br />
+            댓글 {comments}
+          </CardLikeComment>
+        </CardInfo>
+      </CardLink>
+    </CardItem>
+  );
 };
 
 const CardItem = styled.li`
