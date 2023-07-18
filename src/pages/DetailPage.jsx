@@ -31,10 +31,8 @@ const DetailPage = () => {
           });
         });
         setMessageList(init);
-        // document.cookie = `accessToken=${res.headers.accesstoken}; path=/;`;
       } catch (error) {
         console.log(error);
-        // setErrorMsg(error.response.data.message);
       }
     };
     init();
@@ -105,9 +103,13 @@ const DetailPage = () => {
         <HeaderContainer>
           <ProfileImage src={logo} alt="cloudy"></ProfileImage>
           <UserName>유저이름</UserName>
-          <BackButton onClick={() => navigate("/MainHomePage")}>
-            뒤로가기
-          </BackButton>
+          <EntireButtonContainer>
+            <EditButton>수정</EditButton>
+            <DeleteButton>삭제</DeleteButton>
+            <BackButton onClick={() => navigate("/MainHomePage")}>
+              뒤로가기
+            </BackButton>
+          </EntireButtonContainer>
         </HeaderContainer>
         <DiaryImage>안녕하세요!</DiaryImage>
         <DiaryTitleContainer>
@@ -187,11 +189,23 @@ const ProfileImage = styled.img`
   border-radius: 70%;
   margin: 0px 5px 0px 5px;
 `;
+
 const UserName = styled.div``;
 
+const EntireButtonContainer = styled.div`
+  margin-left: 490px;
+`;
+const EditButton = styled.button`
+  cursor: pointer;
+  padding-right: 6px;
+`;
+const DeleteButton = styled.button`
+  cursor: pointer;
+  padding-right: 6px;
+`;
 const BackButton = styled.button`
   cursor: pointer;
-  margin-left: 500px;
+  padding-right: 5px;
 `;
 
 const DiaryTitleContainer = styled.div`
