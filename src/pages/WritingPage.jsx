@@ -5,10 +5,10 @@ import MoodMenu from "./../components/MoodMenu";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { instance } from "./LogInPage";
+import { useDispatch, useSelector } from "react-redux";
 
 const WritingPage = () => {
   const navigate = useNavigate();
-
   const [weatherOpen, setWeatherOpen] = useState(false);
   const [moodOpen, setMoodOpen] = useState(false);
   const [diaryTitle, setDiaryTitle] = useState("");
@@ -17,18 +17,17 @@ const WritingPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch();
   const writingPage = useSelector((state) => state.writingPage);
   const fileInputRef = useRef(null);
   //날씨 값 저장 상태변화
   const [selectedWeather, setSelectedWeather] = useState(null);
   //기분 값 저장 상태변화
   const [selectedMood, setSelectedMood] = useState(null);
+  const [visible, setVisible] = useState(false);
 
   const handleWeatherDropdownSelect = (weather) => {
-    dispatch(setWeatherOpen(false));
-    // setSelectedWeather(weather);
-    // setWeatherOpen(false);
+    setSelectedWeather(weather);
+    setWeatherOpen(false);
   };
 
   const handleMoodDropdownSelect = (mood) => {
@@ -58,7 +57,7 @@ const WritingPage = () => {
     setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
     const formData = new FormData();
     const request = {
-      title: "제목",
+      title: "title",
       content: "content", //diaryText,
       mood: "mood", //selectedMood,
       weather: "weather", //selectedWeather
@@ -78,6 +77,7 @@ const WritingPage = () => {
         },
       });
       console.log("success : ", res);
+      navigate("/MainHomePage");
     } catch (error) {
       console.log("error : ", error);
     }
@@ -99,7 +99,7 @@ const WritingPage = () => {
 
   return (
     <EntireContainer>
-      <WritingTitleContainer>그림일기 쓰는 중!</WritingTitleContainer>
+      <WritingTitleContainer>그림일기 쓰는 중!!!</WritingTitleContainer>
       <ImageContainer>
         {selectedImage && (
           <>
@@ -219,6 +219,11 @@ const SelectedImage = styled.img`
   max-width: 100%;
   max-height: 100%;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 `;
 
 //모달 창 안에 버튼 묶음 박스
