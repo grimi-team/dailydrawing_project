@@ -67,11 +67,11 @@ const DetailPage = () => {
     //   }
   };
 
-  // 댓글 추가하기 눌렀을 때 통신 - post
+  // // 댓글 추가하기 눌렀을 때 통신 - post
   // const onClickCommentPlus = async (event) => {
   //   event.preventDefault();
   //   try {
-  //     const res = await instance.post(`/api/post/${postId}/comments`{
+  //     const res = await instance.post(`/api/post/${postId}/comments`, {
   //       content
   //     });
   //     console.log(res);
@@ -105,24 +105,24 @@ const DetailPage = () => {
   };
 
   const onClickCommentPlus = async (event) => {
-    //   event.preventDefault();
-    //   try {
-    //     const res = await instance.post("/api/comments", {
-    //       content: userComment,
-    //     });
-    //     console.log(res.data);
-    //     const init = [];
-    //     res.data.map((e) => {
-    //       init.push({
-    //         content: "string",
-    //         userId: 0,
-    //         postId: 0,
-    //       });
-    //     });
-    //     setMessageList(init);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
+    event.preventDefault();
+    try {
+      const res = await instance.post("/api/comments", {
+        content: userComment,
+      });
+      console.log(res.data);
+      const init = [];
+      res.data.map((e) => {
+        init.push({
+          content: "string",
+          userId: 0,
+          postId: 0,
+        });
+      });
+      setMessageList(init);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -176,7 +176,7 @@ const DetailPage = () => {
               <>
                 <CommentList
                   key={k}
-                  commentId={e.commentId}
+                  commentId={e.id}
                   name={e.username}
                   content={e.content}
                 />

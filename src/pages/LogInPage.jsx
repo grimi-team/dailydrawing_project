@@ -47,7 +47,7 @@ const LoginPage = () => {
     try {
       const res = await instance.post("/api/auth/login", {
         username,
-        password,
+        password
       });
       console.log(res);
       console.log("로그인 성공");
