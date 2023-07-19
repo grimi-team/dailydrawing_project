@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Card = ({ src, username, title, likes, comments }) => {
+const Card = ({ cardId, src, username, title, likes, comments }) => {
   return (
     <CardItem>
-      <CardLink to="/DetailPage">
+      <CardLink to={"/DetailPage/" + cardId}>
         <CardPicWrap>
           <FadeImage alt="DrawingImage" src={src} />
         </CardPicWrap>
@@ -55,9 +55,20 @@ const CardPicWrap = styled.figure`
 `;
 
 const FadeImage = styled.img`
-  animation-name: fade-img;
-  animation-duration: 2s;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 `;
+
+// animation-name: fade-img;
+// animation-duration: 2s;
 
 const CardInfo = styled.div`
   padding: 20px 30px 30px;

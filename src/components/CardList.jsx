@@ -1,28 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "./Card";
+import { useSelector } from "react-redux";
+import { selectDiary } from "../redux/modules/diarySlice";
 
-
-
-const CardList = ({ cardData }) => {
-    return (
-        <CardsContent>
-            <CardsWrapper>
-                <CardsItems>
-                    {cardData.map((item, index) => (
-                        <Card
-                            key={index}
-                            src={item.src}
-                            text1={item.username}
-                            text2={item.title}
-                            likes={item.likes}
-                            comments={item.comments}
-                        />
-                    ))}
-                </CardsItems>
-            </CardsWrapper>
-        </CardsContent>
-    );
+const CardList = ({ src, username, title, likes, comments }) => {
+  const { diaryList, isLoading, isError } = useSelector(selectDiary);
+  if (isLoading) <div>로그인중!</div>;
+  console.log(diaryList);
+  return (
+    <CardsContent>
+      <CardsWrapper>
+        <CardsItems>
+          {diaryList.map((item, index) => (
+            <Card
+              key={index}
+              cardId={item.id}
+              src={item.image}
+              username={item.username}
+              title={item.title}
+              likes={item.likes}
+              comments={item.comments}
+            />
+          ))}
+        </CardsItems>
+      </CardsWrapper>
+    </CardsContent>
+  );
 };
 
 const CardsContent = styled.div`

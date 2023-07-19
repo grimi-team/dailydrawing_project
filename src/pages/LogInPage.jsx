@@ -4,9 +4,11 @@ import styled from "styled-components";
 import logo from "../images/logo.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { __postLogin } from "../redux/modules/authorization";
 
 export const instance = axios.create({
   baseURL: "http://3.34.144.94:8080/",
+  timeout: 5000,
 });
 
 instance.interceptors.request.use((config) => {
@@ -51,6 +53,7 @@ const LoginPage = () => {
       });
       console.log(res);
       console.log("로그인 성공");
+
       navigate("/MainHomePage");
     } catch (error) {
       console.log("로그인 실패");

@@ -7,7 +7,7 @@ import good from "../images/good.png";
 import emptyheart from "../images/emptyheart.png";
 import CommentInput from "../components/CommentInput";
 import CommentList from "../components/CommentList";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "./LogInPage";
 
 const DetailPage = () => {
@@ -18,11 +18,14 @@ const DetailPage = () => {
   const [messageList, setMessageList] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const postId = useParams().cardId;
+  // const today = new Date();
 
   useEffect(() => {
+    console.log(postId);
     const init = async () => {
       try {
-        const res = await instance.get("/api/comments");
+        const res = await instance.get(`/api/post/${postId}`);
         console.log(res.data);
         const init = [];
         res.data.map((e) => {
@@ -96,7 +99,7 @@ const DetailPage = () => {
       setUnlike((prevUnlike) => !prevUnlike);
       setLikeToken(true);
       try {
-        // 좋아요 토큰을 서버에 저장하는 POST 요청 
+        // 좋아요 토큰을 서버에 저장하는 POST 요청
         await instance.post("/api/post/like", { postId: 0 });
       } catch (error) {
         console.log(error);
@@ -153,7 +156,7 @@ const DetailPage = () => {
             <MoodButton>
               <img src={good} width="30px" height="30px" alt="good"></img>
             </MoodButton>
-            <Date>2023-10-20</Date>
+            <Date>2022-07-21</Date>
           </DiaryButtons>
         </DiaryTitleContainer>
         <DiaryContents>내용이 들어갑니둥!</DiaryContents>
