@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authorization from "../modules/authorization";
-import CommentList from "./../../components/detailpage/CommentList";
-import Diaryinput from "./../../components/writingpage/Diaryinput";
+import DiaryListSlice from "../modules/diarySlice";
+import CommentListSlice from "../modules/commentlist";
 
 const store = configureStore({
-  reducer: { authorization, CommentList, diaryList },
+  reducer: {
+    authorization,
+    DiaryListSlice,
+    CommentListSlice,
+  },
 });
 
 export default store;

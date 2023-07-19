@@ -2,13 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Header = ({ userName, onLogout, onRefreshToken }) => {
-    return (
-        <HeaderContainer>
-            <Title>{userName ? userName : "나"}의 그림 일기장</Title>
-            <LogoutButton onClick={onLogout}>로그아웃</LogoutButton>
-            <RefreshButton onClick={onRefreshToken}>refrexh 테스트</RefreshButton>
-        </HeaderContainer>
-    );
+  return (
+    <HeaderContainer>
+      <Title>{userName ? userName : "나"}의 그림 일기장</Title>
+    </HeaderContainer>
+  );
 };
 
 const HeaderContainer = styled.div`

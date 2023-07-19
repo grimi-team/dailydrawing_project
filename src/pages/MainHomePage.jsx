@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import CardList from "../components/CardList";
 import Header from "../components/Header";
 import { instance } from "./LogInPage";
+import { useDispatch } from "react-redux";
+import { __getDiaryList } from "../redux/modules/diarySlice";
 
 const MainHomePage = () => {
   const [username, setUserName] = useState("");
@@ -19,39 +20,10 @@ const MainHomePage = () => {
   const [cardData, setCardData] = useState([]);
   const [page, setPage] = useState(1);
 
-  // 게시글 리스트 조회하는 통신
+  const dispatch = useDispatch();
   useEffect(() => {
-    const getCardList = async () => {
-      try {
-        const res = await instance.get("/api/post", {
-          sort: "",
-          page: 1,
-          size: 5,
-        });
-        console.log(res.data.data);
-        setCardData(res.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getCardList();
+    dispatch(__getDiaryList());
   }, []);
-
-  const deleteCookie = (cookieName) => {
-    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    setUserName("");
-  };
-
-  const onRefreshToken = async () => {
-    try {
-      const testRefresh = await instance.post("/api/food/1/comment", {
-        content: "테스트",
-      });
-      console.log(testRefresh);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   // 정렬 기준 변경
   const handleSelect = (e) => {
@@ -74,15 +46,7 @@ const MainHomePage = () => {
 
   return (
     <CardsContainer>
-      <Header
-        userName={username}
-        onLogout={() => {
-          deleteCookie("accessToken");
-          deleteCookie("refreshToken");
-          navigate("/");
-        }}
-        onRefreshToken={onRefreshToken}
-      />
+      <Header userName={username} />
       <EveryButtons>
         <WritingButton onClick={() => navigate("/WritingPage")}>
           새 일기 쓰기
@@ -94,14 +58,7 @@ const MainHomePage = () => {
           인기순
         </PopulerButton>
       </EveryButtons>
-
-      <CardList
-        cardData={cardData}
-        title={title}
-        commentCount={commentCount}
-        likeCount={likeCount}
-        isLiked={isLiked}
-      />
+      <CardList />
     </CardsContainer>
   );
 };
