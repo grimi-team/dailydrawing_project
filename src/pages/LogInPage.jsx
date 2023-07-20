@@ -5,27 +5,7 @@ import logo from "../images/logo.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { __postLogin } from "../redux/modules/authorization";
-
-export const instance = axios.create({
-  baseURL: "http://3.34.144.94:8080/",
-  timeout: 5000,
-});
-
-instance.interceptors.request.use((config) => {
-  // 쿠키에 저장된 토큰을 꺼내는 것
-  const accessToken = document.cookie
-    .split(";")
-    .filter((cookies) => cookies.includes("accessToken"))[0]
-    ?.split("=")[1];
-  //헤더에 토큰 담아서 보내기
-  if (accessToken) config.headers.authorization = accessToken;
-  return config;
-});
-instance.interceptors.response.use((config) => {
-  config.headers.authorization &&
-    (document.cookie = `accessToken=${config.headers.authorization}; path=/;`);
-  return config;
-});
+import { instance } from "../redux/modules/diarySlice";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");

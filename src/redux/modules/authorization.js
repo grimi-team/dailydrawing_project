@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { instance } from "./diarySlice";
 
 export const __postLogin = createAsyncThunk("postLogin", async (payload) => {
   try {
-    const res = await axios.post("http://3.34.144.94:8080/api/user/login", {
-      address: "test12345",
-      password: "test12345",
+    const res = await instance.post("/api/user/login", {
+      address: "test123",
+      password: "Test123!",
     });
     document.cookie = `accessToken=${res.headers.AccessToken}; path=/;`;
     return;
@@ -19,7 +20,7 @@ export const __postCheckId = createAsyncThunk(
   "postCheckId",
   async (payload) => {
     try {
-      const res = await axios.post("http://3.34.144.94:8080/api/auth/checkId", {
+      const res = await instance.post("/api/auth/checkId", {
         username: "username",
       });
       document.cookie = `accessToken=${res.headers.AccessToken}; path=/;`;
@@ -35,7 +36,7 @@ export const __postRegister = createAsyncThunk(
   "postRegister",
   async (payload) => {
     try {
-      const res = await axios.post("http://3.34.144.94:8080/api/auth/signup", {
+      const res = await instance.post("/api/auth/signup", {
         username: "jung",
         password: "hwan12345",
       });

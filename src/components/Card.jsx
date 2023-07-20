@@ -1,39 +1,56 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import heart from "../images/heart.png";
+import comment from "../images/comment.png";
 
-const Card = ({ cardId, src, username, title, likes, comments }) => {
+const Card = ({ postId, src, username, title, likeCount, commentCount }) => {
+  const navigate = useNavigate();
   return (
     <CardItem>
-      <CardLink to={"/DetailPage/" + cardId}>
+      <CardLink
+        onClick={() => {
+          navigate(`/DetailPage/${postId}`);
+        }}
+      >
         <CardPicWrap>
           <FadeImage alt="DrawingImage" src={src} />
         </CardPicWrap>
         <CardInfo>
-          <CardText>
-            {username}
-            <br />
-            {title}
-          </CardText>
-          <CardLikeComment>
-            좋아요 {likes}
-            <br />
-            댓글 {comments}
-          </CardLikeComment>
+          <CardUserText>{username}</CardUserText>
+          <CardUserTitle>{title}</CardUserTitle>
+          <CardButtonContainer>
+            <CardLikeComment>
+              <img src={heart} width="20px" height="20px" alt="heart" />
+              {likeCount}
+            </CardLikeComment>
+            <CardCommentCount>
+              <img src={comment} width="20px" height="20px" alt="heart" />
+              {commentCount}
+            </CardCommentCount>
+          </CardButtonContainer>
         </CardInfo>
       </CardLink>
     </CardItem>
   );
 };
 
+const CardButtonContainer = styled.div`
+  display: flex;
+  width: 50px;
+  height: 20px;
+  /* border: 1px solid black; */
+  margin-left: 80%;
+`;
 const CardItem = styled.li`
   display: flex;
   flex: 0 0 calc(33.33% - 2rem);
   margin: 1rem;
   justify-content: center;
+  height: 380px;
 `;
 
-const CardLink = styled(Link)`
+const CardLink = styled.div`
   display: flex;
   flex-flow: column;
   width: 100%;
@@ -55,7 +72,6 @@ const CardPicWrap = styled.figure`
 `;
 
 const FadeImage = styled.img`
-  width: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -67,24 +83,33 @@ const FadeImage = styled.img`
   display: block;
 `;
 
-// animation-name: fade-img;
-// animation-duration: 2s;
-
 const CardInfo = styled.div`
-  padding: 20px 30px 30px;
-  display: flex;
+  padding: 8px 33px 30px;
 `;
 
 const CardLikeComment = styled.h5`
   color: lightgray;
-  margin-top: 15px;
-  margin-left: 60%;
+  display: flex;
+
+  width: 100%;
+  height: 100%;
 `;
 
-const CardText = styled.h5`
+const CardUserText = styled.div`
+  color: black;
+  font-size: 18px;
+  line-height: 24px;
+`;
+const CardUserTitle = styled.div`
   color: black;
   font-size: 18px;
   line-height: 24px;
 `;
 
+const CardCommentCount = styled.div`
+  color: lightgray;
+
+  display: flex;
+  margin-left: 20%;
+`;
 export default Card;

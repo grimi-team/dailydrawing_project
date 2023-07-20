@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import crayon from "../images/crayon.png";
 
 const Header = ({ userName, onLogout, onRefreshToken }) => {
   return (
     <HeaderContainer>
-      <Title>{userName ? userName : "나"}의 그림 일기장</Title>
+      <Title>
+        <TitleImage src={crayon} alt="image" /> 그림 일기장
+      </Title>
     </HeaderContainer>
   );
 };
@@ -18,7 +21,10 @@ const HeaderContainer = styled.div`
   width: 1200px;
   height: 180px;
 `;
-
+const TitleImage = styled.img`
+  width: 60px;
+  height: 60px;
+`;
 const Title = styled.h1`
   text-align: center;
 `;

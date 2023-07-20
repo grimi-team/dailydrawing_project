@@ -4,7 +4,7 @@ import Card from "./Card";
 import { useSelector } from "react-redux";
 import { selectDiary } from "../redux/modules/diarySlice";
 
-const CardList = ({ src, username, title, likes, comments }) => {
+const CardList = () => {
   const { diaryList, isLoading, isError } = useSelector(selectDiary);
   if (isLoading) <div>로그인중!</div>;
   console.log(diaryList);
@@ -15,12 +15,12 @@ const CardList = ({ src, username, title, likes, comments }) => {
           {diaryList.map((item, index) => (
             <Card
               key={index}
-              cardId={item.id}
+              postId={item.id}
               src={item.image}
               username={item.username}
               title={item.title}
-              likes={item.likes}
-              comments={item.comments}
+              likeCount={item.likeCount}
+              commentCount={item.commentCount}
             />
           ))}
         </CardsItems>

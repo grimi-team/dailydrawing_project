@@ -4,8 +4,9 @@ import WeatherMenu from "./../components/WeatherMenu";
 import MoodMenu from "./../components/MoodMenu";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { instance } from "./LogInPage";
+import { instance } from "../redux/modules/diarySlice";
 import { useDispatch, useSelector } from "react-redux";
+import { selectDiary } from "../redux/modules/diarySlice";
 
 const WritingPage = () => {
   const navigate = useNavigate();
@@ -20,18 +21,25 @@ const WritingPage = () => {
   const writingPage = useSelector((state) => state.writingPage);
   const fileInputRef = useRef(null);
   //날씨 값 저장 상태변화
-  const [selectedWeather, setSelectedWeather] = useState(null);
+  const [selectedWeather, setSelectedWeather] = useState("");
+  const [selectedTextWeather, setSelectedTextWeather] = useState("");
   //기분 값 저장 상태변화
-  const [selectedMood, setSelectedMood] = useState(null);
+  const [selectedMood, setSelectedMood] = useState("");
+  const [selectedTextMood, setSelectedTextMood] = useState("");
   const [visible, setVisible] = useState(false);
+  const { diaryList, isLoading, isError } = useSelector(selectDiary);
 
   const handleWeatherDropdownSelect = (weather) => {
-    setSelectedWeather(weather);
+    setSelectedWeather(weather); // props
+    // props를 서버에 보내면 못 읽어서 오류남
+    setSelectedTextWeather(weather.props.children[1].key);
     setWeatherOpen(false);
   };
 
   const handleMoodDropdownSelect = (mood) => {
-    setSelectedMood(mood);
+    setSelectedMood(mood); // props
+    // props를 서버에 보내면 못 읽어서 오류남
+    setSelectedTextMood(mood.props.children[1].key);
     setMoodOpen(false);
   };
 
@@ -57,11 +65,12 @@ const WritingPage = () => {
     setIsWritingComplete((prevIsWritingComplete) => !prevIsWritingComplete);
     const formData = new FormData();
     const request = {
-      title: "title",
-      content: "content", //diaryText,
-      mood: "mood", //selectedMood,
-      weather: "weather", //selectedWeather
+      title: diaryTitle,
+      content: diaryText,
+      mood: selectedTextMood,
+      weather: selectedTextWeather,
     };
+    console.log(request);
     formData.append(
       "request",
       new Blob([JSON.stringify(request)], { type: "application/json" })
@@ -76,12 +85,11 @@ const WritingPage = () => {
           "Content-Type": "multipart/formData",
         },
       });
-      console.log("success : ", res);
+      // console.log("success : ", res);
       navigate("/MainHomePage");
     } catch (error) {
-      console.log("error : ", error);
+      // console.log("error : ", error);
     }
-    // navigate("/MainHomePage");
   };
 
   const handleImageSelect = (event) => {
@@ -94,9 +102,21 @@ const WritingPage = () => {
   };
 
   const handleCancel = () => {
-    navigate(-1);
+    navigate("/MainHomePage");
   };
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 1000);
+
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
+  const plusImageButton = () => {
+    setVisible(!visible);
+    fileInputRef.current.click();
+  };
   return (
     <EntireContainer>
       <WritingTitleContainer>그림일기 쓰는 중!!!</WritingTitleContainer>
@@ -129,9 +149,11 @@ const WritingPage = () => {
           onChange={handleImageSelect}
           style={{ display: "none" }}
         />
-        <UploadButton onClick={() => fileInputRef.current.click()}>
-          이미지 추가하기
-        </UploadButton>
+        {visible ? (
+          ""
+        ) : (
+          <UploadButton onClick={plusImageButton}>이미지 추가하기</UploadButton>
+        )}
       </ImageContainer>
       <StateButtonContainer>
         <WeatherButton onClick={weatherMenuClick} weatherOpen={weatherOpen}>
@@ -251,9 +273,9 @@ const ModalButton = styled.button`
   margin-top: 10px;
   height: 30px;
   width: 100px;
-  &:hover {
-    background-color: lightgray;
-  }
+  /* &:hover {
+    background-color: lightgray; */
+  //}
 `;
 
 const ImageModal = styled.div`
@@ -292,8 +314,8 @@ const UploadButton = styled.button`
   cursor: pointer;
   font-size: large;
   border-radius: 8px;
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   align-items: center;
   margin-top: 10px;
   height: 30px;
