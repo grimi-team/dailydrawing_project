@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 import axios from "axios";
-import { instance } from "./LogInPage";
+import { instance } from "../redux/modules/diarySlice";
 import { useNavigate } from "react-router-dom";
+
+// "아이디를 4~10자로 입력해주세요.(특수문자x)
+// "비밀번호를 8~15자로 입력해주세요.(특수문자o)"
 
 const AccountPage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
 
   const onChangeUserName = (event) => {
     setUsername(event.target.value);
@@ -30,9 +34,16 @@ const AccountPage = () => {
       const res = await instance.post("/api/auth/checkId", {
         username,
       });
-      console.log(res);
+      if (res.data.available) {
+        // Username is available
+        setUsernameErrorMessage("사용이 불가능한 아이디입니다.");
+      } else {
+        // Username is unavailable or duplicated
+        setUsernameErrorMessage("사용이 가능한 아이디입니다.");
+      }
     } catch (error) {
       console.log(error);
+      setUsernameErrorMessage("사용이 불가능한 아이디입니다.");
     }
   };
 
@@ -57,17 +68,23 @@ const AccountPage = () => {
         <AccountTitle>회원가입</AccountTitle>
         <AccountForm>
           <div>아이디</div>
-          <IdInput type="text" onChange={onChangeUserName} value={username} />
+          <IdInput
+            type="text"
+            onChange={onChangeUserName}
+            value={username}
+            placeholder=" 4~10자 영문 입력"
+          />
           <RepeatCheckIdButton onClick={doubleCheckOnClick}>
             중복확인
           </RepeatCheckIdButton>
-          <IdErrorMsg> 사용이 불가능한 아이디 입니다.</IdErrorMsg>
+          <IdErrorMsg>{usernameErrorMessage}</IdErrorMsg>
           <br />
           <div>비밀번호</div>
           <PwInput
             type="password"
             onChange={onChangePassword}
             value={password}
+            placeholder="영문 소문자 대문자 특수문자 포함 8~15자로 입력해주세요."
           />
           <br />
           <div>비밀번호 확인</div>
@@ -123,6 +140,7 @@ const IdInput = styled.input`
   height: 40px;
   margin: 10px 0px 10px 0px;
   border: 2px solid black;
+  padding-left: 5px;
 `;
 
 const RepeatCheckIdButton = styled.button`
@@ -141,6 +159,7 @@ const PwInput = styled.input`
   height: 40px;
   margin: 10px 0px 10px 0px;
   border: 2px solid black;
+  padding-left: 5px;
 `;
 const PwCheckInput = styled.input`
   width: 300px;
