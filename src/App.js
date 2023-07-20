@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<LogInPage />} />
         <Route path="/AccountPage" element={<AccountPage />} />
         <Route path="/MainHomePage" element={<MainHomePage />} />
-        <Route path="/DetailPage/:cardId" element={<DetailPage />} />
+        <Route path="/DetailPage/:postId" element={<DetailPage />} />
         <Route path="/WritingPage" element={<WritingPage />} />
       </Routes>
     </BrowserRouter>

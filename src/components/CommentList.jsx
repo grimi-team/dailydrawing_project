@@ -1,11 +1,22 @@
 import React from "react";
 import CommentCard from "./CommentCard";
+import { useSelector } from "react-redux";
+import { selectCommentList } from "../redux/modules/commentlist";
 
-const CommentList = ({ commentId, name, content }) => {
+const CommentList = () => {
+  const { commentList } = useSelector(selectCommentList);
   return (
-    <>
-      <CommentCard commentId={commentId} name={name} content={content} />
-    </>
+    commentList &&
+    commentList.map((e) => {
+      return (
+        <CommentCard
+          key={e.id}
+          commentId={e.id}
+          name={e.userName}
+          content={e.content}
+        />
+      );
+    })
   );
 };
 

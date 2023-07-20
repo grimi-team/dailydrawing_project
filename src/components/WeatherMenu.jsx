@@ -5,7 +5,7 @@ import cloudy from "../images/cloudy.png";
 import rain from "../images/rain.png";
 import snow from "../images/snow.png";
 
-const weatherItems = [
+export const weatherItems = [
   { weather: "맑음!", image: sun },
   { weather: "흐림!", image: cloudy },
   { weather: "비옴!", image: rain },
@@ -31,7 +31,7 @@ const WeatherMenu = ({ onWeatherSelect }) => {
                   height="40px"
                   alt={item.weather}
                 />
-                <p>{item.weather}</p>
+                <p key={index}>{item.weather}</p>
               </>
             )
           }

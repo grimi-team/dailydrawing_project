@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import CardList from "../components/CardList";
 import Header from "../components/Header";
-import { instance } from "./LogInPage";
 import { useDispatch } from "react-redux";
 import { __getDiaryList } from "../redux/modules/diarySlice";
 
@@ -21,8 +20,8 @@ const MainHomePage = () => {
   const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(__getDiaryList());
+  useEffect((postId) => {
+    dispatch(__getDiaryList(postId));
   }, []);
 
   // 정렬 기준 변경
@@ -51,14 +50,14 @@ const MainHomePage = () => {
         <WritingButton onClick={() => navigate("/WritingPage")}>
           새 일기 쓰기
         </WritingButton>
-        <NewButton value="new" onClick={handleSelect}>
+        {/* <NewButton value="new" onClick={handleSelect}>
           최신순
-        </NewButton>
-        <PopulerButton value="popular" onClick={handleSelect}>
+        </NewButton> */}
+        {/* <PopulerButton value="popular" onClick={handleSelect}>
           인기순
-        </PopulerButton>
+        </PopulerButton> */}
       </EveryButtons>
-      <CardList />
+      <CardList title={title} setTitle={setTitle} />
     </CardsContainer>
   );
 };
@@ -103,6 +102,7 @@ const WritingButton = styled.div`
 
 const NewButton = styled.div`
   cursor: pointer;
+  font-size: larger;
   display: flex;
   border-radius: 8px;
   margin-right: 20px;

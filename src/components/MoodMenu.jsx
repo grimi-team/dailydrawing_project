@@ -6,15 +6,15 @@ import soso from "../images/soso.png";
 import bad from "../images/bad.png";
 import angry from "../images/angry.png";
 
-const MoodMenu = ({ onMoodSelect }) => {
-  const moodItems = [
-    { mood: "아주 좋아!", image: good },
-    { mood: "조금 좋아!", image: littlegood },
-    { mood: "그럭저럭", image: soso },
-    { mood: "조금 나빠!", image: bad },
-    { mood: "끔찍해!", image: angry },
-  ];
+export const moodItems = [
+  { mood: "아주 좋아!", image: good },
+  { mood: "조금 좋아!", image: littlegood },
+  { mood: "그럭저럭", image: soso },
+  { mood: "조금 나빠!", image: bad },
+  { mood: "끔찍해!", image: angry },
+];
 
+const MoodMenu = ({ onMoodSelect }) => {
   const handleMoodSelect = (mood) => {
     onMoodSelect(mood);
   };
@@ -33,7 +33,7 @@ const MoodMenu = ({ onMoodSelect }) => {
                   height="25px"
                   alt={item.mood}
                 />
-                <p>{item.mood}</p>
+                <p key={index}>{item.mood}</p>
               </>
             )
           }
