@@ -252,7 +252,7 @@ const DetailPage = () => {
             </CommentsListContainer>
           </>
         )}
-      </AllContainer>
+      </AllContainer >
     </>
   );
 };
